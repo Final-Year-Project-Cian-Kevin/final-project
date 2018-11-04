@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/api', apiRouter);
+app.use('/book', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
