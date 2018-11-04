@@ -3,6 +3,11 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/mean-angular6', { promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('connection successful'))
+  .catch((err) => console.error(err));
 
 var apiRouter = require('./routes/book');
 
