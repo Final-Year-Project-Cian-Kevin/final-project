@@ -1,6 +1,8 @@
-# MeanAngular6
+# MEAN Stack Angular 6 CRUD Web Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.4.
+This source codes if part of [MEAN Stack Angular 6 CRUD Web Application](https://www.djamware.com/post/5b00bb9180aca726dee1fd6d/mean-stack-angular-6-crud-web-application) tutorial.
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
 
 ## Development server
 
