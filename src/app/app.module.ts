@@ -1,3 +1,8 @@
+
+/*
+This is the file where all the components, providers, and modules are defined.
+ Without defining them here, they can’t be used elsewhere in the code.
+*/
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

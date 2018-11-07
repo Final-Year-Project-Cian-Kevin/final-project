@@ -1,3 +1,7 @@
+
+/* 
+ this file contains logic for src/app/app.component.html:
+ */
 import { Component } from '@angular/core';
 
 @Component({
