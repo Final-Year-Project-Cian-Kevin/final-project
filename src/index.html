@@ -3,6 +3,7 @@
 <head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <meta charset="utf-8">
   <title>MeanAngular6</title>
   <base href="/">
@@ -10,6 +11,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
+<!--<nav class="navbar navbar-default navbar-fixed-top">-->
+  <nav class="navbar  navbar-dark bg-dark navbar-fixed-top" ng-controller="NavigationController">
+    <div class="container">
+        <!-- Do not show if user is logged in-->
+        <div >
+          <!--
+            <input type="text" ng-model="login.email" placeholder="Email....">
+            <input type="password" ng-model="login.password" placeholder="Password....">
+            <button class="btn btn-primary" ng-click="logUserIn()">Login</button>
+          -->
+           
+          <input type="text"  placeholder="Email....">
+          <input type="password"  placeholder="Password....">
+          <button class="btn btn-primary">Login</button>
+        </div>
+    </div>
+</nav>
+
 <body>
   <app-root></app-root>
 </body>

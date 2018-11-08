@@ -7,7 +7,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 
 // connect to mongo database called mean-angular6
-mongoose.connect('mongodb://localhost/  ')
+mongoose.connect('mongodb://localhost/mean-angular6')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
