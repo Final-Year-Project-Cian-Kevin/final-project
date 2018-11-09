@@ -23,6 +23,7 @@ import {
   MatFormFieldModule } from "@angular/material";
 
 // Component Source
+import { IndexComponent } from './index/index.component';
 import { BookComponent } from './book/book.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookCreateComponent } from './book-create/book-create.component';
@@ -31,8 +32,8 @@ import { BookEditComponent } from './book-edit/book-edit.component';
 // Angular Routes
 const appRoutes: Routes = [
   {
-    path: '/',
-    component: BookEditComponent,
+    path: 'index',
+    component: IndexComponent,
     data: { title: 'Index  Page' }
   },
   {
@@ -56,7 +57,7 @@ const appRoutes: Routes = [
     data: { title: 'Edit Book' }
   },
   { path: '',
-    redirectTo: '/',
+    redirectTo: 'index',
     pathMatch: 'full'
   }
 ];
@@ -67,7 +68,8 @@ const appRoutes: Routes = [
     BookComponent,
     BookDetailComponent,
     BookCreateComponent,
-    BookEditComponent
+    BookEditComponent,
+    IndexComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
