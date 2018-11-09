@@ -7,13 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { BookComponent } from './book/book.component';
-import { BookDetailComponent } from './book-detail/book-detail.component';
-import { BookCreateComponent } from './book-create/book-create.component';
-import { BookEditComponent } from './book-edit/book-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
@@ -27,7 +22,19 @@ import {
   MatCardModule,
   MatFormFieldModule } from "@angular/material";
 
+// Component Source
+import { BookComponent } from './book/book.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { BookCreateComponent } from './book-create/book-create.component';
+import { BookEditComponent } from './book-edit/book-edit.component';
+
+// Angular Routes
 const appRoutes: Routes = [
+  {
+    path: '/',
+    component: BookEditComponent,
+    data: { title: 'Index  Page' }
+  },
   {
     path: 'books',
     component: BookComponent,
@@ -49,7 +56,7 @@ const appRoutes: Routes = [
     data: { title: 'Edit Book' }
   },
   { path: '',
-    redirectTo: '/books',
+    redirectTo: '/',
     pathMatch: 'full'
   }
 ];
