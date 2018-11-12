@@ -24,10 +24,10 @@ import {
 
 // Component Source
 import { IndexComponent } from './index/index.component';
-import { BookComponent } from './book/book.component';
-import { BookDetailComponent } from './book-detail/book-detail.component';
-import { BookCreateComponent } from './book-create/book-create.component';
-import { BookEditComponent } from './book-edit/book-edit.component';
+import { BookComponent } from './books/book/book.component';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { BookCreateComponent } from './books/book-create/book-create.component';
+import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { HeaderComponent } from './header/header.component';
 
 // Angular Routes
