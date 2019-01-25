@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/mean-angular6')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
-var apiRouter = require('./routes/book');
+var apiRouter = require('./routes/book');// change book to api
 
 var app = express();
 
@@ -25,7 +25,7 @@ app.use('/books', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-details/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-create', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-edit/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
-
+app.use('/', express.static(path.join(__dirname, 'dist/mean-angular6')));
 // api
 app.use('/api', apiRouter);
 
