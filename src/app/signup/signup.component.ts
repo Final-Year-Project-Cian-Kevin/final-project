@@ -6,35 +6,34 @@ import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
 
-export class LoginComponent implements OnInit {
-  loginData = { username:'', password:'' };
+export class SignupComponent implements OnInit {
+  signupData = { username: '', password: '' };
   message = '';
-  data: any;
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
   }
 
-  login() {
-    console.log(`Enter login func`);
-    this.http.post('/api/signin',this.loginData).subscribe(resp => {
-      this.data = resp;
-      localStorage.setItem('jwtToken', this.data.token);
-      this.router.navigate(['books']);
+  signup() {
+    this.http.post('/api/signup', this.signupData).subscribe(resp => {
+      console.log(resp);
+      this.router.navigate(['login']);
     }, err => {
       this.message = err.error.msg;
     });
   }
-  private handleError<T> (operation = 'operation', result?: T) {
+
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
       console.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
-}
+  }
+
 }
