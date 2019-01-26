@@ -14,7 +14,10 @@ import { of } from 'rxjs';
 export class SignupComponent implements OnInit {
   signupData = { username: '', password: '' };
   message = '';
-  constructor(private http: HttpClient, private router: Router) { }
+  
+  constructor(private http: HttpClient, private router: Router) {
+    console.log('DEBUG : SignupComponent: IN constructor');
+  }
 
   ngOnInit() {
   }

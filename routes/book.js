@@ -17,6 +17,7 @@ var User = require("../models/user");
  * Create router to register new user
  */
 router.post('/signup', function (req, res) {
+  console.log('DEBUG : Router post signup');
   if (!req.body.username || !req.body.password) {
     res.json({
       success: false,
@@ -48,6 +49,8 @@ router.post('/signup', function (req, res) {
  * Create router to login
  */
 router.post('/signin', function (req, res) {
+  console.log('DEBUG : Router post signin');
+
   User.findOne({
     username: req.body.username
   }, function (err, user) {
@@ -149,6 +152,7 @@ router.get('/book', passport.authenticate('jwt', {
  *  parse authorization token from request headers.
  */
 getToken = function (headers) {
+  console.log("DEBUG: book.js get token");
   if (headers && headers.authorization) {
     var parted = headers.authorization.split(' ');
     if (parted.length === 2) {
@@ -165,8 +169,9 @@ getToken = function (headers) {
 router.get('/', function (req, res, next) {
   Book.find(function (err, products) {
     if (err) return next(err);
-    // res.json(products);
-    res.send('Recieved from api');
+    res.json(products);
+    //res.send('Recieved from api');
+    console.log('DEBUG- Rouuter . get /homepage')
   });
 });
 /* GET home page. Test api*/

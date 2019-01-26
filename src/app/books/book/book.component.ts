@@ -16,7 +16,10 @@ export class BookComponent implements OnInit {
   displayedColumns = ['isbn', 'title', 'author'];
   dataSource = new BookDataSource(this.api);
 
-  constructor(private api: ApiService,private router: Router) { }
+  constructor(private api: ApiService,private router: Router) { 
+    console.log('DEBUG : BookComponent: IN constructor'); 
+
+  }
 
    ngOnInit() {
      this.api.getBooks()
