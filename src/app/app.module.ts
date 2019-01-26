@@ -29,6 +29,7 @@ import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BookCreateComponent } from './books/book-create/book-create.component';
 import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -41,6 +42,11 @@ const appRoutes: Routes = [
     path: 'books',
     component: BookComponent,
     data: { title: 'Book List' }
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' }
   },
   {
     path: 'book-details/:id',
@@ -71,7 +77,8 @@ const appRoutes: Routes = [
     BookCreateComponent,
     BookEditComponent,
     IndexComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
