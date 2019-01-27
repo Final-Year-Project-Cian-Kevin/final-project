@@ -70,7 +70,7 @@ const appRoutes: Routes = [
     data: { title: 'Edit Book' }
   },
   { path: '',
-    redirectTo: '/books',
+    redirectTo: '/login',
     
     //redirectTo: 'index',
     pathMatch: 'full'

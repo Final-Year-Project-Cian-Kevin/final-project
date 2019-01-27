@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('jwtToken');
+    
     this.router.navigate(['login']);
   }
 }
