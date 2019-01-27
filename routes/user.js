@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Book = require('../models/Book.js');
+var User = require('../models/User.js');
 
 
 // Authnitcation imports
@@ -10,7 +10,7 @@ var passport = require('passport');
 var config = require('../config/database');
 require('../config/passport')(passport);
 var jwt = require('jsonwebtoken');
-var User = require("../models/user");
+//var User = require("../models/user");
 
 
 /**
@@ -184,37 +184,13 @@ router.get('/', function (req, res, next) {
 
 /* GET SINGLE BOOK BY ID */
 router.get('/:id', function (req, res, next) {
-  Book.findById(req.params.id, function (err, post) {
+  User.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* SAVE BOOK */
-router.post('/', function (req, res, next) {
-  Book.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-    console.log("DEBUG ADDING BOOK using/========================");
 
-  });
-});
-
-/* UPDATE BOOK */
-router.put('/:id', function (req, res, next) {
-  Book.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-
-/* DELETE BOOK */
-router.delete('/:id', function (req, res, next) {
-  Book.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
 
 // export router as module
 module.exports = router;

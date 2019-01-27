@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ApiService } from '../api.service';
+
 
 @Component({
   selector: 'app-signup',
@@ -15,13 +17,15 @@ export class SignupComponent implements OnInit {
   signupData = { username: '', password: '' };
   message = '';
   
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router,private api: ApiService) {
     console.log('DEBUG : SignupComponent: IN constructor');
   }
 
   ngOnInit() {
   }
 
+  // convert to api 
+  /*
   signup() {
     this.http.post('/api/signup', this.signupData).subscribe(resp => {
       console.log(resp);
@@ -30,7 +34,16 @@ export class SignupComponent implements OnInit {
       this.message = err.error.msg;
     });
   }
-
+  */
+  signup() {
+    this.api.postUser(this.signupData)
+    .subscribe(resp => {
+      console.log(resp);
+      this.router.navigate(['login']);
+    }, err => {
+      this.message = err.error.msg;
+    });
+  }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead

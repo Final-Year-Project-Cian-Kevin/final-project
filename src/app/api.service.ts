@@ -58,6 +58,12 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
+  postUser(data): Observable<any> {
+    return this.http.post(`${apiUrl}/signup`, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   updateBook(id: string, data): Observable<any> {
     const url = `${apiUrl}/${id}`;
@@ -74,4 +80,5 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
+
 }
