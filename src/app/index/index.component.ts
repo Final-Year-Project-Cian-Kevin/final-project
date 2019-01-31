@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
+import { RedditApiService } from '../RedditApi.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -10,9 +11,21 @@ import { Observable } from 'rxjs';
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: RedditApiService,private router: Router) { 
+
+  }
 
   ngOnInit() {
+    this.api.getBooks()
+      .subscribe(res => {
+        console.log(res);
+        this.books = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+      });
   }
 
 }
