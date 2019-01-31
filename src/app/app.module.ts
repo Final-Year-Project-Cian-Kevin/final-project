@@ -71,9 +71,7 @@ const appRoutes: Routes = [
     data: { title: 'Edit Book' }
   },
   { path: '',
-    redirectTo: '/login',
-    
-    //redirectTo: 'index',
+    redirectTo: 'index',
     pathMatch: 'full'
   }
 ];
