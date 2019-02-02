@@ -5,16 +5,19 @@ var getJSON = require('get-json');
 
 var url = "https://www.reddit.com/r/ProgrammerHumor/top.json"
 
-/* TEST: function to GET report list */
-router.get('/', function(req, res){
+/* 
+Get method for ProgrammerHumor subreddit 
+Link - /reddit/ph
+*/
+router.get('/ph', function(req, res){
 
     request({
         url: url,
         json: true
     }, function (error, response, body) {
-    
         if (!error && response.statusCode === 200) {
-            console.log(body) // Print the json response
+            //console.log(body) // Print the json response
+            res.send(body); // Send JSON data to user
         }
     })
 
