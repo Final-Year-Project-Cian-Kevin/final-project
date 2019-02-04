@@ -13,10 +13,11 @@ import { Router } from '@angular/router';
 export class IndexComponent implements OnInit {
 
   posts: any;
+  displayedColumns = ['picture', 'title', 'author'];
+  dataSource = new RedditDataSource(this.api1);
 
   constructor(private api1: RedditApiService,private router: Router) { 
-    console.log('DEBUG : BookComponent: IN constructor'); 
-
+    console.log('DEBUG : IndexComponent: IN constructor'); 
   }
 
   ngOnInit() {
@@ -30,5 +31,21 @@ export class IndexComponent implements OnInit {
           this.router.navigate(['login']);
         }
       });
+  }
+}
+
+export class RedditDataSource extends DataSource<any> {
+  constructor(private api: RedditApiService) {
+    super()
+  }
+
+  connect() {
+    console.log('connect book component');
+
+    return this.api.getPostsPH();
+  }
+
+  disconnect() {
+
   }
 }
