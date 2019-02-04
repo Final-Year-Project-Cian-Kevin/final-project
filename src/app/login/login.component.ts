@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-
+// move to api
   login() {
     console.log(`Enter login func`);
     this.http.post('/api/signin', this.loginData).subscribe(resp => {
