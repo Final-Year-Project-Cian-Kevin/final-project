@@ -7,7 +7,7 @@ var url = "https://www.reddit.com/r/ProgrammerHumor/top.json"
 
 /* 
 Get method for ProgrammerHumor subreddit 
-Link - /reddit/ph
+Link - /redditapi/PH
 */
 router.get('/ph', function(req, res){
 
