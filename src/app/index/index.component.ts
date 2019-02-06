@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RedditApiService } from '../reddit-api.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,6 +42,7 @@ export class RedditDataSource extends DataSource<any> {
   }
 
   connect() {
+    console.log(this.api);
     return this.api.getPostsPH();
   }
 
