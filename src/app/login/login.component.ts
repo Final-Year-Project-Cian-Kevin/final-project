@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 // move to api
   login() {
     console.log(`Enter login func`);
-    this.http.post('/api/signin', this.loginData).subscribe(resp => {
+    this.http.post('/api/user/signin', this.loginData).subscribe(resp => {
       this.data = resp;
       localStorage.setItem('jwtToken', this.data.token);
       this.router.navigate(['books']);
