@@ -59,7 +59,8 @@ export class ApiService {
       );
   }
   postUser(data): Observable<any> {
-    return this.http.post(`${apiUrl}/signup`, data, httpOptions)
+    console.log("DEBUG_API<SERVICE>TS.POSTUSER")
+    return this.http.post(`${apiUrl}/user/signup`, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

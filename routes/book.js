@@ -1,21 +1,22 @@
 // !!!!!!!!!!!!!!!!!!!!!!!! MUST REFACTOR THIS CLASS AS api.js
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var Book = require('../models/Book.js');
 
 
 // Authnitcation imports
 var passport = require('passport');
-var config = require('../config/database');
+//var config = require('../config/database');
 require('../config/passport')(passport);
-var jwt = require('jsonwebtoken');
-var User = require("../models/user");
+//var jwt = require('jsonwebtoken');
+//var User = require("../models/user");
 
 
 /**
  * Create router to register new user
  */
+/*
 router.post('/signup', function (req, res) {
   console.log('DEBUG : Router post signup');
   if (!req.body.username || !req.body.password) {
@@ -44,10 +45,11 @@ router.post('/signup', function (req, res) {
     });
   }
 });
-
+*/
 /**
  * Create router to login
  */
+/*
 router.post('/signin', function (req, res) {
   console.log('DEBUG : Router post signin');
 
@@ -83,7 +85,7 @@ router.post('/signin', function (req, res) {
     }
   });
 });
-
+*/
 
 /**
  * Create router to add new book ===================> change to post

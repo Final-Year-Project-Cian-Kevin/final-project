@@ -24,7 +24,7 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
  // variable for API route
 var apiRouter = require('./routes/book');// change book to api
 var apiReddit = require('./routes/reddit');
-//var apiRouterUser = require('./routes/user');// change book to api
+var apiRouterUser = require('./routes/user');// change book to api
 
 var app = express();
 
@@ -48,7 +48,7 @@ app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
 // Add API route to endpoint URL
 app.use('/api', apiRouter);
 app.use('/redditapi', apiReddit);
-
+app.use('/api/user', apiRouterUser)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
