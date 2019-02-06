@@ -58,6 +58,7 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
+  /*
   postUser(data): Observable<any> {
     console.log("DEBUG_API<SERVICE>TS.POSTUSER")
     return this.http.post(`${apiUrl}/user/signup`, data, httpOptions)
@@ -65,7 +66,7 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
-
+*/
   updateBook(id: string, data): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.put(url, data, httpOptions)

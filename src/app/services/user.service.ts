@@ -25,13 +25,22 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+
+  // Login a user
+  loginUser(data): Observable<any> {
+    console.log("DEBUG_API<USERAPISERVICE>LOGUSER")
+    return this.http.post(`${userApiURL}/signin`, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   // Error Handler
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
     } else {
-     // console.error('DEBUG HANDLE ERROR:',error.error.message)
+      // console.error('DEBUG HANDLE ERROR:',error.error.message)
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(
@@ -43,8 +52,8 @@ export class UserService {
   };
 
   // Extract data from response
- private extractData(res: Response) {
+  private extractData(res: Response) {
     let body = res;
-    return body || { };
+    return body || {};
   }
 }

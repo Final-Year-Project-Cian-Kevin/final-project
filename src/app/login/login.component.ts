@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,14 @@ export class LoginComponent implements OnInit {
   data: any;
 
 
-  constructor(private http: HttpClient, private router: Router) { 
-    console.log('DEBUG : LoginComponent: IN constructor'); 
+  constructor(private router: Router,private api: UserService) {
+    console.log('DEBUG : LoginComponent: IN constructor');
   }
 
   ngOnInit() {
   }
-// move to api
+  /*
+  // move to api
   login() {
     console.log(`Enter login func`);
     this.http.post('/api/user/signin', this.loginData).subscribe(resp => {
@@ -33,6 +35,20 @@ export class LoginComponent implements OnInit {
     }, err => {
       this.message = err.error.msg;
     });
+  }
+  */
+  // Login a user
+  login() {
+    console.log(`Enter login func`);
+    this.api.loginUser(this.loginData)
+      .subscribe(resp => {
+        this.data = resp;
+        // Save response jwtToken
+        localStorage.setItem('jwtToken', this.data.token);
+        this.router.navigate(['books']);
+      }, err => {
+        this.message = err.error.msg;
+      });
   }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
