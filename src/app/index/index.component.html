@@ -16,13 +16,13 @@
     <!-- Title Column -->
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
-      <td mat-cell *matCellDef="let element"> {{element.kind}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.data.title}} </td>
     </ng-container>
 
     <!-- Author Column -->
     <ng-container matColumnDef="author">
       <th mat-header-cell *matHeaderCellDef> Author </th>
-      <td mat-cell *matCellDef="let element"> {{element.kind}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.data.subreddit}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
