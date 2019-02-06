@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { ApiService } from '../api.service';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
   signupData = { username: '', password: '' };
   message = '';
   
-  constructor(private http: HttpClient, private router: Router,private api: ApiService) {
+  constructor(private router: Router,private api: UserService) {
     console.log('DEBUG : SignupComponent: IN constructor');
   }
 
