@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.css']
 })
+
 export class BookComponent implements OnInit {
 
   books: any;
@@ -18,13 +19,13 @@ export class BookComponent implements OnInit {
 
   constructor(private api: ApiService,private router: Router) { 
     console.log('DEBUG : BookComponent: IN constructor'); 
-
   }
 
    ngOnInit() {
      this.api.getBooks()
        .subscribe(res => {
          console.log(res);
+         console.log("test");
          this.books = res;
        }, err => {
          console.log(err);

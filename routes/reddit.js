@@ -7,7 +7,7 @@ var url = "https://www.reddit.com/r/ProgrammerHumor/top.json"
 
 /* 
 Get method for ProgrammerHumor subreddit 
-Link - /reddit/ph
+Link - /redditapi/PH
 */
 router.get('/ph', function(req, res){
 
@@ -17,7 +17,8 @@ router.get('/ph', function(req, res){
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             //console.log(body) // Print the json response
-            res.send(body); // Send JSON data to user
+            //console.log(body.data.children);
+            res.json(body.data.children); // Send JSON data to user
         }
     })
 

@@ -1,29 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Jsonp } from '@angular/http';
-import { Observable} from 'rxjs';
-import { Post } from './post';
-import { map } from "rxjs/operators";
+import { Observable, of, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { catchError, tap, map } from 'rxjs/operators';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+const apiUrl1 = "/redditapi/PH";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedditApiService {
 
-  constructor(private jsonp: Jsonp) { }
+  constructor(private http: HttpClient) { }
 
-  fetchPosts(subreddit:string):Observable<Post[]>{
-    return this.jsonp.get("https://www.reddit.com" +
-    subreddit +
-    "/.json?jsonp=JSONP_CALLBACK").pipe(map(data => {
-        var posts:Post[] = [];
-        let children = data.json().data.children;
-        for(var i=0; i<children.length; i++) {
-                let post:Post = new Post();
-                post.title = children[i].data.title;
-                post.url = children[i].data.url;
-                posts.push(post);
-        }
-        return posts;
-    }));
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+     // console.error('DEBUG HANDLE ERROR:',error.error.message)
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError('Something bad happened; please try again later.');
+  };
+
+  private extractData(res: Response) {
+    let body = res;
+    return body || { };
   }
+
+  getPostsPH(): Observable<any> {
+    return this.http.get(apiUrl1, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
 }

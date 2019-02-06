@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { RedditApiService } from '../reddit-api.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,8 +13,40 @@ import { Router } from '@angular/router';
 
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  posts: any;
+  displayedColumns = ['picture', 'title', 'author'];
+  dataSource = new RedditDataSource(this.api);
 
-  ngOnInit() { }
+  constructor(private api: RedditApiService,private router: Router) { 
+    console.log('DEBUG : IndexComponent: IN constructor'); 
+  }
 
+  ngOnInit() {
+    this.api.getPostsPH()
+      .subscribe(res => {
+        console.log(res);
+        console.log(this.api);
+        this.posts = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+      });
+  }
+}
+
+export class RedditDataSource extends DataSource<any> {
+  constructor(private api: RedditApiService) {
+    super()
+  }
+
+  connect() {
+    console.log(this.api);
+    return this.api.getPostsPH();
+  }
+
+  disconnect() {
+
+  }
 }
