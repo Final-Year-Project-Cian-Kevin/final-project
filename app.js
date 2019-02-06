@@ -44,6 +44,7 @@ app.use('/book-create', express.static(path.join(__dirname, 'dist/mean-angular6'
 app.use('/book-edit/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
 // Add API route to endpoint URL
 app.use('/api', apiRouter);
 app.use('/redditapi', apiReddit);
