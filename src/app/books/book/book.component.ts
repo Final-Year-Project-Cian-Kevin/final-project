@@ -25,6 +25,7 @@ export class BookComponent implements OnInit {
      this.api.getBooks()
        .subscribe(res => {
          console.log(res);
+         console.log("test");
          this.books = res;
        }, err => {
          console.log(err);

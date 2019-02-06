@@ -37,9 +37,6 @@ export class RedditApiService {
   }
 
   getPostsPH(): Observable<any> {
-    let httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
-    };
     return this.http.get(apiUrl1, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
