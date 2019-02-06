@@ -23,6 +23,7 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
 
  // variable for API route
 var apiRouter = require('./routes/book');// change book to api
+var apiReddit = require('./routes/reddit');
 //var apiRouterUser = require('./routes/user');// change book to api
 
 var app = express();
@@ -34,17 +35,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
 // Using mean-angular6 database
 app.use(express.static(path.join(__dirname, 'dist/mean-angular6')));
 //app.use('/books', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-details/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-create', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-edit/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
-//app.use('/', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/login', express.static(path.join(__dirname, 'dist')));
+app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/', express.static(path.join(__dirname, 'dist')));
 // Add API route to endpoint URL
 app.use('/api', apiRouter);
-//app.use('/user', apiRouterUser);
+app.use('/redditapi', apiReddit);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
