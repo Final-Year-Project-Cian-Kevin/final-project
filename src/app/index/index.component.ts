@@ -40,8 +40,6 @@ export class RedditDataSource extends DataSource<any> {
   }
 
   connect() {
-    console.log('connect book component');
-
     return this.api.getPostsPH();
   }
 
