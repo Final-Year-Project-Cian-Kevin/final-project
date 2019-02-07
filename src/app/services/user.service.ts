@@ -9,14 +9,34 @@ const httpOptions = {
 };
 const userApiURL = "/api/user";
 
+// Interface to store user details
+export interface UserDetails {
+  username: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
+  //jwttoken
+  private token: string;
   // Constructor
   constructor(private http: HttpClient) { }
 
+  // save a token
+  private saveJwtToken(token: string): void {
+    localStorage.setItem('jwtToken', token);
+    this.token = token;
+  }
+
+  // get a token
+  private getJwtToken(): string {
+    if (!this.token) {
+      this.token = localStorage.getItem('jwtToken');
+    }
+    return this.token;
+}
   // Post save a user
   postUser(data): Observable<any> {
     console.log("DEBUG_API<USERAPISERVICE>POSTUSER")
@@ -29,6 +49,9 @@ export class UserService {
   // Login a user
   loginUser(data): Observable<any> {
     console.log("DEBUG_API<USERAPISERVICE>LOGUSER")
+    let baseObject;
+    baseObject =  this.http.post(`${userApiURL}/signin`, data, httpOptions)
+
     return this.http.post(`${userApiURL}/signin`, data, httpOptions)
       .pipe(
         catchError(this.handleError)
