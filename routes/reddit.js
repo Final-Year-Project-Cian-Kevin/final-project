@@ -5,6 +5,9 @@ var mongoose = require('mongoose');
 var Reddit = require('../models/Reddit.js');
 var cron = require('node-cron');
 
+// Subreddit URL
+var url = "https://www.reddit.com/r/ProgrammerHumor/top.json"
+
 cron.schedule('* * * * *', () => {
     request({
         url: url,
@@ -17,32 +20,20 @@ cron.schedule('* * * * *', () => {
                 var obj = jsonData[i];
 
                 var newRedditPost = new Reddit({
-                    id: obj.data.id,
+                    _id: obj.data.id,
                     title: obj.data.title,
                     url: obj.data.url,
                     thumbnail: obj.data.thumbnail,
                     subreddit: obj.data.subreddit
                   });
 
-                  newRedditPost.save(function (err) {
-                    if (err) {
-                        console.log("ERROR: Retrieving/saving reddit API failed! 'routes/reddit.js'");
-                    }
-                  });
-            
-                /*
-                console.log(obj.data.id); // Post ID
-                console.log(obj.data.title); // Title of post
-                console.log(obj.data.url); // Image or website url
-                console.log(obj.data.thumbnail); // Preview image of image or website
-                console.log(obj.data.subreddit); // Subreddit source
-                */
+                  // Catch errors
+                  newRedditPost.save(function (err) {if (err) {}});
             }
         }
     })
+    console.log('\x1b[32m%s\x1b[0m', 'INFO: Updating Reddit API results');
 });
-
-var url = "https://www.reddit.com/r/ProgrammerHumor/top.json"
 
 /* 
 Get method for ProgrammerHumor subreddit 

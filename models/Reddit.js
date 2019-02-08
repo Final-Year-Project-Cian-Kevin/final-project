@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var RedditSchema = new mongoose.Schema({
-  id: {
+  _id: {
     type: String,
     required: true
   },
@@ -20,6 +20,11 @@ var RedditSchema = new mongoose.Schema({
   subreddit: {
     type: String,
     required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
+
 });
 module.exports = mongoose.model('Reddit', RedditSchema);
