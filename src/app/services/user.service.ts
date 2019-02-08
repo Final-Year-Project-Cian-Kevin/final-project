@@ -56,6 +56,7 @@ export class UserService {
   }
   logout() {
     localStorage.removeItem('jwtToken');
+    this.isLoggedIn();
   }
   // Login a user
   loginUser(data): Observable<any> {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,15 +10,35 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private userSerice: UserService,private router: Router) { }
+  loginData = { username: '', password: '' };
+  message = '';
+  data: any;
+  constructor(private userService: UserService,private router: Router) { }
 
   ngOnInit() {
   }
+  //Login a user
+  login() {
+    console.log(`Enter login func`);
+    this.userService.loginUser(this.loginData)
+      .subscribe(resp => {
+        this.data = resp;
+        // Save response jwtToken
+        this.userService.saveJwtToken(this.data.token);
+        this.router.navigate(['books']);
+        if (this.userService.isLoggedIn) {
+          console.log("User is logged in");
+        }
+      }, err => {
+        this.message = err.error.msg;
+        console.error("LOGIN COMPONENT", this.message);
+        this.router.navigate(['login']);
 
+      });
+  }
   logout() {
     //localStorage.removeItem('jwtToken');
-    this.userSerice.logout();
+    this.userService.logout();
     this.router.navigate(['login']);
   }
 }
