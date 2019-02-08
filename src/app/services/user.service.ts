@@ -34,10 +34,8 @@ export class UserService {
 
   // get a token
   getJwtToken(): string {
-    if (!this.token) {
-      this.token = localStorage.getItem('jwtToken');
-    }
-    return this.token;
+    
+    return  localStorage.getItem('jwtToken');
   }
   // Post save a user
   postUser(data): Observable<any> {
@@ -48,7 +46,8 @@ export class UserService {
       );
   }
   isLoggedIn() :boolean{
-    if (this.token) {
+    var currentToken = this.getJwtToken();
+    if (currentToken) {
       return true;
     } else {
       return false;

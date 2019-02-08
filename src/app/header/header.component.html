@@ -20,8 +20,9 @@
           {{message}}
         </div>
         <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
-          <input type="text" class="form-control" [(ngModel)]="loginData.username" name="username" placeholder="Username...." required />-<input
-            type="password" class="form-control" [(ngModel)]="loginData.password" name="password" placeholder="Password...." required />
+          <input type="text" class="form-control" [(ngModel)]="loginData.username" name="username" placeholder="Username...."
+            required />-<input type="password" class="form-control" [(ngModel)]="loginData.password" name="password"
+            placeholder="Password...." required />
           <button class="btn btn-primary" type="submit" [disabled]="!loginForm.form.valid">Login</button>
 
           <!-- Bind anchor to state to automatically generate and update ref-->
@@ -31,9 +32,14 @@
         </form>
       </form>
     </div>
+    
     <!-- Show if user is logged in -->
     <div *ngIf="userService.isLoggedIn()">
-      <button  class="btn btn-primary" (click)="logout()">Logout</button>
+      <button class="btn btn-primary" (click)="logout()">Logout</button>
+      <a mat-raised-button color="secondary" [routerLink]="['/profile']">
+        <mat-icon>person</mat-icon>
+      </a>
+
     </div>
 
   </div>
