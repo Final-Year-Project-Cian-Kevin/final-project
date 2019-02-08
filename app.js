@@ -14,7 +14,7 @@ var config = require('./config/database');
 mongoose.Promise = require('bluebird');// Promisify-ing Mongoose
 
 mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
-  .then(() =>  console.log('Connection to database succesfull'))
+  .then(() =>  console.log('\x1b[32m%s\x1b[0m', 'INFO: Connection to database succesfull'))
   .catch((err) => console.error(err));
 
 //mongoose.connect('mongodb://localhost/mean-angular6')
