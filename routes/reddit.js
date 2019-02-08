@@ -40,17 +40,9 @@ Get method for ProgrammerHumor subreddit
 Link - /redditapi/PH
 */
 router.get('/ph', function(req, res){
-
-    request({
-        url: url,
-        json: true
-    }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            //console.log(body) // Print the json response
-            //console.log(body.data.children);
-            res.json(body.data.children); // Send JSON data to user
-        }
-    })
-
+    Reddit.find(function (err, books) {
+        if (err) return next(err);
+        res.json(books);
+      });
 });
 module.exports = router;
