@@ -10,7 +10,7 @@
     <!-- Title Column -->
     <ng-container matColumnDef="picture">
       <th mat-header-cell *matHeaderCellDef> Picture </th>
-      <td mat-cell *matCellDef="let element" class="picture-col"> <a [href]="element.data.url"><img [src]="element.data.url" width="100" height="100"></a> </td>
+      <td mat-cell *matCellDef="let element" class="picture-col"> <a [href]="element.data.url"><img [src]="element.data.thumbnail" width="100" height="100"></a> </td>
     </ng-container>
 
     <!-- Title Column -->
