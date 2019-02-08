@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var BookSchema = new mongoose.Schema({
+var RedditSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true

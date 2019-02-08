@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var mongoose = require('mongoose');
-var Book = require('../models/Book.js');
+var Reddit = require('../models/Reddit.js');
 var cron = require('node-cron');
 
 cron.schedule('* * * * *', () => {
@@ -15,12 +15,28 @@ cron.schedule('* * * * *', () => {
 
             for(var i = 0; i < jsonData.length; i++) {
                 var obj = jsonData[i];
+
+                var newRedditPost = new Reddit({
+                    id: obj.data.id,
+                    title: obj.data.title,
+                    url: obj.data.url,
+                    thumbnail: obj.data.thumbnail,
+                    subreddit: obj.data.subreddit
+                  });
+
+                  newRedditPost.save(function (err) {
+                    if (err) {
+                        console.log("ERROR: Retrieving/saving reddit API failed! 'routes/reddit.js'");
+                    }
+                  });
             
+                /*
                 console.log(obj.data.id); // Post ID
                 console.log(obj.data.title); // Title of post
                 console.log(obj.data.url); // Image or website url
                 console.log(obj.data.thumbnail); // Preview image of image or website
                 console.log(obj.data.subreddit); // Subreddit source
+                */
             }
         }
     })
