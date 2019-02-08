@@ -16,6 +16,7 @@ cron.schedule('* * * * *', () => {
             for(var i = 0; i < jsonData.length; i++) {
                 var obj = jsonData[i];
             
+                console.log(obj.data.id); // Post ID
                 console.log(obj.data.title); // Title of post
                 console.log(obj.data.url); // Image or website url
                 console.log(obj.data.thumbnail); // Preview image of image or website
