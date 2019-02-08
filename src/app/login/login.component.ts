@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   data: any;
 
 
-  constructor(private router: Router,private api: UserService) {
+  constructor(private router: Router, private userService: UserService) {
     console.log('DEBUG : LoginComponent: IN constructor');
   }
 
@@ -40,14 +40,18 @@ export class LoginComponent implements OnInit {
   // Login a user
   login() {
     console.log(`Enter login func`);
-    this.api.loginUser(this.loginData)
+    this.userService.loginUser(this.loginData)
       .subscribe(resp => {
         this.data = resp;
         // Save response jwtToken
-        localStorage.setItem('jwtToken', this.data.token);
+        this.userService.saveJwtToken(this.data.token);
         this.router.navigate(['books']);
+        if (this.userService.isLoggedIn) {
+          console.log("User is logged in");
+        }
       }, err => {
         this.message = err.error.msg;
+        console.error("LOGIN COMPONENT", this.message)
       });
   }
   private handleError<T>(operation = 'operation', result?: T) {

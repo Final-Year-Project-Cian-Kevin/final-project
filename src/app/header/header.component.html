@@ -2,6 +2,7 @@
   Welcome User! !
   <a mat-raised-button color="primary" [routerLink]="['/index']"><mat-icon>Home Page</mat-icon></a>
   <a mat-raised-button color="primary" [routerLink]="['/books']"><mat-icon>Books</mat-icon></a>
-  <a mat-raised-button color="secondary" (click)="logout()"><mat-icon>logout</mat-icon></a>
+  <a mat-raised-button color="secondary" *ngIf="userSerice.isLoggedIn()" (click)="logout()"><mat-icon>logout</mat-icon></a>
+  <a mat-raised-button color="secondary" *ngIf="!userSerice.isLoggedIn()" [routerLink]="['/login']"><mat-icon>login</mat-icon></a>
 
 </p>
