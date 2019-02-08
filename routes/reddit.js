@@ -1,11 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-//var schedule = require('node-schedule');
+var mongoose = require('mongoose');
+var Book = require('../models/Book.js');
 var cron = require('node-cron');
 
 cron.schedule('* * * * *', () => {
- console.log('running a task every minute');
+    request({
+        url: url,
+        json: true
+    }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            var jsonData = body.data.children;
+
+            for(var i = 0; i < jsonData.length; i++) {
+                var obj = jsonData[i];
+            
+                console.log(obj.data.title); // Title of post
+                console.log(obj.data.url); // Image or website url
+                console.log(obj.data.thumbnail); // Preview image of image or website
+                console.log(obj.data.subreddit); // Subreddit source
+            }
+        }
+    })
 });
 
 var url = "https://www.reddit.com/r/ProgrammerHumor/top.json"
