@@ -6,7 +6,7 @@ var Reddit = require('../models/Reddit.js');
 var cron = require('node-cron');
 
 // Subreddit URL
-var url = "https://www.reddit.com/r/ProgrammerHumor/top.json"
+var url = "https://www.reddit.com/r/ProgrammerHumor/top.json?limit=10"
 
 cron.schedule('* * * * *', () => {
     request({
@@ -16,7 +16,7 @@ cron.schedule('* * * * *', () => {
         if (!error && response.statusCode === 200) {
             var jsonData = body.data.children;
 
-            for(var i = 0; i < jsonData.length; i++) {
+            for(var i = 0; i < 10; i++) {
                 var obj = jsonData[i];
 
                 var newRedditPost = new Reddit({
