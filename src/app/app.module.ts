@@ -31,7 +31,8 @@ import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './profile/profile.componen;
+import { RedditPostComponent } from './reddit-post/reddit-post.component't';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -92,7 +93,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     LoginComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileCompone,
+    RedditPostComponentnt
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

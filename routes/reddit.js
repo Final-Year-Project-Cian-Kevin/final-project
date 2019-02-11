@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var mongoose = require('mongoose');
-var Reddit = require('../models/Reddit.js');
+var RedditPH = require('../models/Reddit/Programming-Humor.js');
+var Reddit = require('../models/Reddit/RedditAll.js');
 var cron = require('node-cron');
 
 // Subreddit URL
@@ -16,10 +17,10 @@ cron.schedule('* * * * *', () => {
         if (!error && response.statusCode === 200) {
             var jsonData = body.data.children;
 
-            for(var i = 0; i < 10; i++) {
+            for(var i = 0; i < jsonData.length; i++) {
                 var obj = jsonData[i];
 
-                var newRedditPost = new Reddit({
+                var newRedditPostPH = new RedditPH({
                     _id: obj.data.id,
                     title: obj.data.title,
                     url: obj.data.url,
@@ -27,8 +28,22 @@ cron.schedule('* * * * *', () => {
                     subreddit: obj.data.subreddit
                   });
 
-                  // Catch errors
-                  newRedditPost.save(function (err) {if (err) {}});
+                // Delete old data
+                newRedditPostPH.remove({})
+
+                // Save new data to mongoDB
+                newRedditPostPH.save(function (err) {if (err) {}});
+
+                  var newRedditPost = new Reddit({
+                    _id: obj.data.id,
+                    title: obj.data.title,
+                    url: obj.data.url,
+                    thumbnail: obj.data.thumbnail,
+                    subreddit: obj.data.subreddit
+                  });
+                  
+                // Save new data to mongoDB
+                newRedditPost.save(function (err) {if (err) {}});
             }
         }
     })
@@ -40,9 +55,9 @@ Get method for ProgrammerHumor subreddit
 Link - /redditapi/PH
 */
 router.get('/ph', function(req, res){
-    Reddit.find(function (err, books) {
+    Reddit.find(function (err, posts) {
         if (err) return next(err);
-        res.json(books);
+        res.json(posts);
       });
 });
 module.exports = router;
