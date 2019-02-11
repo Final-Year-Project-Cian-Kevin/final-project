@@ -31,8 +31,8 @@ import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { ProfileComponent } from './profile/profile.componen;
-import { RedditPostComponent } from './reddit-post/reddit-post.component't';
+import { ProfileComponent } from './profile/profile.component';
+import { RedditPostComponent } from './reddit-post/reddit-post.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -41,10 +41,10 @@ const appRoutes: Routes = [
     component: IndexComponent,
     data: { title: 'Index  Page' }
   },
-  {
-    path: 'books',
-    component: BookComponent,
-    data: { title: 'Book List' }
+  { 
+    path: '',
+    redirectTo: 'index',
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -60,7 +60,13 @@ const appRoutes: Routes = [
     path: 'signup',
     component: SignupComponent,
     data: { title: 'Sign Up' }
-},
+  },
+
+  {
+    path: 'books',
+    component: BookComponent,
+    data: { title: 'Book List' }
+  },
   {
     path: 'book-details/:id',
     component: BookDetailComponent,
@@ -75,10 +81,6 @@ const appRoutes: Routes = [
     path: 'book-edit/:id',
     component: BookEditComponent,
     data: { title: 'Edit Book' }
-  },
-  { path: '',
-    redirectTo: 'index',
-    pathMatch: 'full'
   }
 ];
 
