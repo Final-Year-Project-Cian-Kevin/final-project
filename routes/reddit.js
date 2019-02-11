@@ -84,7 +84,10 @@ router.get('/all', function(req, res){
       });
 });
 
-/* GET SINGLE BOOK BY ID */
+/* 
+Get method for specific post using ID
+Link - /redditapi/all/:id
+*/
 router.get('/all/:id', function (req, res, next) {
     Reddit.findById(req.params.id, function (err, post) {
         if (err) return next(err);

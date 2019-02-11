@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RedditApiService } from '../services/reddit-api.service';
 
 @Component({
   selector: 'app-reddit-post',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RedditPostComponent implements OnInit {
 
-  constructor() { }
+  post = {};
+
+  constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router) { }
 
   ngOnInit() {
+    this.getPostDetails(this.route.snapshot.params['id']);
+  }
+
+  getPostDetails(id) {
+    this.api.getPost(id)
+      .subscribe(data => {
+        console.log(data);
+        this.post = data;
+      });
   }
 
 }
