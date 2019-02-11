@@ -6,7 +6,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl1 = "/redditapi/PH";
+const apiUrl1 = "/api/redditapi/PH";
 
 @Injectable({
   providedIn: 'root'

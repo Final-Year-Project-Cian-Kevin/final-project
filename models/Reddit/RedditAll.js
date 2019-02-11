@@ -21,6 +21,10 @@ var Reddit = new mongoose.Schema({
     type: String,
     required: true
   },
+  selftext: {
+    type: String,
+    required: false
+  },
   date: {
     type: Date,
     default: Date.now

@@ -21,10 +21,14 @@ var RedditPH = new mongoose.Schema({
     type: String,
     required: true
   },
+  selftext: {
+    type: String,
+    required: false
+  },
   date: {
     type: Date,
     default: Date.now
   }
 
 });
-module.exports = mongoose.model('RedditPhHot', RedditPH, 'RedditPhHot');
+module.exports = mongoose.model('RedditPh', RedditPH, 'RedditPh');

@@ -52,14 +52,19 @@ const appRoutes: Routes = [
     data: { title: 'Login' }
   },
   {
+    path: 'signup',
+    component: SignupComponent,
+    data: { title: 'Sign Up' }
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
     data: { title: 'Profile' }
   },
   {
-    path: 'signup',
-    component: SignupComponent,
-    data: { title: 'Sign Up' }
+    path: 'post/:id',
+    component: RedditPostComponent,
+    data: { title: 'Post' }
   },
 
   {
@@ -95,8 +100,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     LoginComponent,
     SignupComponent,
-    ProfileCompone,
-    RedditPostComponentnt
+    ProfileComponent,
+    RedditPostComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

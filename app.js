@@ -38,17 +38,22 @@ app.use(express.urlencoded({ extended: false }));
 
 // Using mean-angular6 database
 app.use(express.static(path.join(__dirname, 'dist/mean-angular6')));
-//app.use('/books', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/post/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
+
+// Add API route to endpoint URL
+app.use('/api/redditapi', apiReddit);
+app.use('/api/user', apiRouterUser)
+
+// Books route
+app.use('/books', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-details/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-create', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/book-edit/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/', express.static(path.join(__dirname, 'dist')));
-app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
-// Add API route to endpoint URL
-app.use('/api', apiRouter);
-app.use('/redditapi', apiReddit);
-app.use('/api/user', apiRouterUser)
+app.use('/api/books', apiRouter); // Book api route
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
