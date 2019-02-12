@@ -1,6 +1,3 @@
-<div class="button-row">
-  <a mat-raised-button color="primary" [routerLink]="['/book-create']"><mat-icon>add</mat-icon></a>
-</div>
 <div layout="column" layout-align="center end" class="example-container mat-elevation-z8">
   <table mat-table #table [dataSource]="dataSource">
 
@@ -26,6 +23,6 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/post/', row._id]"></tr>
   </table>
 </div>

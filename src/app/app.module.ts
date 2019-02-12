@@ -32,6 +32,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RedditPostComponent } from './reddit-post/reddit-post.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -40,10 +41,10 @@ const appRoutes: Routes = [
     component: IndexComponent,
     data: { title: 'Index  Page' }
   },
-  {
-    path: 'books',
-    component: BookComponent,
-    data: { title: 'Book List' }
+  { 
+    path: '',
+    redirectTo: 'index',
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -51,15 +52,26 @@ const appRoutes: Routes = [
     data: { title: 'Login' }
   },
   {
+    path: 'signup',
+    component: SignupComponent,
+    data: { title: 'Sign Up' }
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
     data: { title: 'Profile' }
   },
   {
-    path: 'signup',
-    component: SignupComponent,
-    data: { title: 'Sign Up' }
-},
+    path: 'post/:id',
+    component: RedditPostComponent,
+    data: { title: 'Post' }
+  },
+
+  {
+    path: 'books',
+    component: BookComponent,
+    data: { title: 'Book List' }
+  },
   {
     path: 'book-details/:id',
     component: BookDetailComponent,
@@ -74,10 +86,6 @@ const appRoutes: Routes = [
     path: 'book-edit/:id',
     component: BookEditComponent,
     data: { title: 'Edit Book' }
-  },
-  { path: '',
-    redirectTo: 'index',
-    pathMatch: 'full'
   }
 ];
 
@@ -92,7 +100,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     LoginComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+    RedditPostComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

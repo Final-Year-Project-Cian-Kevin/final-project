@@ -6,7 +6,6 @@ import { catchError, tap, map } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl1 = "/redditapi/PH";
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +35,22 @@ export class RedditApiService {
     return body || { };
   }
 
-  getPostsPH(): Observable<any> {
-    return this.http.get(apiUrl1, httpOptions).pipe(
+  getPosts(): Observable<any> {
+    return this.http.get("/api/redditapi/all", httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
+  getPost(id: string): Observable<any> {
+    const url = `${"/api/redditapi/all"}/${id}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getPostsPH(): Observable<any> {
+    return this.http.get("/api/redditapi/PH", httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
 }

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var RedditSchema = new mongoose.Schema({
+var Reddit = new mongoose.Schema({
   _id: {
     type: String,
     required: true
@@ -21,10 +21,14 @@ var RedditSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  selftext: {
+    type: String,
+    required: false
+  },
   date: {
     type: Date,
     default: Date.now
   }
 
 });
-module.exports = mongoose.model('Reddit', RedditSchema);
+module.exports = mongoose.model('Reddit', Reddit, 'Reddit');
