@@ -37,6 +37,8 @@ export class UserService {
     
     return  localStorage.getItem('jwtToken');
   }
+
+  // Get user details
   // Post save a user
   postUser(data): Observable<any> {
     console.log("DEBUG_API<USERAPISERVICE>POSTUSER")
@@ -44,6 +46,17 @@ export class UserService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  getUserPayload() {
+    var token = this.getJwtToken();
+    if (token) {
+      var userPayload = atob(token.split('.')[1]);
+      console.log("DEBUG USER PAYLOAD+"+userPayload);
+      return JSON.parse(userPayload);
+    }
+    else
+      return null;
   }
   isLoggedIn() :boolean{
     var currentToken = this.getJwtToken();

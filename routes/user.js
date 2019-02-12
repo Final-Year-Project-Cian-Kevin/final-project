@@ -10,15 +10,18 @@ var passport = require('passport');
 var config = require('../config/database');
 require('../config/passport')(passport);
 var jwt = require('jsonwebtoken');
+
+// Import required models
 var User = require("../models/user");
+var Profile = require("../models/profile");
 
 
 /**
  * Create router to register new user
  */
 router.post('/signup', function (req, res) {
- // console.log("DEBUG_user.jsPOSTUSER /signup")
-  console.log('\x1b[34m%s\x1b[0m', "DEBUG : POST USER signup");  //blue cmd
+  // console.log("DEBUG_user.jsPOSTUSER /signup")
+  console.log('\x1b[34m%s\x1b[0m', "DEBUG : POST USER signup"); //blue cmd
 
   if (!req.body.username || !req.body.password) {
     res.json({
@@ -29,11 +32,14 @@ router.post('/signup', function (req, res) {
     // create user object
     var newUser = new User({
       username: req.body.username,
-      first_name: req.body.first_name,
-      surname: req.body.surname,
-      password: req.body.password,
-
+      password: req.body.password
     });
+    var newProfile = new Profile({
+      username: req.body.username,
+      first_name: req.body.first_name,
+      surname: req.body.surname
+    });
+
     // save the user
     newUser.save(function (err) {
       if (err) {
@@ -47,6 +53,7 @@ router.post('/signup', function (req, res) {
         msg: 'Successful user account created.'
       });
     });
+    newProfile.save();
   }
 });
 
@@ -54,8 +61,8 @@ router.post('/signup', function (req, res) {
  * Create router to login
  */
 router.post('/signin', function (req, res) {
- // console.log('DEBUG : Router post signin');
-  console.log('\x1b[34m%s\x1b[0m', "DEBUG : Router post signin");  //blue cmd
+  // console.log('DEBUG : Router post signin');
+  console.log('\x1b[34m%s\x1b[0m', "DEBUG : Router post signin"); //blue cmd
 
   User.findOne({
     username: req.body.username
@@ -100,14 +107,14 @@ router.post('/book', passport.authenticate('jwt', {
 }), function (req, res) {
   // rETRIEVE Token from header
   var token = getToken(req.headers);
- // console.log("DEBUG ADDING BOOK using/book ========================");
-  console.log('\x1b[34m%s\x1b[0m', "DEBUG : ADDING BOOK using/book");  //blue cmd
+  // console.log("DEBUG ADDING BOOK using/book ========================");
+  console.log('\x1b[34m%s\x1b[0m', "DEBUG : ADDING BOOK using/book"); //blue cmd
 
   if (token) { // check if user is authorised
     // DEBUG
     console.log(req.body);
     //console.log("DEBUG ADDING BOOK is token");
-    console.log('\x1b[34m%s\x1b[0m', "DEBUG : ADDING BOOK is token");  //blue cmd
+    console.log('\x1b[34m%s\x1b[0m', "DEBUG : ADDING BOOK is token"); //blue cmd
 
     var newBook = new Book({
       isbn: req.body.isbn,
@@ -131,7 +138,7 @@ router.post('/book', passport.authenticate('jwt', {
       });
     });
   } else {
-    console.log('\x1b[34m%s\x1b[0m', "DEBUG : ADDING BOOK not authorised");  //blue cmd
+    console.log('\x1b[34m%s\x1b[0m', "DEBUG : ADDING BOOK not authorised"); //blue cmd
 
     return res.status(403).send({
       success: false,
@@ -162,11 +169,37 @@ router.get('/book', passport.authenticate('jwt', {
 });
 
 /**
+ * GET Method to return profile details
+ */
+router.get('/:id', passport.authenticate('jwt', {
+  session: false
+}), function (req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    console.log('\x1b[34m%s\x1b[0m', "DEBUG : Get profile by id is token"); //blue cmd
+
+    Profile.findOne({
+      username: req.body.username
+    }, function (err, profile) {
+      if (err) return next(err);
+      res.json(profile);
+    });
+  } else {
+    console.log('\x1b[34m%s\x1b[0m', "DEBUG : Get profile by id is not token"); //blue cmd
+
+    return res.status(403).send({
+      success: false,
+      msg: 'Unauthorized access to profile.'
+    });
+  }
+});
+
+/**
  *  parse authorization token from request headers.
  */
 getToken = function (headers) {
   console.log("DEBUG: book.js get token");
-  console.log('\x1b[34m%s\x1b[0m', "DEBUG : user.js getToken");  //blue cmd
+  console.log('\x1b[34m%s\x1b[0m', "DEBUG : user.js getToken"); //blue cmd
 
   if (headers && headers.authorization) {
     var parted = headers.authorization.split(' ');

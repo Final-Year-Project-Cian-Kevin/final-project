@@ -11,18 +11,6 @@ var UserSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
-  first_name: {
-    type: String,
-    required: true
-  },
-  surname: {
-    type: String,
-    required: true
-  },
-  join_date: {
-    type: Date,
-    default: Date.now
-  },
   password: {
     type: String,
     required: true

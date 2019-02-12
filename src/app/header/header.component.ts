@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['index']);
         if (this.userService.isLoggedIn) {
           console.log("User is logged in");
+          this.data = this.userService.getUserPayload();
         }
       }, err => {
         this.message = err.error.msg;

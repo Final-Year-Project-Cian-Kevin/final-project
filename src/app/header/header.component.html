@@ -35,6 +35,7 @@
     
     <!-- Show if user is logged in -->
     <div *ngIf="userService.isLoggedIn()">
+      <h2>{{data.username}}</h2>
       <button class="btn btn-primary" (click)="logout()">Logout</button>
       <a mat-raised-button color="secondary" [routerLink]="['/profile']">
         <mat-icon>person</mat-icon>
