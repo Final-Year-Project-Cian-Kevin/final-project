@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.data = resp;
         // Save response jwtToken
         this.userService.saveJwtToken(this.data.token);
-        this.router.navigate(['books']);
+        this.router.navigate(['index']);
         if (this.userService.isLoggedIn) {
           console.log("User is logged in");
         }
