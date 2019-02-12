@@ -176,7 +176,9 @@ router.get('/', function (req, res, next) {
     if (err) return next(err);
     res.json(products);
     //res.send('Recieved from api');
-    console.log('DEBUG- Rouuter . get /homepage')
+  //  console.log('DEBUG- Rouuter . get /homepage');
+    console.log('\x1b[34m%s\x1b[0m', "DEBUG : book js get /");  //blue cmd
+
   });
 });
 /* GET home page. Test api*/
