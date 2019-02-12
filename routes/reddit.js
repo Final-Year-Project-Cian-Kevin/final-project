@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request');
 var mongoose = require('mongoose');
 var RedditPH = require('../models/Reddit/Programming-Humor.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
-var cron = require('node-cron');
 
 /* 
 Get method for ProgrammerHumor subreddit 

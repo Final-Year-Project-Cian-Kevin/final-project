@@ -169,24 +169,10 @@ getToken = function (headers) {
 };
 /* Return home hope and GET ALL BOOKS */
 
-router.get('/', function (req, res, next) {
-  Book.find(function (err, products) {
+router.get('/users', function (req, res, next) {
+  User.find(function (err, products) {
     if (err) return next(err);
     res.json(products);
-    //res.send('Recieved from api');
-    console.log('DEBUG- Rouuter . get /homepage')
-  });
-});
-/* GET home page. Test api*/
-//router.get('/', function(req, res, next) {
-// res.sendStatus('Recieved from api');
-//});
-
-/* GET SINGLE BOOK BY ID */
-router.get('/:id', function (req, res, next) {
-  User.findById(req.params.id, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
   });
 });
 

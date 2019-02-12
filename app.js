@@ -6,8 +6,8 @@ var logger = require('morgan');
 var cron = require('node-cron');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var config = require('./config/database');
 
+var config = require('./config/database');
 var reddit = require('./jobs/RedditDatabase.js');
 
 // Create a connection to mean-angular6 mongo database  
@@ -71,7 +71,6 @@ app.use(function(err, req, res, next) {
   res.send(err.status);
   console.log("Debug : aap.js60."+err.status);
 });
-
 
 cron.schedule('* * * * *', () => {
   reddit.ph();
