@@ -3,11 +3,12 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-
+var cron = require('node-cron');
 var mongoose = require('mongoose');
-
 var passport = require('passport');
 var config = require('./config/database');
+
+var reddit = require('./jobs/RedditDatabase.js');
 
 // Create a connection to mean-angular6 mongo database  
 // http://www.fullstackjs.com/book/10/connect-mongoose-bluebird.html
@@ -69,6 +70,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.status);
   console.log("Debug : aap.js60."+err.status);
+});
+
+
+cron.schedule('* * * * *', () => {
+  reddit.ph();
 });
 
 module.exports = app;
