@@ -4,14 +4,12 @@ var router = express.Router();
 var mongoose = require('mongoose');
 //var User = require('../models/User.js');
 
-
 // Authnitcation imports
 var passport = require('passport');
 var config = require('../config/database');
 require('../config/passport')(passport);
 var jwt = require('jsonwebtoken');
 var User = require("../models/user");
-
 
 /**
  * Create router to register new user

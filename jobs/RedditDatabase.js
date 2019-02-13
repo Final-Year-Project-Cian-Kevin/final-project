@@ -21,6 +21,11 @@ exports.ph = function () {
                 var obj = jsonData[i];
 
                 if(obj.data.stickied == false) {
+
+                    if(obj.data.is_self == true){
+                        obj.data.thumbnail = "../default"
+                    }
+
                     var newRedditPostPH = new RedditPH({
                         _id: obj.data.id,
                         title: obj.data.title,
@@ -49,7 +54,7 @@ exports.ph = function () {
                 }
 
                 if(counter == 10) {
-                    i = 100;
+                    break;
                 }
             }
         }
