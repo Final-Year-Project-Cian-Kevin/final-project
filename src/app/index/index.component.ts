@@ -16,9 +16,7 @@ export class IndexComponent implements OnInit {
   displayedColumns = ['picture', 'title', 'author'];
   dataSource = new RedditDataSource(this.api);
 
-  constructor(private api: RedditApiService, private router: Router, private titleService: Title) { 
-    console.log('DEBUG : IndexComponent: IN constructor'); 
-  }
+  constructor(private api: RedditApiService, private router: Router, private titleService: Title) { }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
@@ -27,8 +25,6 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.api.getPostsPH()
       .subscribe(res => {
-        console.log(res);
-        console.log(this.api);
         this.posts = res;
       }, err => {
         console.log(err);
@@ -47,11 +43,8 @@ export class RedditDataSource extends DataSource<any> {
   }
 
   connect() {
-    console.log(this.api);
     return this.api.getPostsPH();
   }
 
-  disconnect() {
-
-  }
+  disconnect() {}
 }

@@ -26,7 +26,6 @@ export class RedditPostComponent implements OnInit {
   getPostDetails(id) {
     this.api.getPost(id)
       .subscribe(data => {
-        console.log(data);
         this.post = data;
         this.setTitle(data.title);
       });
