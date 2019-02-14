@@ -33,6 +33,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RedditPostComponent } from './reddit-post/reddit-post.component';
+import { CommentsComponent } from './comments/comments.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -101,7 +102,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    RedditPostComponent
+    RedditPostComponent,
+    CommentsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

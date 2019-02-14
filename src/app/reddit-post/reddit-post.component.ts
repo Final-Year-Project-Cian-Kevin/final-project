@@ -27,7 +27,7 @@ export class RedditPostComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.post = data;
-        this.setTitle(data.title);
+        this.setTitle(data.tite);
       });
   }
 }
