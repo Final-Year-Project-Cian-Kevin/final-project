@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RedditApiService } from '../services/reddit-api.service';
+import { RedditApiService } from '../../services/reddit-api.service';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 
 @Component({
@@ -27,7 +27,7 @@ export class RedditPostComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.post = data;
-        this.setTitle(data.tite);
+        this.setTitle(data.title);
       });
   }
 }

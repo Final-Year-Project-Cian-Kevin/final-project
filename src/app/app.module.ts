@@ -32,8 +32,8 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RedditPostComponent } from './reddit-post/reddit-post.component';
-import { CommentsComponent } from './comments/comments.component';
+import { RedditPostComponent } from './post/reddit-post/reddit-post.component';
+import { CommentsComponent } from './post/comments/comments.component';
 
 // Angular Routes
 const appRoutes: Routes = [
