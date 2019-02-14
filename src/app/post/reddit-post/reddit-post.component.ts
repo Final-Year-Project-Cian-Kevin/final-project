@@ -20,6 +20,7 @@ export class RedditPostComponent implements OnInit {
 
   ngOnInit() {
     this.getPostDetails(this.route.snapshot.params['id']);
+    localStorage.setItem("postID", this.route.snapshot.params['id']);
   }
 
   getPostDetails(id) {

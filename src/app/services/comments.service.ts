@@ -41,8 +41,15 @@ export class CommentsService {
         catchError(this.handleError));
     }
   
-    getComment(id: string): Observable<any> {
-      const url = `${"/api/redditapi/all"}/${id}`;
+    getCommentPostId(id: string): Observable<any> {
+      const url = `${"api/comment/post"}/${id}`;
+      return this.http.get(url, httpOptions).pipe(
+        map(this.extractData),
+        catchError(this.handleError));
+    }
+
+    getCommentProfileId(id: string): Observable<any> {
+      const url = `${"/api/comment/profile"}/${id}`;
       return this.http.get(url, httpOptions).pipe(
         map(this.extractData),
         catchError(this.handleError));

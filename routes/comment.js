@@ -18,7 +18,7 @@ router.get('/all', function(req, res){
 Get method for specific comments on a post using ID
 Link - /comment/all/:id
 */
-router.get('/all/:id', function (req, res, next) {
+router.get('/post/:id', function (req, res, next) {
   Comments.find({post_id: req.params.id}, function (err, posts) {
     if (err) return next(err);
     res.json(posts);
@@ -29,7 +29,7 @@ router.get('/all/:id', function (req, res, next) {
 Get method for specific comments made by a suer using user ID
 Link - /comment/all/:id
 */
-router.get('/all/:id', function (req, res, next) {
+router.get('/profile/:id', function (req, res, next) {
   Comments.find({profile_id: req.params.id}, function (err, posts) {
     if (err) return next(err);
     res.json(posts);
