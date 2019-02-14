@@ -3,7 +3,7 @@ var RedditPH = require('../models/Reddit/Programming-Humor.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
 
 // Subreddit URL
-var urlPH = "https://www.reddit.com/r/ProgrammerHumor/.json"
+var urlPH = "https://www.reddit.com/r/news/.json"
 
 exports.ph = function () {
     request({
@@ -22,15 +22,19 @@ exports.ph = function () {
 
                 if(obj.data.stickied == false) {
 
-                    if(obj.data.is_self == true){
-                        obj.data.thumbnail = "../default"
+                    var thumbnailTemp;
+
+                    if(obj.data.thumbnail == ""){
+                        thumbnailTemp = "http://localhost:3000/api/assets/images/1.png";
+                    }else{
+                        thumbnailTemp = obj.data.thumbnail;
                     }
 
                     var newRedditPostPH = new RedditPH({
                         _id: obj.data.id,
                         title: obj.data.title,
                         url: obj.data.url,
-                        thumbnail: obj.data.thumbnail,
+                        thumbnail: thumbnailTemp,
                         selftext: obj.data.selftext,
                         subreddit: obj.data.subreddit
                     });

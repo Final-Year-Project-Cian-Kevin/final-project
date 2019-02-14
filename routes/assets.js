@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 
 router.get('/images/:id', function (req, res, next) {
-    res.sendFile(path.join(__dirname + '/files/' + req.params.id));
+    res.sendFile(path.join(__dirname + '../assets/' + req.params.id));
 });
 
 module.exports = router;
