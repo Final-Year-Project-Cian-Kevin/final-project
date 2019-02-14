@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RedditApiService } from '../services/reddit-api.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
+import { BrowserModule, Title }  from '@angular/platform-browser';
 
 @Component({
   selector: 'app-index',
@@ -15,8 +16,12 @@ export class IndexComponent implements OnInit {
   displayedColumns = ['picture', 'title', 'author'];
   dataSource = new RedditDataSource(this.api);
 
-  constructor(private api: RedditApiService,private router: Router) { 
+  constructor(private api: RedditApiService, private router: Router, private titleService: Title) { 
     console.log('DEBUG : IndexComponent: IN constructor'); 
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   ngOnInit() {
@@ -31,6 +36,8 @@ export class IndexComponent implements OnInit {
           this.router.navigate(['login']);
         }
       });
+
+      this.setTitle("Popular Posts");
   }
 }
 
