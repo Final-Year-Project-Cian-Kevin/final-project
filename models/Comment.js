@@ -13,10 +13,6 @@ var CommentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: {
-    type: String,
-    required: true
-  },
   updated_date: {
     type: Date,
     default: Date.now

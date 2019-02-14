@@ -29,7 +29,6 @@ var apiRouterAssets = require('./routes/assets');
 var apiRouterUser = require('./routes/user');
 var apiRouterComment = require('./routes/comment');
 
-
 var app = express();
 
 // Initialize passport

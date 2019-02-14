@@ -3,7 +3,7 @@ var RedditPH = require('../models/Reddit/Programming-Humor.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
 
 // Subreddit URL
-var urlPH = "https://www.reddit.com/r/news/.json"
+var urlPH = "https://www.reddit.com/r/ProgrammerHumor/.json"
 
 exports.ph = function () {
     request({
@@ -25,7 +25,7 @@ exports.ph = function () {
                     var thumbnailTemp;
 
                     if(obj.data.thumbnail == ""){
-                        thumbnailTemp = "http://localhost:3000/api/assets/images/1.png";
+                        thumbnailTemp = "http://localhost:3000/api/assets/images/default.png";
                     }else{
                         thumbnailTemp = obj.data.thumbnail;
                     }
