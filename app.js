@@ -25,8 +25,10 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
  // variable for API route
 var apiRouter = require('./routes/book');
 var apiReddit = require('./routes/reddit');
-var apiRouterUser = require('./routes/user');
 var apiRouterAssets = require('./routes/assets');
+var apiRouterUser = require('./routes/user');
+var apiRouterComment = require('./routes/comment');
+
 
 var app = express();
 
@@ -49,6 +51,7 @@ app.use('/post/:id', express.static(path.join(__dirname, 'dist/mean-angular6')))
 app.use('/api/redditapi', apiReddit);
 app.use('/api/assets', apiRouterAssets);
 app.use('/api/user', apiRouterUser);
+app.use('/api/comment', apiRouterComment);
 
 // Books route
 app.use('/books', express.static(path.join(__dirname, 'dist/mean-angular6')));

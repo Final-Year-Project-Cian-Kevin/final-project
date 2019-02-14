@@ -22,4 +22,4 @@ var CommentSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-module.exports = mongoose.model('Comments', Reddit, 'Comments');
+module.exports = mongoose.model('Comments', CommentSchema, 'Comments');
