@@ -97,7 +97,33 @@ router.post('/signin', function (req, res) {
   });
 });
 
+router.put('/edit', passport.authenticate('jwt', {
+  session: false
+}), function (req, res, next) {
+  User.findOne({
+    username: req.body.username
+  }).then(function (user) {
+    if (!user) {
+      res.status(401).send({
+        success: false,
+        msg: 'Update Failed.'
+      });
+    }
 
+    // only update fields that were actually passed...
+    if (typeof req.body.user.username !== 'undefined') {
+      user.username = req.body.user.username;
+    }
+
+
+    return user.save().then(function () {
+      return res.json({
+        success: true,
+        msg: 'Successful edited.'
+      });
+    });
+  }).catch(next);
+});
 /**
  * Create router to add new book ===================> change to post
  * User must be authorized
