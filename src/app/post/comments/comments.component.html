@@ -1,23 +1,7 @@
 <form [formGroup]="commentForm" (ngSubmit)="onFormSubmit(commentForm.value)">
 
   <mat-form-field class="example-full-width">
-    <input formControlName="post_id"
-           [errorStateMatcher]="matcher">
-    <mat-error>
-      <span *ngIf="!commentForm.get('comment').valid && commentForm.get('comment').touched">Comment cannot be blank!</span>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-      <input formControlName="profile_id"
-      [errorStateMatcher]="matcher">
-    <mat-error>
-      <span *ngIf="!commentForm.get('profile_id').valid && commentForm.get('profile_id').touched">Comment cannot be blank!</span>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-      <input formControlName="comment"
+      <input matInput formControlName="comment"
              [errorStateMatcher]="matcher">
       <mat-error>
         <span *ngIf="!commentForm.get('comment').valid && commentForm.get('comment').touched">Comment cannot be blank!</span>
@@ -50,7 +34,7 @@
     <!-- Date Column -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.updated_date}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

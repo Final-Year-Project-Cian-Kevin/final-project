@@ -38,8 +38,8 @@ export class CommentsComponent implements OnInit {
       });
 
     this.commentForm = this.formBuilder.group({
-      'post_id' : [null, Validators.required],
-      'profile_id' : [null, Validators.required],
+      'post_id' : [null],
+      'profile_id' : [null],
       'comment' : [null, Validators.required]
     });
   }
@@ -51,7 +51,10 @@ export class CommentsComponent implements OnInit {
       });
   }
 
-  onFormSubmit(form:NgForm) {
+  onFormSubmit(form) {
+    form.post_id = this.postID;
+    form.profile_id = "Test";
+    console.log(form.post_id);
     this.api.postComment(form)
       .subscribe(res => {
           let id = res['_id'];
