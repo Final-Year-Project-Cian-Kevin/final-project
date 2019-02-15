@@ -31,6 +31,7 @@ Link - /comment/all/:id
 */
 router.get('/profile/:id', function (req, res, next) {
   Comments.find({profile_id: req.params.id}, function (err, posts) {
+    console.log(posts);
     if (err) return next(err);
     res.json(posts);
   });
@@ -42,6 +43,7 @@ Link - /comment/post
 */
 router.post('/post', function (req, res, next) {
   Comments.create(req.body, function (err, post) {
+    console.log(post);
     if (err) return next(err);
     res.json(post);
   });

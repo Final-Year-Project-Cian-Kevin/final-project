@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommentsService } from '../../services/comments.service';
 import { Injectable } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-comments',
@@ -15,10 +16,16 @@ export class CommentsComponent implements OnInit {
   displayedColumns = ['profile', 'comment', 'date'];
   dataSource = new CommentDataSource(this.api);
 
-  constructor(private route: ActivatedRoute, private api: CommentsService, private router: Router) { }
+  commentForm: FormGroup;
+  comment: string='';
+  postID;
+
+
+  constructor(private route: ActivatedRoute, private api: CommentsService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.getCommentDetails(localStorage.getItem("postID"));
+    this.postID = localStorage.getItem("postID");
 
     this.api.getCommentPostId(localStorage.getItem("postID"))
       .subscribe(res => {
@@ -29,6 +36,12 @@ export class CommentsComponent implements OnInit {
           this.router.navigate(['login']);
         }
       });
+
+    this.commentForm = this.formBuilder.group({
+      'post_id' : [null, Validators.required],
+      'profile_id' : [null, Validators.required],
+      'comment' : [null, Validators.required]
+    });
   }
 
   getCommentDetails(id) {
@@ -36,6 +49,15 @@ export class CommentsComponent implements OnInit {
       .subscribe(data => {
         this.comments = data;
       });
+  }
+
+  onFormSubmit(form:NgForm) {
+    this.api.postComment(form)
+      .subscribe(res => {
+          let id = res['_id'];
+        }, (err) => {
+          console.log(err);
+        });
   }
 }
 

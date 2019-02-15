@@ -54,4 +54,12 @@ export class CommentsService {
         map(this.extractData),
         catchError(this.handleError));
     }
+
+    postComment(data): Observable<any> {
+      const url = `/api/comment/post`;
+      return this.http.post(url, data, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
 }
