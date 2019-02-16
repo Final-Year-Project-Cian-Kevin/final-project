@@ -54,10 +54,10 @@ export class CommentsComponent implements OnInit {
   onFormSubmit(form) {
     form.post_id = this.postID;
     form.profile_id = "Test";
-    console.log(form.post_id);
     this.api.postComment(form)
       .subscribe(res => {
           let id = res['_id'];
+          location.reload(true); // Page refresh
         }, (err) => {
           console.log(err);
         });
