@@ -11,10 +11,29 @@ var UserSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  email: {
+    type: String,
+    unique: true,
+  },
+  first_name: {
+    type: String,
+    required: true
+  },
+  surname: {
+    type: String,
+    required: true
+  },
+  join_date: {
+    type: Date,
+    default: Date.now
+  },
+  bio: String,
+  image: String,
   password: {
     type: String,
     required: true
   }
+
 });
 // define pre hook for document
 UserSchema.pre('save', function (next) {
@@ -50,5 +69,17 @@ UserSchema.methods.comparePassword = function (passw, cb) {
   });
 };
 
+// Method to generate JWT token
+UserSchema.methods.generateJWT = function() {
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate(today.getDate() + 60);
+
+  return jwt.sign({
+    id: this._id,
+    username: this.username,
+    exp: parseInt(exp.getTime() / 1000),
+  }, secret);
+};
 // Export UserSchema model ad User
 module.exports = mongoose.model('User', UserSchema);

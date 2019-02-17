@@ -10,6 +10,8 @@ var config = require('../config/database');
 // allow only requests with valid tokens
 // match jwt token with token from client
 module.exports = function (passport) {
+  console.log('\x1b[34m%s\x1b[0m', "DEBUG : Passport.js Calling main function"); //blue cmd
+
   var opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
 
