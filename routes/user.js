@@ -81,12 +81,6 @@ router.post('/signin', function (req, res) {
   });
 });
 
-// Current logged in username by decoding jwt
-router.get('/userdata/:id', function (req, res, next) {
-  var userData = jwt.decode(req.params.id, config.secret)
-  res.json(userData.username);
-});
-
 /**
  *  parse authorization token from request headers.
  */
@@ -111,7 +105,17 @@ router.get('/users', function (req, res, next) {
   });
 });
 
+// Current logged in username by decoding jwt
+router.get('/userdata/:id', function (req, res, next) {
+  var userData = jwt.decode(req.params.id, config.secret)
+  res.json(userData.username);
+});
 
+router.get('/user/:id', function (req, res, next) {
+  User.find({username: req.params.id}).lean().select('username').exec(function(err, user) {
+    res.json(user);
+  });
+});
 
 // export router as module
 module.exports = router;
