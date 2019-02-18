@@ -32,15 +32,18 @@
         </form>
       </form>
     </div>
-    
+
     <!-- Show if user is logged in -->
     <div *ngIf="userService.isLoggedIn()">
-      <p>{{data.username}}<p>
-      <button class="btn btn-primary" (click)="logout()">Logout</button>
-      <a mat-raised-button color="secondary" [routerLink]="['/profile']">
-        <mat-icon>person</mat-icon>
-      </a>
-
+      <form class="form-inline">
+        <p>{{data.username}}<p>
+            <button class="btn btn-primary" (click)="logout()">Logout</button>
+            <a mat-raised-button color="secondary" [routerLink]="['/profile']">
+              <mat-icon>person</mat-icon>
+            </a>
+            <input type="text" class="form-control" [(ngModel)]="loginData.username" name="username" placeholder="Username...."
+            required />
+      </form>
     </div>
 
   </div>
