@@ -84,7 +84,7 @@ router.post('/signin', function (req, res) {
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           // if user is found and password is right create a token
-                user.token = user.generateJWT();
+               // user.token = user.generateJWT();
 
          // var token = jwt.sign(user.toJSON(), config.secret);
           // return the information including token as JSON
@@ -94,7 +94,7 @@ router.post('/signin', function (req, res) {
          // });
           res.json({
             success: true,
-            token : user.toPrivateUserJson()
+            token : user.generateJWT()
           });
         } else {
           res.status(401).send({
@@ -251,15 +251,25 @@ getToken = function (headers) {
     return null;
   }
 };
-/* Return home hope and GET ALL BOOKS */
+/* Get a users details */
+router.get('/get', passport.authenticate('jwt', {
+  session: false
+}), function (req, res) {
+  var token = getToken(req.headers);
+  console.log("DEBUG get user >>",token.username);
 
-router.get('/', function (req, res, next) {
-  Book.find(function (err, products) {
-    if (err) return next(err);
-    res.json(products);
-    //res.send('Recieved from api');
-    console.log('DEBUG- Rouuter . get /homepage')
-  });
+  if (token) {
+    User.findById(token.username,function (err, user) {
+      if (err) return next(err);
+      console.log("DEBUG get user >>",user.toPrivateUserJson());
+      res.json(user.toPrivateUserJson());
+    });
+  } else {
+    return res.status(403).send({
+      success: false,
+      msg: 'Unauthorized.'
+    });
+  }
 });
 /* GET home page. Test api*/
 //router.get('/', function(req, res, next) {

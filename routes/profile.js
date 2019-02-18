@@ -1,14 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Profile = require("../models/profile");
+var User = require("../models/user");
 
+/** 
+ * GET to return all users from db in public format
+ */
 router.get('/get', function (req, res, next) {
-    Profile.find(function (err, profiles) {
+
+  User.find(function (err, users) {
     if (err) return next(err);
-    res.json(profiles);
-    console.log('\x1b[34m%s\x1b[0m', "DEBUG : Get profile test");
+    // Convert each user to public profile
+    for (var i = 0; i < users.length; i++) {
+      users[i] = users[i].toPublicUserJson();
+    }
+    res.json(users);
   });
+
 });
 
 // export router as module

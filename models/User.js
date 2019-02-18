@@ -29,8 +29,14 @@ var UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  bio: String,
-  image: String,
+  bio: {
+    type: String,
+    default: 'Tell me about yourself'
+  },
+  image:{
+    type: String,
+    default: 'img string'
+  },
   password: {
     type: String,
     required: true
