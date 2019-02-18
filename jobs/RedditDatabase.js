@@ -24,7 +24,7 @@ exports.ph = function () {
 
                     var thumbnailTemp;
 
-                    if(obj.data.thumbnail == ""){
+                    if(obj.data.thumbnail == "" || obj.data.thumbnail == "self"){
                         thumbnailTemp = "http://localhost:3000/api/assets/images/default.png";
                     }else{
                         thumbnailTemp = obj.data.thumbnail;
