@@ -12,6 +12,8 @@ const httpOptions = {
 })
 export class RedditApiService {
 
+  postID;
+
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
