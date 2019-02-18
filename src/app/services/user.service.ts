@@ -37,6 +37,7 @@ export class UserService {
     
     return  localStorage.getItem('jwtToken');
   }
+
   // Post save a user
   postUser(data): Observable<any> {
     console.log("DEBUG_API<USERAPISERVICE>POSTUSER")
@@ -45,6 +46,7 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+
   isLoggedIn() :boolean{
     var currentToken = this.getJwtToken();
     if (currentToken) {
@@ -53,6 +55,7 @@ export class UserService {
       return false;
     }
   }
+
   logout() {
     localStorage.removeItem('jwtToken');
     this.isLoggedIn();
@@ -69,44 +72,14 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-  /*
-    // move to api
-    login(data): Observable<any> {
-      console.log(`Enter login func`);
-      const request = this.http.post('/api/user/signin', data).subscribe(resp => {
-        this.data = resp;
-        localStorage.setItem('jwtToken', this.data.token);
-        if (this.data.token) {
-          this.saveJwtToken(this.data.token);
-        }
-        return this.data;
-      }, err => {
-        err.error.msg;
-      });
-      return request;
-    }
-  */
-  // Login a user
-  /*
-  loginUser(data): Observable<any> {
-    console.log("DEBUG_API<USERAPISERVICE>LOGUSER")
-    let baseObject;
-    baseObject = this.http.post(`${userApiURL}/signin`, data, httpOptions);
-    const request = baseObject.pipe(=> {
-      if (data.token) {
-        this.saveJwtToken(data.token);
 
-      }
-      return data;
-    });
-    return request;
+  getUserdata(id: string): Observable<any> {
+    const url = `${"/api/comment/profile"}/${id}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
-    return this.http.post(`${userApiURL}/signin`, data, httpOptions)
-  .pipe(
-    catchError(this.handleError)
-  );
-  }
-  */
+
   // Error Handler
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

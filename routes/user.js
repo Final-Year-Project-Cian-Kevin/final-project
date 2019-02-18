@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-//var User = require('../models/User.js');
 
 // Authnitcation imports
 var passport = require('passport');
@@ -69,7 +68,7 @@ router.post('/signin', function (req, res) {
           // return the information including token as JSON
           res.json({
             success: true,
-            token: 'JWT ' + token
+            token: token
           });
         } else {
           res.status(401).send({
@@ -82,71 +81,10 @@ router.post('/signin', function (req, res) {
   });
 });
 
-
-/**
- * Create router to add new book ===================> change to post
- * User must be authorized
- */
-router.post('/book', passport.authenticate('jwt', {
-  session: false
-}), function (req, res) {
-  // rETRIEVE Token from header
-  var token = getToken(req.headers);
-  console.log("DEBUG ADDING BOOK using/book ========================");
-  if (token) { // check if user is authorised
-    // DEBUG
-    console.log(req.body);
-    console.log("DEBUG ADDING BOOK is token");
-    var newBook = new Book({
-      isbn: req.body.isbn,
-      title: req.body.title,
-      author: req.body.author,
-      description: req.body.description,
-      published_year: req.body.published_year,
-      publisher: req.body.publisher
-    });
-
-    newBook.save(function (err) {
-      if (err) {
-        return res.json({
-          success: false,
-          msg: 'Book(Post) failed to save.'
-        });
-      }
-      res.json({
-        success: true,
-        msg: 'Successful created new book(Post).'
-      });
-    });
-  } else {
-    console.log("DEBUG ADDING BOOK is not token");
-
-    return res.status(403).send({
-      success: false,
-      msg: 'Unauthorized to upload.'
-    });
-  }
-});
-
-/**
- * Create router to get list of all books ===================> change to post
- * User must be authorized
- */
-router.get('/book', passport.authenticate('jwt', {
-  session: false
-}), function (req, res) {
-  var token = getToken(req.headers);
-  if (token) {
-    Book.find(function (err, books) {
-      if (err) return next(err);
-      res.json(books);
-    });
-  } else {
-    return res.status(403).send({
-      success: false,
-      msg: 'Unauthorized.'
-    });
-  }
+// Current logged in username by decoding jwt
+router.get('/userdata/:id', function (req, res, next) {
+  var userData = jwt.decode(req.params.id, config.secret)
+  res.json(userData.username);
 });
 
 /**
@@ -165,7 +103,6 @@ getToken = function (headers) {
     return null;
   }
 };
-/* Return home hope and GET ALL BOOKS */
 
 router.get('/users', function (req, res, next) {
   User.find(function (err, products) {
