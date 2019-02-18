@@ -19,5 +19,21 @@ router.get('/get', function (req, res, next) {
 
 });
 
+/** 
+ * GET to user based on username or id
+ */
+router.get('/:details', function (req, res, next) {
+  User.findOne({
+      $or: [{
+        username: req.body.details
+      }, {
+        userId: req.body.details
+      }]
+    },
+    function (err, user) {
+      if (err) return next(err);
+      res.json(user.toPublicUserJson());
+    });
+});
 // export router as module
 module.exports = router;
