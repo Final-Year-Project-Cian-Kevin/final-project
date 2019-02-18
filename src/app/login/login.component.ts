@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       .subscribe(resp => {
         this.data = resp;
         // Save response jwtToken
-        this.userService.saveJwtToken(this.data.token);
+        this.userService.saveJwtToken(this.data.token.token);
         this.router.navigate(['index']);
         if (this.userService.isLoggedIn) {
           console.log("User is logged in");

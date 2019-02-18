@@ -14,7 +14,7 @@ var jwt = require('jsonwebtoken');
 // Import required models
 var User = require("../models/user");
 var Profile = require("../models/profile");
-
+//var User = mongoose.model('User');
 
 /**
  * Create router to register new user
@@ -32,6 +32,9 @@ router.post('/signup', function (req, res) {
     // create user object
     var newUser = new User({
       username: req.body.username,
+      email: req.body.email,
+      first_name: req.body.first_name,
+      surname: req.body.surname,
       password: req.body.password
     });
     var newProfile = new Profile({
@@ -71,6 +74,7 @@ router.post('/signin', function (req, res) {
 
     // check if valid user
     if (!user) {
+      
       res.status(401).send({
         success: false,
         msg: 'Log in failed. User not found.'
@@ -80,11 +84,17 @@ router.post('/signin', function (req, res) {
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           // if user is found and password is right create a token
-          var token = jwt.sign(user.toJSON(), config.secret);
+                user.token = user.generateJWT();
+
+         // var token = jwt.sign(user.toJSON(), config.secret);
           // return the information including token as JSON
+         // res.json({
+         //   success: true,
+         //   token: 'JWT ' + user.toPrivateUserJson()
+         // });
           res.json({
             success: true,
-            token: 'JWT ' + token
+            token : user.toPrivateUserJson()
           });
         } else {
           res.status(401).send({
@@ -97,6 +107,9 @@ router.post('/signin', function (req, res) {
   });
 });
 
+/** 
+ * Update user details
+*/
 router.put('/edit', passport.authenticate('jwt', {
   session: false
 }), function (req, res, next) {

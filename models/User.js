@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 // https://medium.com/@mridu.sh92/a-quick-guide-for-authentication-using-bcrypt-on-express-nodejs-1d8791bb418f
 // use to hash password 
 var bcrypt = require('bcrypt-nodejs');
+var config = require('../config/database');
+var jwt = require('jsonwebtoken');
 
 // build model of userSchema
 // username must be unique and is required
@@ -68,9 +70,32 @@ UserSchema.methods.comparePassword = function (passw, cb) {
     cb(null, isMatch);
   });
 };
-
+/**
+ * Return a public user object
+ */
+UserSchema.methods.toPublicUserJson = function (user) {
+  return {
+    username: this.username,
+    first_name: this.first_name,
+    surname: this.surname,
+    bio: this.bio,
+    image: this.image || 'https://defaultimageurl'
+  };
+};
+/**
+ * Return a private user object
+ */
+UserSchema.methods.toPrivateUserJson = function () {
+  return {
+    username: this.username,
+    email: this.email,
+    token: this.generateJWT(),
+    bio: this.bio,
+    image: this.image
+  };
+};
 // Method to generate JWT token
-UserSchema.methods.generateJWT = function() {
+UserSchema.methods.generateJWT = function () {
   var today = new Date();
   var exp = new Date(today);
   exp.setDate(today.getDate() + 60);
@@ -79,7 +104,7 @@ UserSchema.methods.generateJWT = function() {
     id: this._id,
     username: this.username,
     exp: parseInt(exp.getTime() / 1000),
-  }, secret);
+  }, config.secret);
 };
 // Export UserSchema model ad User
 module.exports = mongoose.model('User', UserSchema);

@@ -14,8 +14,8 @@ module.exports = function (passport) {
 
   var opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
-
   opts.secretOrKey = config.secret;
+
   passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
     User.findOne({
       id: jwt_payload.id
@@ -34,9 +34,10 @@ module.exports = function (passport) {
         console.debug("DEBUG:passportjs fail if");
         console.debug("DEBUG:passportjs fail if =====UID:", user.id);
         console.debug("DEBUG:passportjs fail if ====JUID:", jwt_payload.id);
-
         done(null, false);
       }
     });
   }));
+
+
 };
