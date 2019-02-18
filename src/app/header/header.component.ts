@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
         this.userService.saveJwtToken(this.data.token);
         this.router.navigate(['index']);
         if (this.userService.isLoggedIn) {
-          console.log("User is logged in");
+          console.log("User is logged in" + this.data);
           this.data = this.userService.getUserPayload();
         }
       }, err => {
