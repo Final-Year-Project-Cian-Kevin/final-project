@@ -14,7 +14,7 @@ import { UserService } from '../services/user.service';
 })
 
 export class SignupComponent implements OnInit {
-  signupData = { username: '',first_name:'',surname:'', password: '' };
+  signupData = { username: '',email: '',first_name:'',surname:'', password: '' };
   message = '';
 
   constructor(private router: Router, private api: UserService) {

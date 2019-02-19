@@ -30,6 +30,9 @@ router.post('/signup', function (req, res) {
     // create user object
     var newUser = new User({
       username: req.body.username,
+      email: req.body.email,
+      first_name: req.body.first_name,
+      surname: req.body.surname,
       password: req.body.password
     });
     var newProfile = new Profile({
@@ -69,6 +72,7 @@ router.post('/signin', function (req, res) {
 
     // check if valid user
     if (!user) {
+      
       res.status(401).send({
         success: false,
         msg: 'Log in failed. User not found.'
@@ -78,11 +82,17 @@ router.post('/signin', function (req, res) {
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           // if user is found and password is right create a token
-          var token = jwt.sign(user.toJSON(), config.secret);
+               // user.token = user.generateJWT();
+
+         // var token = jwt.sign(user.toJSON(), config.secret);
           // return the information including token as JSON
+         // res.json({
+         //   success: true,
+         //   token: 'JWT ' + user.toPrivateUserJson()
+         // });
           res.json({
             success: true,
-            token: 'JWT ' + token
+            token : user.generateJWT()
           });
         } else {
           res.status(401).send({
@@ -95,7 +105,36 @@ router.post('/signin', function (req, res) {
   });
 });
 
+/** 
+ * Update user details
+*/
+router.put('/edit', passport.authenticate('jwt', {
+  session: false
+}), function (req, res, next) {
+  User.findOne({
+    username: req.body.username
+  }).then(function (user) {
+    if (!user) {
+      res.status(401).send({
+        success: false,
+        msg: 'Update Failed.'
+      });
+    }
 
+    // only update fields that were actually passed...
+    if (typeof req.body.user.username !== 'undefined') {
+      user.username = req.body.user.username;
+    }
+
+
+    return user.save().then(function () {
+      return res.json({
+        success: true,
+        msg: 'Successful edited.'
+      });
+    });
+  }).catch(next);
+});
 /**
  * Create router to add new book ===================> change to post
  * User must be authorized
@@ -210,12 +249,43 @@ getToken = function (headers) {
     return null;
   }
 };
-/* Return home hope and GET ALL BOOKS */
+/* Get a users details */
+router.get('/get', passport.authenticate('jwt', {
+  session: false
+}), function (req, res) {
+  var token = getToken(req.headers);
+  console.log("DEBUG get user >>",token.username);
 
+<<<<<<< HEAD
 router.get('/users', function (req, res, next) {
   User.find(function (err, products) {
     if (err) return next(err);
     res.json(products);
+=======
+  if (token) {
+    User.findById(token.username,function (err, user) {
+      if (err) return next(err);
+      console.log("DEBUG get user >>",user.toPrivateUserJson());
+      res.json(user.toPrivateUserJson());
+    });
+  } else {
+    return res.status(403).send({
+      success: false,
+      msg: 'Unauthorized.'
+    });
+  }
+});
+/* GET home page. Test api*/
+//router.get('/', function(req, res, next) {
+// res.sendStatus('Recieved from api');
+//});
+
+/* GET SINGLE BOOK BY ID */
+router.get('/:id', function (req, res, next) {
+  User.findById(req.params.id, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+>>>>>>> c260cae70ec1625cb4ec48e99d3e36d0dbb30b4a
   });
 });
 

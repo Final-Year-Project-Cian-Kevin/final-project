@@ -3,6 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import { getOrCreateInjectable } from '@angular/core/src/render3/di';
+import { debug } from 'util';
 
 // Define constants
 const httpOptions = {
@@ -22,7 +23,7 @@ export interface UserDetails {
 export class UserService {
   //jwttoken
   private token: string;
-  data: any;
+  currentUser: any;
   // Constructor
   constructor(private http: HttpClient) { }
 
@@ -34,8 +35,8 @@ export class UserService {
 
   // get a token
   getJwtToken(): string {
-    
-    return  localStorage.getItem('jwtToken');
+
+    return localStorage.getItem('jwtToken');
   }
 
   // Get user details
@@ -54,13 +55,23 @@ export class UserService {
     var token = this.getJwtToken();
     if (token) {
       var userPayload = atob(token.split('.')[1]);
-      console.log("DEBUG USER PAYLOAD+"+userPayload);
+      console.log("DEBUG USER PAYLOAD+" + userPayload);
+      this.currentUser = userPayload;
       return JSON.parse(userPayload);
     }
     else
       return null;
   }
-  isLoggedIn() :boolean{
+  getUser(): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': this.getJwtToken() })
+    };
+    console.log("DEBUG getuser service+" + this.getJwtToken());
+    return this.http.get(`${userApiURL}/get`, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+  isLoggedIn(): boolean {
     var currentToken = this.getJwtToken();
     if (currentToken) {
       return true;
@@ -84,7 +95,7 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-  
+
   // Error Handler
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
