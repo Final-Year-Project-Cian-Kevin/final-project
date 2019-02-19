@@ -39,7 +39,6 @@ export class UserService {
     return localStorage.getItem('jwtToken');
   }
 
-  // Get user details
   // Post save a user
   postUser(data): Observable<any> {
     console.log("DEBUG_API<USERAPISERVICE>POSTUSER")
@@ -48,30 +47,8 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-  /**
-   * Returns an user data object from trhe JSON JWT 
-   */
-  getUserPayload() {
-    var token = this.getJwtToken();
-    if (token) {
-      var userPayload = atob(token.split('.')[1]);
-      console.log("DEBUG USER PAYLOAD+" + userPayload);
-      this.currentUser = userPayload;
-      return JSON.parse(userPayload);
-    }
-    else
-      return null;
-  }
-  getUser(): Observable<any> {
-    let httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': this.getJwtToken() })
-    };
-    console.log("DEBUG getuser service+" + this.getJwtToken());
-    return this.http.get(`${userApiURL}/get`, httpOptions).pipe(
-      map(this.extractData),
-      catchError(this.handleError));
-  }
-  isLoggedIn(): boolean {
+
+  isLoggedIn() :boolean{
     var currentToken = this.getJwtToken();
     if (currentToken) {
       return true;
@@ -79,6 +56,7 @@ export class UserService {
       return false;
     }
   }
+
   logout() {
     localStorage.removeItem('jwtToken');
     this.isLoggedIn();
@@ -96,6 +74,16 @@ export class UserService {
       );
   }
 
+<<<<<<< HEAD
+=======
+  getUserdata(id: string): Observable<any> {
+    const url = `${"/api/comment/profile"}/${id}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+>>>>>>> reddit
   // Error Handler
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
