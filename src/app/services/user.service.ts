@@ -74,8 +74,6 @@ export class UserService {
       );
   }
 
-<<<<<<< HEAD
-=======
   getUserdata(id: string): Observable<any> {
     const url = `${"/api/comment/profile"}/${id}`;
     return this.http.get(url, httpOptions).pipe(
@@ -83,7 +81,6 @@ export class UserService {
       catchError(this.handleError));
   }
 
->>>>>>> reddit
   // Error Handler
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
