@@ -111,8 +111,16 @@ router.get('/userdata/:id', function (req, res, next) {
   res.json(userData.username);
 });
 
-router.get('/user/:id', function (req, res, next) {
+router.get('/profile/:id', function (req, res, next) {
   User.find({username: req.params.id}).lean().select('username').exec(function(err, user) {
+    res.json(user);
+  });
+});
+
+
+router.put('/update/:id', function (req, res, next) {
+  User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+    if (err) return next(err);
     res.json(user);
   });
 });
