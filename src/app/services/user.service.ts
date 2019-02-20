@@ -74,6 +74,17 @@ export class UserService {
       );
   }
 
+  getUserPayload() {
+    var token = this.getJwtToken();
+    if (token) {
+      var userPayload = atob(token.split('.')[1]);
+      this.currentUser = userPayload;
+      return JSON.parse(userPayload);
+    }
+    else
+      return null;
+  }
+
   getUserdata(id: string): Observable<any> {
     const url = `${"/api/comment/profile"}/${id}`;
     return this.http.get(url, httpOptions).pipe(

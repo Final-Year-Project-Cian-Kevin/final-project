@@ -10,6 +10,14 @@ var passport = require('passport');
 var config = require('./config/database');
 var reddit = require('./jobs/RedditDatabase.js');
 
+var app = express();
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Initialize passport
+app.use(passport.initialize());
+
 // Create a connection to mean-angular6 mongo database  
 // http://www.fullstackjs.com/book/10/connect-mongoose-bluebird.html
 mongoose.Promise = require('bluebird');// Promisify-ing Mongoose
@@ -30,25 +38,12 @@ var apiRouterProfile = require('./routes/profile');// change book to api
 var apiRouterAssets = require('./routes/assets');
 var apiRouterComment = require('./routes/comment');
 
-var app = express();
-
-// Initialize passport
-app.use(passport.initialize());
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-
 // Using mean-angular6 database
 app.use(express.static(path.join(__dirname, 'dist/mean-angular6')));
-//app.use('/books', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/book-details/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/book-create', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/book-edit/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/', express.static(path.join(__dirname, 'dist')));
 app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/post/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 
 // Add API route to endpoint URL
 app.use('/api', apiRouter);

@@ -81,14 +81,14 @@ router.post('/signin', function (req, res) {
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           // if user is found and password is right create a token
-               // user.token = user.generateJWT();
+          // user.token = user.generateJWT();
 
-         // var token = jwt.sign(user.toJSON(), config.secret);
+          // var token = jwt.sign(user.toJSON(), config.secret);
           // return the information including token as JSON
-         // res.json({
-         //   success: true,
-         //   token: 'JWT ' + user.toPrivateUserJson()
-         // });
+          // res.json({
+          //   success: true,
+          //   token: 'JWT ' + user.toPrivateUserJson()
+          // });
           res.json({
             success: true,
 
@@ -105,64 +105,20 @@ router.post('/signin', function (req, res) {
   });
 });
 
-/**
- *  parse authorization token from request headers.
- */
-getToken = function (headers) {
-  console.log("DEBUG: book.js get token");
-  console.log('\x1b[34m%s\x1b[0m', "DEBUG : user.js getToken"); //blue cmd
-
-  if (headers && headers.authorization) {
-    var parted = headers.authorization.split(' ');
-    if (parted.length === 2) {
-      return parted[1];
-    } else {
-      return null;
-    }
-  } else {
-    return null;
-  }
-};
-
-if (token) {
-    User.findById(token.username,function (err, user) {
-      if (err) return next(err);
-      console.log("DEBUG get user >>",user.toPrivateUserJson());
-      res.json(user.toPrivateUserJson());
-    });
-  } else {
-    return res.status(403).send({
-      success: false,
-      msg: 'Unauthorized.'
-    });
-  }
-});
-/* GET home page. Test api*/
-//router.get('/', function(req, res, next) {
-// res.sendStatus('Recieved from api');
-//});
-
-/* GET SINGLE BOOK BY ID */
-router.get('/:id', function (req, res, next) {
-  User.findById(req.params.id, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-
 // Current logged in username by decoding jwt
 router.get('/userdata/:id', function (req, res, next) {
   var userData = jwt.decode(req.params.id, config.secret)
   res.json(userData.username);
 });
 
+// Get user details for profiles
 router.get('/profile/:id', function (req, res, next) {
   User.find({username: req.params.id}).lean().select('username').exec(function(err, user) {
     res.json(user);
   });
 });
 
-
+// Update profile
 router.put('/update/:id', function (req, res, next) {
   User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
     if (err) return next(err);
