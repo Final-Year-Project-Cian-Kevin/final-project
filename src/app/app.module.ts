@@ -58,7 +58,7 @@ const appRoutes: Routes = [
     data: { title: 'Sign Up' }
   },
   {
-    path: 'profile',
+    path: 'profile/:id',
     component: ProfileComponent,
     data: { title: 'Profile' }
   },

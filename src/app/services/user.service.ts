@@ -21,7 +21,7 @@ export interface UserDetails {
 })
 
 export class UserService {
-  //jwttoken
+  // jwt
   private token: string;
   currentUser: any;
   // Constructor
@@ -35,13 +35,27 @@ export class UserService {
 
   // get a token
   getJwtToken(): string {
-
     return localStorage.getItem('jwtToken');
+  }
+
+  // Log out user
+  logout() {
+    localStorage.removeItem('jwtToken');
+    this.isLoggedIn();
+  }
+
+  // Login a user
+  loginUser(data): Observable<any> {
+    let baseObject;
+
+    return this.http.post(`${userApiURL}/signin`, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // Post save a user
   postUser(data): Observable<any> {
-    console.log("DEBUG_API<USERAPISERVICE>POSTUSER")
     return this.http.post(`${userApiURL}/signup`, data, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -51,42 +65,34 @@ export class UserService {
   isLoggedIn() :boolean{
     var currentToken = this.getJwtToken();
     if (currentToken) {
+      console.log("True");
       return true;
     } else {
       return false;
     }
   }
 
-  logout() {
-    localStorage.removeItem('jwtToken');
-    this.isLoggedIn();
-  }
-  // Login a user
-  loginUser(data): Observable<any> {
-    console.log("DEBUG_API<USERAPISERVICE>LOGUSER")
-    let baseObject;
-    // baseObject = this.http.post(`${userApiURL}/signin`, data, httpOptions)
-
-    return this.http.post(`${userApiURL}/signin`, data, httpOptions)
-      .pipe(
-
-        catchError(this.handleError)
-      );
-  }
-
-  getUserPayload() {
+  getUserPayLoad() {
     var token = this.getJwtToken();
     if (token) {
       var userPayload = atob(token.split('.')[1]);
       this.currentUser = userPayload;
       return JSON.parse(userPayload);
     }
-    else
+    else {
       return null;
+    } 
   }
 
-  getUserdata(id: string): Observable<any> {
-    const url = `${"/api/comment/profile"}/${id}`;
+  getUserData(): Observable<any> {
+    const url = `${"/api/user/userdata"}/${this.getJwtToken()}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getProfile(id: string): Observable<any> {
+    const url = `${"/api/user/profile"}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));

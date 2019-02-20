@@ -45,6 +45,7 @@ export class RedditApiService {
 
   getPost(id: string): Observable<any> {
     const url = `${"/api/redditapi/all"}/${id}`;
+    
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));

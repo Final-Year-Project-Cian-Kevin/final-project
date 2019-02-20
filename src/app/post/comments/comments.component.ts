@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentsService } from '../../services/comments.service';
+import { UserService } from '../../services/user.service';
 import { Injectable } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -14,20 +15,31 @@ export class CommentsComponent implements OnInit {
 
   comments: any;
   displayedColumns = ['profile', 'comment', 'date'];
-  dataSource = new CommentDataSource(this.api);
+  dataSource = new CommentDataSource(this.commentAPI);
 
   commentForm: FormGroup;
   comment: string='';
   postID;
+  username;
 
 
-  constructor(private route: ActivatedRoute, private api: CommentsService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private commentAPI: CommentsService, private router: Router, private formBuilder: FormBuilder, private userAPI: UserService) { }
 
   ngOnInit() {
     this.getCommentDetails(localStorage.getItem("postID"));
     this.postID = localStorage.getItem("postID");
 
-    this.api.getCommentPostId(localStorage.getItem("postID"))
+    this.userAPI.getUserData()
+    .subscribe(res => {
+      this.username = res;
+    }, err => {
+      console.log(err);
+      if(err.status=401){
+        this.router.navigate(['login']);
+      }
+    });
+
+    this.commentAPI.getCommentPostId(localStorage.getItem("postID"))
       .subscribe(res => {
         this.comments = res;
       }, err => {
@@ -35,7 +47,7 @@ export class CommentsComponent implements OnInit {
         if(err.status=401){
           this.router.navigate(['login']);
         }
-      });
+    });
 
     this.commentForm = this.formBuilder.group({
       'post_id' : [null],
@@ -45,7 +57,7 @@ export class CommentsComponent implements OnInit {
   }
 
   getCommentDetails(id) {
-    this.api.getCommentPostId(id)
+    this.commentAPI.getCommentPostId(id)
       .subscribe(data => {
         this.comments = data;
       });
@@ -53,8 +65,8 @@ export class CommentsComponent implements OnInit {
 
   onFormSubmit(form) {
     form.post_id = this.postID;
-    form.profile_id = "Test";
-    this.api.postComment(form)
+    form.profile_id = this.username;
+    this.commentAPI.postComment(form)
       .subscribe(res => {
           let id = res['_id'];
           location.reload(true); // Page refresh
@@ -70,7 +82,6 @@ export class CommentDataSource extends DataSource<any> {
   }
 
   connect() {
-    console.log(this.api);
     return this.api.getCommentPostId(localStorage.getItem("postID"));
   }
 

@@ -32,6 +32,7 @@ export class CommentsService {
   
     private extractData(res: Response) {
       let body = res;
+      console.log(res);
       return body || { };
     }
   

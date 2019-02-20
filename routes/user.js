@@ -113,7 +113,7 @@ router.get('/userdata/:id', function (req, res, next) {
 
 // Get user details for profiles
 router.get('/profile/:id', function (req, res, next) {
-  User.find({username: req.params.id}).lean().select('username').exec(function(err, user) {
+  User.find({username: req.params.id}).lean().select('username bio image email first_name surname').exec(function(err, user) {
     res.json(user);
   });
 });

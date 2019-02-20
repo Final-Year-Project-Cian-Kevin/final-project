@@ -1,17 +1,18 @@
-<form [formGroup]="commentForm" (ngSubmit)="onFormSubmit(commentForm.value)">
+<div *ngIf="userAPI.isLoggedIn()">
+  <form [formGroup]="commentForm" (ngSubmit)="onFormSubmit(commentForm.value)">
+    <mat-form-field class="example-full-width">
+        <input matInput formControlName="comment"
+              [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!commentForm.get('comment').valid && commentForm.get('comment').touched">Comment cannot be blank!</span>
+        </mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-      <input matInput formControlName="comment"
-             [errorStateMatcher]="matcher">
-      <mat-error>
-        <span *ngIf="!commentForm.get('comment').valid && commentForm.get('comment').touched">Comment cannot be blank!</span>
-      </mat-error>
-  </mat-form-field>
-
-  <div class="button-row">
-    <button type="submit" [disabled]="!commentForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
-  </div>
-</form>
+    <div class="button-row">
+      <button type="submit" [disabled]="!commentForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+    </div>
+  </form>
+</div>
 
 <div layout="column" layout-align="center end" class="example-container mat-elevation-z8">
   <table mat-table #table [dataSource]="dataSource">

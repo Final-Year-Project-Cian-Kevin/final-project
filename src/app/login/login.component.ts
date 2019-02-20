@@ -24,19 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-  /*
-  // move to api
-  login() {
-    console.log(`Enter login func`);
-    this.http.post('/api/user/signin', this.loginData).subscribe(resp => {
-      this.data = resp;
-      localStorage.setItem('jwtToken', this.data.token);
-      this.router.navigate(['books']);
-    }, err => {
-      this.message = err.error.msg;
-    });
-  }
-  */
+
   // Login a user
   login() {
     console.log(`Enter login func`);
@@ -48,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['index']);
         if (this.userService.isLoggedIn) {
           console.log("User is logged in");
-          this.data = this.userService.getUserPayload();
+          this.data = this.userService.getUserPayLoad();
 
         }
       }, err => {
