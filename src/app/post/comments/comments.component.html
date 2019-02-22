@@ -23,7 +23,7 @@
     <!-- Title Column -->
     <ng-container matColumnDef="profile">
       <th mat-header-cell *matHeaderCellDef> Profile ID </th>
-      <td mat-cell *matCellDef="let element" class="picture-col"> {{element.profile_id}} </td>
+      <td mat-cell *matCellDef="let element" class="picture-col"><a color="primary" [routerLink]="['/profile', element.profile_id]"> {{element.profile_id}} </a></td>
     </ng-container>
 
     <!-- Comment Column -->
