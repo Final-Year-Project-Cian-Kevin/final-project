@@ -22,22 +22,23 @@ export class CommentsComponent implements OnInit {
   postID;
   username;
 
-
   constructor(private route: ActivatedRoute, private commentAPI: CommentsService, private router: Router, private formBuilder: FormBuilder, private userAPI: UserService) { }
 
   ngOnInit() {
     this.getCommentDetails(localStorage.getItem("postID"));
     this.postID = localStorage.getItem("postID");
 
-    this.userAPI.getUserData()
-    .subscribe(res => {
-      this.username = res;
-    }, err => {
-      console.log(err);
-      if(err.status=401){
-        this.router.navigate(['login']);
-      }
-    });
+    if(this.userAPI.isLoggedIn()){
+      this.userAPI.getUserData()
+      .subscribe(res => {
+        this.username = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+      });
+    }
 
     this.commentAPI.getCommentPostId(localStorage.getItem("postID"))
       .subscribe(res => {
@@ -72,7 +73,7 @@ export class CommentsComponent implements OnInit {
           location.reload(true); // Page refresh
         }, (err) => {
           console.log(err);
-        });
+      });
   }
 }
 

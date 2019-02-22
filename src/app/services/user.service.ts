@@ -65,7 +65,6 @@ export class UserService {
   isLoggedIn() :boolean{
     var currentToken = this.getJwtToken();
     if (currentToken) {
-      console.log("True");
       return true;
     } else {
       return false;
