@@ -1,4 +1,3 @@
-
 /*
 This is the file where all the components, providers, and modules are defined.
  Without defining them here, they can’t be used elsewhere in the code.
@@ -23,7 +22,7 @@ import {
   MatFormFieldModule } from "@angular/material";
 
 // Component Source
-import { IndexComponent } from './index/index.component';
+import { IndexComponent } from './home-page/index/index.component';
 import { BookComponent } from './books/book/book.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BookCreateComponent } from './books/book-create/book-create.component';
@@ -34,6 +33,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RedditPostComponent } from './post/reddit-post/reddit-post.component';
 import { CommentsComponent } from './post/comments/comments.component';
+import { PostRedditComponent } from './home-page/post-reddit/post-reddit.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -103,7 +103,8 @@ const appRoutes: Routes = [
     SignupComponent,
     ProfileComponent,
     RedditPostComponent,
-    CommentsComponent
+    CommentsComponent,
+    PostRedditComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

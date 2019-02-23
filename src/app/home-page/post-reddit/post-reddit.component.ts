@@ -5,12 +5,11 @@ import { Router } from '@angular/router';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+  selector: 'app-post-reddit',
+  templateUrl: './post-reddit.component.html',
+  styleUrls: ['./post-reddit.component.css']
 })
-
-export class IndexComponent implements OnInit {
+export class PostRedditComponent implements OnInit {
 
   posts: any;
   displayedColumns = ['picture', 'title', 'author'];
@@ -35,6 +34,7 @@ export class IndexComponent implements OnInit {
 
       this.setTitle("Popular Posts");
   }
+
 }
 
 export class RedditDataSource extends DataSource<any> {
