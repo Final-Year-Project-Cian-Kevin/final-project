@@ -10,7 +10,6 @@
 
 
 div.scrollmenu {
-  background-color: #333;
   overflow: auto;
   white-space: nowrap;
 }

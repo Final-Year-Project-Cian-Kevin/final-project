@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RedditApiService } from '../../services/reddit-api.service';
-import { DataSource } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -13,8 +12,6 @@ import {MatGridListModule} from '@angular/material/grid-list';
 export class PostRedditComponent implements OnInit {
 
   posts: any;
-  displayedColumns = ['picture', 'title', 'author'];
-  dataSource = new RedditDataSource(this.api);
 
   constructor(private api: RedditApiService, private router: Router, private titleService: Title) { }
 
@@ -26,7 +23,6 @@ export class PostRedditComponent implements OnInit {
     this.api.getPostsPH()
       .subscribe(res => {
         this.posts = res;
-        console.log(res);
       }, err => {
         console.log(err);
         if(err.status=401){
@@ -35,18 +31,5 @@ export class PostRedditComponent implements OnInit {
       });
 
       this.setTitle("Popular Posts");
-      console.log(this.posts);
   }
-}
-
-export class RedditDataSource extends DataSource<any> {
-  constructor(private api: RedditApiService) {
-    super()
-  }
-
-  connect() {
-    return this.api.getPostsPH();
-  }
-
-  disconnect() {}
 }
