@@ -1,0 +1,28 @@
+.post-card {
+  max-width: 400px;
+  min-width: 400px;
+}
+
+.post-header-image {
+  background-image: url('https://b.thumbs.redditmedia.com/4KtrAN4OLE6PG-FY0Xtfn65arqXZrFRrsFDi_JvQCWM.png');
+  background-size: cover;
+}
+
+
+div.scrollmenu {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu div {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+div.scrollmenu div:hover {
+  background-color: #777;
+}

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RedditApiService } from '../services/reddit-api.service';
+import { RedditApiService } from '../../services/reddit-api.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { BrowserModule, Title }  from '@angular/platform-browser';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-post-reddit',
@@ -17,14 +18,15 @@ export class PostRedditComponent implements OnInit {
 
   constructor(private api: RedditApiService, private router: Router, private titleService: Title) { }
 
-  public setTitle( newTitle: string) {
-    this.titleService.setTitle( newTitle );
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   ngOnInit() {
     this.api.getPostsPH()
       .subscribe(res => {
         this.posts = res;
+        console.log(res);
       }, err => {
         console.log(err);
         if(err.status=401){
@@ -33,8 +35,8 @@ export class PostRedditComponent implements OnInit {
       });
 
       this.setTitle("Popular Posts");
+      console.log(this.posts);
   }
-
 }
 
 export class RedditDataSource extends DataSource<any> {
