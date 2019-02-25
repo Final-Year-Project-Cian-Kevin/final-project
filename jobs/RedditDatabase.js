@@ -13,7 +13,7 @@ var urlsNews = [
 
 exports.pop = function () {
 
-  console.log('\x1b[32m%s\x1b[0m', 'INFO: Updating Reddit popular API results');
+  console.log('\x1b[32m%s\x1b[0m', 'INFO: Updating Reddit popular results');
 
   // Delete old data
   RedditPF.remove({}, function(err,removed) {});
@@ -35,18 +35,28 @@ exports.pop = function () {
         for(var i = 0; i < jsonData.length; i++) {
           var obj = jsonData[i].data;
           var thumbnailTemp;
+          var picTemp;
 
           if(obj.stickied == false) {
             if(obj.thumbnail == "" || obj.thumbnail == "self"){
-                thumbnailTemp = "http://localhost:3000/api/assets/images/default.png";
+                thumbnailTemp = "http://localhost:3000/api/assets/images/laughCry.JPEG";
+                picTemp = "";
             }else{
                 thumbnailTemp = obj.thumbnail;
+                picTemp = obj.url;
+            }
+
+            if(obj.url.indexOf(".png") > -1 || obj.url.indexOf(".jpg") > -1){
+              picTemp = obj.url;
+            }else{
+              picTemp = "";
             }
 
             posts.push({
               id: obj.id,
               title: obj.title,
               url: obj.url,
+              pic: picTemp,
               thumbnail: thumbnailTemp,
               selftext: obj.selftext,
               subreddit: obj.subreddit,
@@ -71,6 +81,7 @@ exports.pop = function () {
             _id: posts[i].id,
             title: posts[i].title,
             url: posts[i].url,
+            pic: posts[i].pic,
             thumbnail: posts[i].thumbnail,
             selftext: posts[i].selftext,
             subreddit: posts[i].subreddit,
@@ -83,6 +94,7 @@ exports.pop = function () {
           _id: posts[i].id,
           title: posts[i].title,
           url: posts[i].url,
+          pic: posts[i].pic,
           thumbnail: posts[i].thumbnail,
           selftext: posts[i].selftext,
           subreddit: posts[i].subreddit
@@ -120,6 +132,7 @@ exports.news = function () {
         for(var i = 0; i < jsonData.length; i++) {
           var obj = jsonData[i].data;
           var thumbnailTemp;
+          var picTemp;
 
           if(obj.stickied == false) {
             if(obj.thumbnail == "" || obj.thumbnail == "self"){
@@ -128,10 +141,17 @@ exports.news = function () {
                 thumbnailTemp = obj.thumbnail;
             }
 
+            if(obj.url.indexOf(".png") > -1 || obj.url.indexOf(".jpg") > -1){
+              picTemp = obj.url;
+            }else{
+              picTemp = "";
+            }
+
             posts.push({
               id: obj.id,
               title: obj.title,
               url: obj.url,
+              pic: picTemp,
               thumbnail: thumbnailTemp,
               selftext: obj.selftext,
               subreddit: obj.subreddit,
@@ -156,6 +176,7 @@ exports.news = function () {
             _id: posts[i].id,
             title: posts[i].title,
             url: posts[i].url,
+            pic: posts[i].pic,
             thumbnail: posts[i].thumbnail,
             selftext: posts[i].selftext,
             subreddit: posts[i].subreddit,
@@ -168,6 +189,7 @@ exports.news = function () {
           _id: posts[i].id,
           title: posts[i].title,
           url: posts[i].url,
+          pic: posts[i].pic,
           thumbnail: posts[i].thumbnail,
           selftext: posts[i].selftext,
           subreddit: posts[i].subreddit

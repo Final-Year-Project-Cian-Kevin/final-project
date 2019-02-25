@@ -13,6 +13,10 @@ var RedditNews = new mongoose.Schema({
     type: String,
     required: true
   },
+  pic: {
+    type: String,
+    required: false
+  },
   thumbnail: {
     type: String,
     required: true
