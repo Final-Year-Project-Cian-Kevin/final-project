@@ -51,8 +51,14 @@ export class RedditApiService {
       catchError(this.handleError));
   }
 
-  getPostsPH(): Observable<any> {
-    return this.http.get("/api/redditapi/PH", httpOptions).pipe(
+  getPostsPF(): Observable<any> {
+    return this.http.get("/api/redditapi/pf", httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getPostsNews(): Observable<any> {
+    return this.http.get("/api/redditapi/news", httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }

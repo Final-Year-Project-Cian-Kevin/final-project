@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 var config = require('./config/database');
-var reddit = require('./jobs/RedditDatabase.js');
+var redditJob = require('./jobs/RedditDatabase.js');
 
 var app = express();
 app.use(logger('dev'));
@@ -78,10 +78,12 @@ app.use(function(err, req, res, next) {
   console.log("Debug : aap.js60."+err.status);
 });
 
-reddit.pop();
+redditJob.pop();
+redditJob.news();
 
 cron.schedule('* * * * *', () => {
-  reddit.pop();
+  redditJob.pop();
+  redditJob.news();
 });
 
 module.exports = app;

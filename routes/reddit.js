@@ -2,17 +2,29 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var RedditPop = require('../models/Reddit/PopularFunny.js');
+var RedditNews = require('../models/Reddit/News.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
 
 /* 
 Get method for ProgrammerHumor subreddit 
-Link - /redditapi/PH
+Link - /redditapi/pf
 */
-router.get('/ph', function(req, res){
+router.get('/pf', function(req, res){
     RedditPop.find(function (err, posts) {
         if (err) return next(err);
         res.json(posts);
-      });
+    });
+});
+
+/* 
+Get method for ProgrammerHumor subreddit 
+Link - /redditapi/news
+*/
+router.get('/news', function(req, res){
+    RedditNews.find(function (err, posts) {
+        if (err) return next(err);
+        res.json(posts);
+    });
 });
 
 /* 
@@ -23,7 +35,7 @@ router.get('/all', function(req, res){
     Reddit.find(function (err, posts) {
         if (err) return next(err);
         res.json(posts);
-      });
+    });
 });
 
 /* 

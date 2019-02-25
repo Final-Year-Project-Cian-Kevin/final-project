@@ -11,7 +11,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 })
 export class PostRedditComponent implements OnInit {
 
-  posts: any;
+  postsPopular: any;
+  postsNews: any;
 
   constructor(private api: RedditApiService, private router: Router, private titleService: Title) { }
 
@@ -20,16 +21,26 @@ export class PostRedditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getPostsPH()
+    this.api.getPostsPF()
       .subscribe(res => {
-        this.posts = res;
+        this.postsPopular = res;
       }, err => {
         console.log(err);
         if(err.status=401){
           this.router.navigate(['login']);
         }
-      });
+    });
 
-      this.setTitle("Popular Posts");
+    this.api.getPostsNews()
+      .subscribe(res => {
+        this.postsNews = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+    });
+
+      this.setTitle("Popular Today!");
   }
 }
