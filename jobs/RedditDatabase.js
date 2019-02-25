@@ -1,13 +1,10 @@
 var request = require('request');
 var RedditPF = require('../models/Reddit/PopularFunny.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
-var fs = require('fs');
 
-// Subreddit URL
-var urlPH = "https://www.reddit.com/r/ProgrammerHumor/.json"
-var urlSG = "https://www.reddit.com/r/softwaregore/.json"
-
-var urls = [urlPH, urlSG];
+var urls = [
+  "https://www.reddit.com/r/ProgrammerHumor/.json", 
+  "https://www.reddit.com/r/softwaregore/.json"];
 
 exports.pop = function () {
 
