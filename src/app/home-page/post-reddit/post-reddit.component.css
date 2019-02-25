@@ -8,7 +8,6 @@
   background-size: cover;
 }
 
-
 div.scrollmenu {
   overflow: auto;
   white-space: nowrap;
@@ -20,8 +19,4 @@ div.scrollmenu div {
   text-align: center;
   padding: 14px;
   text-decoration: none;
-}
-
-div.scrollmenu div:hover {
-  background-color: #777;
 }

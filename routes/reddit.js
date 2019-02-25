@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var RedditPH = require('../models/Reddit/Programming-Humor.js');
+var RedditPop = require('../models/Reddit/PopularFunny.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
 
 /* 
@@ -9,7 +9,7 @@ Get method for ProgrammerHumor subreddit
 Link - /redditapi/PH
 */
 router.get('/ph', function(req, res){
-    RedditPH.find(function (err, posts) {
+    RedditPop.find(function (err, posts) {
         if (err) return next(err);
         res.json(posts);
       });

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var RedditPH = new mongoose.Schema({
+var RedditPop = new mongoose.Schema({
   _id: {
     type: String,
     required: true
@@ -29,6 +29,5 @@ var RedditPH = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-
 });
-module.exports = mongoose.model('RedditPh', RedditPH, 'RedditPh');
+module.exports = mongoose.model('RedditPop', RedditPop, 'RedditPop');

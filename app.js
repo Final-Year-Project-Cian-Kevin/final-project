@@ -78,8 +78,10 @@ app.use(function(err, req, res, next) {
   console.log("Debug : aap.js60."+err.status);
 });
 
+reddit.pop();
+
 cron.schedule('* * * * *', () => {
-  reddit.ph();
+  reddit.pop();
 });
 
 module.exports = app;
