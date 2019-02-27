@@ -35,6 +35,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RedditPostComponent } from './post/reddit-post/reddit-post.component';
 import { CommentsComponent } from './post/comments/comments.component';
 import { PostRedditComponent } from './home-page/post-reddit/post-reddit.component';
+import { PostCreateComponent } from './post/post-create/post-create.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -105,7 +106,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     RedditPostComponent,
     CommentsComponent,
-    PostRedditComponent
+    PostRedditComponent,
+    PostCreateComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

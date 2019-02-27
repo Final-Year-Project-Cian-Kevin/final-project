@@ -78,9 +78,6 @@ app.use(function(err, req, res, next) {
   console.log("Debug : aap.js60."+err.status);
 });
 
-redditJob.pop();
-redditJob.news();
-
 cron.schedule('* * * * *', () => {
   redditJob.pop();
   redditJob.news();

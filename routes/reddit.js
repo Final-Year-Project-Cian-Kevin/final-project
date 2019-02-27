@@ -16,6 +16,14 @@ router.get('/pf', function(req, res){
     });
 });
 
+/* Create post */
+router.post('/post', function(req, res, next) {
+    Reddit.create(req.body, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
+});
+
 /* 
 Get method for ProgrammerHumor subreddit 
 Link - /redditapi/news
