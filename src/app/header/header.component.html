@@ -34,6 +34,7 @@
     <!-- Show if user is logged in -->
     <div *ngIf="userService.isLoggedIn()">
       <form class="form-inline">
+        >
         <a mat-raised-button color="primary" [routerLink]="['/index']"><mat-icon>home</mat-icon></a>
         <button class="btn btn-primary" (click)="logout()">Logout</button>
         <a mat-raised-button color="secondary" [routerLink]="['/profile']">

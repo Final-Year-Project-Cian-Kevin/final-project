@@ -30,6 +30,14 @@ export class HeaderComponent implements OnInit {
         if (this.userService.isLoggedIn) {
           console.log("User is logged in" + this.data);
           var user = this.userService.getUserData();
+          var curUser = this.userService.getUserPayLoad();
+          this.userService.setCurrentUser(curUser);
+          console.log("------- I AM A CHANGE___________");
+
+          console.log("User is logged in" , this.data);
+          console.log("User logged in is>>");
+          console.log(this.userService.currentUser);
+
           this.loginData.username = user + "";
         }
       }, err => {

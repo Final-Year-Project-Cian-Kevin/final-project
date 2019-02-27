@@ -62,7 +62,7 @@ export class UserService {
       );
   }
 
-  isLoggedIn() :boolean{
+  isLoggedIn(): boolean {
     var currentToken = this.getJwtToken();
     if (currentToken) {
       return true;
@@ -71,6 +71,11 @@ export class UserService {
     }
   }
 
+  // set current logged in user
+  setCurrentUser(user) {
+    this.currentUser = user;
+  }
+  
   getUserPayLoad() {
     var token = this.getJwtToken();
     if (token) {
@@ -80,7 +85,7 @@ export class UserService {
     }
     else {
       return null;
-    } 
+    }
   }
 
   getUserData(): Observable<any> {
