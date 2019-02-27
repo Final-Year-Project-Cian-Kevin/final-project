@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   message = '';
   data: any;
 
-  constructor(private userService: UserService,private router: Router) { }
+  constructor(public userService: UserService,private router: Router) { }
 
   ngOnInit() {
   }
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
           var user = this.userService.getUserData();
           var curUser = this.userService.getUserPayLoad();
           this.userService.setCurrentUser(curUser);
-          console.log("------- I AM A CHANGE___________");
+          console.log("------- I AM A New CHANGE___________");
 
           console.log("User is logged in" , this.data);
           console.log("User logged in is>>");

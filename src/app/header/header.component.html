@@ -34,13 +34,20 @@
     <!-- Show if user is logged in -->
     <div *ngIf="userService.isLoggedIn()">
       <form class="form-inline">
-        >
+        
         <a mat-raised-button color="primary" [routerLink]="['/index']"><mat-icon>home</mat-icon></a>
-        <button class="btn btn-primary" (click)="logout()">Logout</button>
+
         <a mat-raised-button color="secondary" [routerLink]="['/profile']">
           <mat-icon>person</mat-icon>
         </a>
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
+     
+        <span *ngIf="userService.isLoggedIn() && userService.currentUser">
+            {{ userService.currentUser.username }}
+            <span class="divider">|</span>
+            <button class="btn btn-primary" (click)="logout()">Logout</button>   
+        </span>
+     
       </form>
     </div>
   </div>
