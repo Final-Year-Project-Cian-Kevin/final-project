@@ -27,17 +27,23 @@ export class LoginComponent implements OnInit {
 
   // Login a user
   login() {
-    console.log(`Enter login func`);
     this.userService.loginUser(this.loginData)
       .subscribe(resp => {
         this.data = resp;
         // Save response jwtToken
         this.userService.saveJwtToken(this.data.token);
         this.router.navigate(['index']);
+
+        // Check if user is logged in
         if (this.userService.isLoggedIn) {
           console.log("User is logged in");
           this.data = this.userService.getUserPayLoad();
 
+          // Get user details
+          var curUser = this.userService.getUserPayLoad();
+
+          // Set logged in user as current user
+          this.userService.setCurrentUser(curUser);
         }
       }, err => {
         this.message = err.error.msg;
