@@ -62,4 +62,11 @@ export class RedditApiService {
       map(this.extractData),
       catchError(this.handleError));
   }
+
+  postCreate(data): Observable<any> {
+    return this.http.post("/api/redditapi/post", data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 }

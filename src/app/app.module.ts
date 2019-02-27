@@ -69,6 +69,11 @@ const appRoutes: Routes = [
     component: RedditPostComponent,
     data: { title: 'Post' }
   },
+  {
+    path: 'post-create',
+    component: PostCreateComponent,
+    data: { title: 'Create New Post' }
+  },
 
   {
     path: 'books',

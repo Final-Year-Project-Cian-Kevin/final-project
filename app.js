@@ -45,6 +45,7 @@ app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/post/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/profile/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/post-create', express.static(path.join(__dirname, 'dist/mean-angular6')));
 
 // Add API route to endpoint URL
 app.use('/api', apiRouter);
