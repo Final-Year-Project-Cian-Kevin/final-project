@@ -3,3 +3,25 @@
   username {{profile.email}}
   bio {{profile.bio}}
 </p>
+<mat-card class="profile-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{profile.first_name}} {{profile.surname}}</mat-card-title>
+      <mat-card-subtitle>{{profile.username}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+          {{profile.bio}}
+      </p>
+      <p>
+         Email : {{profile.email}}
+      </p>
+      <p>
+         User since : {{profile.join_date}}
+       </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
