@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
     this.userService.updateUser(this.userService.currentUser.id, form)
       .subscribe(res => {
           let id = res['_id'];
-          this.router.navigate(['/profile',this.userService.currentUser.id]);
+          this.router.navigate(['/profile',this.userService.currentUser.username]);
         }, (err) => {
           console.log(err);
         }
