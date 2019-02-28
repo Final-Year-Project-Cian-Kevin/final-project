@@ -102,6 +102,14 @@ export class UserService {
       catchError(this.handleError));
   }
 
+  updateUser(id: string, data): Observable<any> {
+    const url = `${userApiURL}/update/${id}`;
+    return this.http.put(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  
   // Error Handler
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

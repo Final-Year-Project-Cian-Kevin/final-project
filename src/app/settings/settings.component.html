@@ -1,3 +1,14 @@
 <p>
-  settings works!
+  current user {{ userService.currentUser.username }}
 </p>
+<form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit(settingsForm.value)">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="email" formControlName="email" [errorStateMatcher]="matcher">
+    <mat-error>
+      <span *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">Please enter email</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="button-row">
+      <button type="submit" [disabled]="!settingsForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+    </div>
+  <form>
