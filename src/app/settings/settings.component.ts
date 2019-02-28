@@ -11,11 +11,21 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
   email: string = '';
+  first_name: string = '';
+  surname: string = '';
+  bio: string = '';
+  password: string = '';
+
   constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.settingsForm = this.formBuilder.group({
-      'email': [null, Validators.required]
+      'email': [null, Validators.required],
+      'first_name': [null, Validators.required],
+      'surname': [null, Validators.required],
+      'bio': [null, Validators.required],
+      'password': [null, Validators.required]
+      
 
     });
   }
