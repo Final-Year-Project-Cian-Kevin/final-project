@@ -6,7 +6,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 // Import plugin for file upload
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
-const URL = 'http://localhost:3000/api/assets';
+const URL = 'http://localhost:3000/api/assets/';
 
 @Component({
   selector: 'app-settings',

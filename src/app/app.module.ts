@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import the ng2-file-upload directive for uploading images 
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import {
   MatInputModule,
@@ -111,7 +113,8 @@ const appRoutes: Routes = [
     RedditPostComponent,
     CommentsComponent,
     PostRedditComponent,
-    SettingsComponent
+    SettingsComponent,
+    FileSelectDirective
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

@@ -7,7 +7,7 @@ var path = require('path');
 var multer = require('multer');
 
 // set the directory for the uploads to the uploaded to
-var DIR = '/../assets/';
+var DIR = './assets/';
 
 //define the type of upload multer would be doing and pass in its destination, in our case, its a single file with the name photo
 var upload = multer({dest: DIR}).single('photo');
