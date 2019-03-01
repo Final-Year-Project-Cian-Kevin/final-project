@@ -10,42 +10,64 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 })
 export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
-  email: string = '';
+  //email: string = '';
   first_name: string = '';
   surname: string = '';
   bio: string = '';
-  password: string = '';
+  email = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
   constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.setForm(this.userService.currentUser.username);
     this.settingsForm = this.formBuilder.group({
-      'email': [null, Validators.required],
+      'email': [Validators.email, Validators.required],
       'first_name': [null, Validators.required],
       'surname': [null, Validators.required],
-      'bio': [null, Validators.required],
-      'password': [null, Validators.required]
-      
+      'bio': [null, Validators.required]
+
+
 
     });
   }
 
   // set initial values for form
-  setForm() {
-    this.settingsForm.setValue({
-      email: this.userService.currentUser.email
-     
-    });
+  setForm(id) {
+    console.log("+++++++++++++++++ SetForm Settings");
+
+
+    this.userService.getProfile(id)
+      .subscribe(data => {
+        this.settingsForm.setValue({
+          email: data.email,
+          first_name: data.first_name,
+          surname: data.surname,
+          bio: data.bio
+
+        });
+        console.log("User in settings");
+        console.log(data);
+      });
+    
+      console.log("User out set settings");
+
+
+
+
+
   }
 
-  onFormSubmit(form:NgForm) {
+  onFormSubmit(form: NgForm) {
     this.userService.updateUser(this.userService.currentUser.id, form)
       .subscribe(res => {
-          let id = res['_id'];
-          this.router.navigate(['/profile',this.userService.currentUser.username]);
-        }, (err) => {
-          console.log(err);
-        }
+        let id = res['_id'];
+        this.router.navigate(['/profile', this.userService.currentUser.username]);
+      }, (err) => {
+        console.log(err);
+      }
       );
   }
 }

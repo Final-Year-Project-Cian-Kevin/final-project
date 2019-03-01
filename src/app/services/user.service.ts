@@ -75,7 +75,12 @@ export class UserService {
   setCurrentUser(user) {
     this.currentUser = user;
   }
-  
+
+  // Get the current user
+  getCurrentUser() {
+    return this.currentUser
+  }
+
   getUserPayLoad() {
     var token = this.getJwtToken();
     if (token) {
@@ -109,7 +114,7 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-  
+
   // Error Handler
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

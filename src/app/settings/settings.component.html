@@ -2,11 +2,21 @@
   current user {{ userService.currentUser.username }}
 </p>
 <form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit(settingsForm.value)">
-
+<!--
   <mat-form-field class="example-full-width">
     <input matInput placeholder="email" formControlName="email" [errorStateMatcher]="matcher">
     <mat-error>
       <span *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">Please enter email</span>
+    </mat-error>
+  </mat-form-field>
+-->
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-error *ngIf="settingsForm.hasError('email') && !settingsForm.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="settingsForm.hasError('required')">
+      Email is <strong>required</strong>
     </mat-error>
   </mat-form-field>
 
@@ -31,13 +41,6 @@
       <span *ngIf="!settingsForm.get('bio').valid && settingsForm.get('bio').touched">Please enter bio</span>
     </mat-error>
   </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-      <input matInput placeholder="password" formControlName="password" [errorStateMatcher]="matcher">
-      <mat-error>
-        <span *ngIf="!settingsForm.get('password').valid && settingsForm.get('password').touched">Please enter password</span>
-      </mat-error>
-    </mat-form-field>
 
   <div class="button-row">
     <button type="submit" [disabled]="!settingsForm.valid" mat-raised-button color="primary">

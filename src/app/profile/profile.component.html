@@ -1,7 +1,9 @@
 
 <mat-card class="profile-card">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
+      <div mat-card-avatar class="example-header-image">
+        <img alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
+      </div>
       <mat-card-title>{{profile.first_name}} {{profile.surname}}</mat-card-title>
       <mat-card-subtitle>{{profile.username}}</mat-card-subtitle>
     </mat-card-header>
