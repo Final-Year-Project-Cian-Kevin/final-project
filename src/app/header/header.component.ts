@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
         // Check if user is logged in
         if (this.userService.isLoggedIn) {
-          var user = this.userService.getUserData();
+         // var user = this.userService.getUserData();
 
           // Get user details
           var curUser = this.userService.getUserPayLoad();
@@ -40,9 +40,10 @@ export class HeaderComponent implements OnInit {
           //this.loginData.username = user + "";
         }
       }, err => {
-        
+
         this.message = err.error.msg;
-        console.error("LOGIN COMPONENT", this.message);
+        
+        // if an error route to main login page
         this.router.navigate(['login']);
 
       });
