@@ -37,9 +37,10 @@ export class HeaderComponent implements OnInit {
           // Set logged in user as current user
           this.userService.setCurrentUser(curUser);
          
-          this.loginData.username = user + "";
+          //this.loginData.username = user + "";
         }
       }, err => {
+        
         this.message = err.error.msg;
         console.error("LOGIN COMPONENT", this.message);
         this.router.navigate(['login']);

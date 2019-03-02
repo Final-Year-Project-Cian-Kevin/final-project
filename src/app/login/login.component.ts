@@ -30,6 +30,9 @@ export class LoginComponent implements OnInit {
     this.userService.loginUser(this.loginData)
       .subscribe(resp => {
         this.data = resp;
+        console.error("LOGIN resp errrrr=============");
+        console.error(resp);
+        console.error("LOGIN resp errrrr=============");
         // Save response jwtToken
         this.userService.saveJwtToken(this.data.token);
         this.router.navigate(['index']);
@@ -46,6 +49,10 @@ export class LoginComponent implements OnInit {
           this.userService.setCurrentUser(curUser);
         }
       }, err => {
+        console.error("LOGIN test errrrr=============");
+        console.error(err);
+        console.error("LOGIN test errrrr=============");
+
         this.message = err.error.msg;
         console.error("LOGIN COMPONENT", this.message)
       });

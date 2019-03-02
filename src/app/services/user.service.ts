@@ -48,10 +48,10 @@ export class UserService {
   loginUser(data): Observable<any> {
     let baseObject;
 
-    return this.http.post(`${userApiURL}/signin`, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post(`${userApiURL}/signin`, data, httpOptions);
+     // .pipe(
+     //   catchError(this.handleError)
+    //  );
   }
 
   // Post save a user
