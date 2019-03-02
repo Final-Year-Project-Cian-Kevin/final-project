@@ -120,7 +120,11 @@ router.get('/profile/:id', function (req, res, next) {
 
 // Update profile
 router.put('/update/:id', function (req, res, next) {
-  User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+  console.log("Update test ===== req.params.id");
+  console.log(req.params.id);
+  console.log("Update test ===== req.body");
+  console.log(req.body);
+    User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
     if (err) return next(err);
     res.json(user);
   });

@@ -18,18 +18,24 @@ router.get('/images/:id', function (req, res, next) {
 });
 
 
-//our file upload function.
+/** 
+ * Upload a file to the server
+ * returns the file name used to access the image
+*/
 router.post('/', function (req, res, next) {
     var path = '';
+
     upload(req, res, function (err) {
        if (err) {
          // An error occurred when uploading
          console.log(err);
-         return res.status(422).send("an Error occured")
+         return res.status(422).send("An Error occured uploading a file")
        }  
       // No error occured.
-       path = req.file.path;
-       return res.send("Upload Completed for "+path); 
+       console.log('\x1b[32m%s\x1b[0m', 'INFO: Photo uploaded');
+       return res.send({image : req.file.filename}); 
+       
+
  });     
 })
 module.exports = router;
