@@ -12,6 +12,7 @@ var jwt = require('jsonwebtoken');
 // Import required models
 var User = require("../models/user");
 var Profile = require("../models/profile");
+var Follow = require("../models/follow");
 
 /**
  * Create router to register new user
@@ -130,5 +131,38 @@ router.put('/update/:id', function (req, res, next) {
   });
 });
 
+// add follower and following to db
+router.post('/follow', function(req, res) {
+  const user_id = req.user._id;
+  const follow = req.body.follow_id;
+
+  // Inilise bulk object
+  let followBuilder = Follow.collection.initializeUnorderedBulkOp();
+
+  // add main user
+  followBuilder.find({ 'user': Types.ObjectId(user_id) }).upsert().updateOne({
+      $addToSet: {
+          following: Types.ObjectId(follow)
+      }
+  });
+  //add follower
+  followBuilder.find({ 'user': Types.ObjectId(follow) }).upsert().updateOne({
+      $addToSet: {
+          followers: Types.ObjectId(user_id)
+      }
+  })
+  followBuilder.execute(function(err, doc) {
+      if (err) {
+          return res.json({
+              'state': false,
+              'msg': err
+          })
+      }
+      res.json({
+          'state': true,
+          'msg': 'Followed'
+      })
+  })
+})
 // export router as module
 module.exports = router;
