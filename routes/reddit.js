@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var RedditPop = require('../models/Reddit/PopularFunny.js');
 var RedditNews = require('../models/Reddit/News.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
+var UserPost = require('../models/UserPosts.js');
 
 /* 
 Get method for ProgrammerHumor subreddit 
@@ -27,6 +28,11 @@ router.post('/post', function(req, res, next) {
     }
 
     Reddit.create(req.body, function (err, post) {
+        if (err) return next(err);
+        res.json(post);
+    });
+
+    UserPost.create(req.body, function (err, post) {
       if (err) return next(err);
       res.json(post);
     });

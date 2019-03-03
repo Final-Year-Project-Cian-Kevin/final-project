@@ -13,11 +13,15 @@ var UserPost = new mongoose.Schema({
     type: String,
     required: true
   },
+  pic: {
+    type: String,
+    required: false
+  },
   thumbnail: {
     type: String,
     required: false
   },
-  profileID: {
+  subreddit: {
     type: String,
     required: true
   },
@@ -29,5 +33,6 @@ var UserPost = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+
 });
 module.exports = mongoose.model('UserPost', UserPost, 'UserPost');
