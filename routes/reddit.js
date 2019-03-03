@@ -18,7 +18,15 @@ router.get('/pf', function(req, res){
 
 /* Create post */
 router.post('/post', function(req, res, next) {
+
+    console.log(req.body);
+
+    if(['.png', '.gif', '.jpg', '.jpeg'].indexOf(req.body.url) >= 0){
+        console.log(req.body.url);
+    }
+
     Reddit.create(req.body, function (err, post) {
+        
       if (err) return next(err);
       res.json(post);
     });

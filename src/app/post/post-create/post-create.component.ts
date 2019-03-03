@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RedditApiService } from '../../services/reddit-api.service';
+import { UserService } from '../../services/user.service';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
@@ -12,31 +13,49 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 export class PostCreateComponent implements OnInit {
 
   postForm: FormGroup;
-  _id:string='';
+  _id:string;
   title:string='';
   url:string='';
-  subreddit:string='';
+  thumbnail:string='';
+  subreddit;
   selftext:string='';
 
-  constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private formBuilder: FormBuilder, private userAPI: UserService) { }
 
   ngOnInit() {
-    this.postForm = this.formBuilder.group({
-      '_id' : [null],
-      'title' : [null, Validators.required],
-      'url' : [null, Validators.required],
-      'subreddit' : [null],
-      'selftext' : [null, Validators.required]
+    this.userAPI.getUserData()
+    .subscribe(res => {
+      this.subreddit = res;
+    }, err => {
+      console.log(err);
+      if(err.status=401){
+        this.router.navigate(['login']);
+      }
     });
 
-    this.postForm.patchValue({
-      _id: "test",
-      subreddit: "Test"
+    this.postForm = this.formBuilder.group({
+      '_id' : this._id,
+      'title' : [null, Validators.required],
+      'url' : [null, Validators.required],
+      'thumbnail' : [null],
+      'subreddit' : this.subreddit,
+      'selftext' : [null, Validators.required]
     });
   }
 
   onFormSubmit(form:NgForm) {
-    this.api.postCreate(form)
+
+    this._id = this.subreddit + "-" +Math.floor(Math.random() * 99999999) + 1;
+
+    this.postForm.patchValue({
+      _id: this._id,
+      subreddit: this.subreddit
+    });
+
+    console.log(this.postForm.value);
+    console.log(form.value);
+
+    this.api.postCreate(this.postForm.value)
       .subscribe(res => {
           let id = res['_id'];
           this.router.navigate(['/index']);
@@ -44,5 +63,4 @@ export class PostCreateComponent implements OnInit {
           console.log(err);
     });
   }
-
 }
