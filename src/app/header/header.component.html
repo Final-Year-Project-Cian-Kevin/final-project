@@ -37,12 +37,13 @@
     <!-- Show if user is logged in -->
     <div *ngIf="userService.isLoggedIn()">
       <form class="form-inline">
-        <a mat-raised-button color="primary" [routerLink]="['/post-create']">
-          <mat-icon>local_post_office</mat-icon>
-        </a>
-        
+
         <a mat-raised-button color="primary" [routerLink]="['/index']">
           <mat-icon>home</mat-icon>
+        </a>
+
+        <a mat-raised-button color="primary" [routerLink]="['/post-create']">
+          <mat-icon>local_post_office</mat-icon>
         </a>
 
         <a mat-raised-button color="secondary" [routerLink]="['/settings']">
