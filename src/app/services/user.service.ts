@@ -62,13 +62,23 @@ export class UserService {
       );
   }
 
-  isLoggedIn() :boolean{
+  isLoggedIn(): boolean {
     var currentToken = this.getJwtToken();
     if (currentToken) {
       return true;
     } else {
       return false;
     }
+  }
+
+  // set current logged in user
+  setCurrentUser(user) {
+    this.currentUser = user;
+  }
+
+  // Get the current user
+  getCurrentUser() {
+    return this.currentUser
   }
 
   getUserPayLoad() {
@@ -80,7 +90,7 @@ export class UserService {
     }
     else {
       return null;
-    } 
+    }
   }
 
   getUserData(): Observable<any> {
@@ -95,6 +105,14 @@ export class UserService {
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
+  }
+
+  updateUser(id: string, data): Observable<any> {
+    const url = `${userApiURL}/update/${id}`;
+    return this.http.put(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // Error Handler

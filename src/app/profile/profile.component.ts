@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { BrowserModule, Title }  from '@angular/platform-browser';
+import { Profile } from 'selenium-webdriver/firefox';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,6 @@ import { BrowserModule, Title }  from '@angular/platform-browser';
 })
 export class ProfileComponent implements OnInit {
   profile={};
-
 
   constructor(private route: ActivatedRoute, private router: Router, private userAPI: UserService, private titleService: Title) { }
 

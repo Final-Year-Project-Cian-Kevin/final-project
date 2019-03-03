@@ -35,6 +35,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RedditPostComponent } from './post/reddit-post/reddit-post.component';
 import { CommentsComponent } from './post/comments/comments.component';
 import { PostRedditComponent } from './home-page/post-reddit/post-reddit.component';
+import { SettingsComponent } from './settings/settings.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
 
 // Angular Routes
@@ -74,6 +75,11 @@ const appRoutes: Routes = [
     component: PostCreateComponent,
     data: { title: 'Create New Post' }
   },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    data: { title: 'Settings' }
+  },
 
   {
     path: 'books',
@@ -112,6 +118,7 @@ const appRoutes: Routes = [
     RedditPostComponent,
     CommentsComponent,
     PostRedditComponent,
+    SettingsComponent,
     PostCreateComponent
   ],
   imports: [

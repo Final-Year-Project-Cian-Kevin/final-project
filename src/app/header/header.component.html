@@ -14,14 +14,17 @@
     <!-- Do not show if user is logged in-->
     <div *ngIf="!userService.isLoggedIn()">
       <form class="form-inline">
-        <a mat-raised-button color="primary" [routerLink]="['/index']"><mat-icon>home</mat-icon></a>
+        <a mat-raised-button color="primary" [routerLink]="['/index']">
+          <mat-icon>home</mat-icon>
+        </a>
         <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {{message}}
         </div>
         <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
           <input type="text" class="form-control" [(ngModel)]="loginData.username" name="username" placeholder="Username...."
-            required />-<input type="password" class="form-control" [(ngModel)]="loginData.password" name="password" placeholder="Password...." required />
+            required />-<input type="password" class="form-control" [(ngModel)]="loginData.password" name="password"
+            placeholder="Password...." required />
           <button class="btn btn-primary" type="submit" [disabled]="!loginForm.form.valid">Login</button>
 
           <!-- Bind anchor to state to automatically generate and update ref-->
@@ -34,13 +37,25 @@
     <!-- Show if user is logged in -->
     <div *ngIf="userService.isLoggedIn()">
       <form class="form-inline">
-        <a mat-raised-button color="primary" [routerLink]="['/index']"><mat-icon>home</mat-icon></a>
-        <a mat-raised-button color="primary" [routerLink]="['/post-create']"><mat-icon>local_post_office</mat-icon></a>
-        <button class="btn btn-primary" (click)="logout()">Logout</button>
-        <a mat-raised-button color="secondary" [routerLink]="['/profile']">
+        <a mat-raised-button color="primary" [routerLink]="['/post-create']">
+          <mat-icon>local_post_office</mat-icon>
+        </a>
+        
+        <a mat-raised-button color="primary" [routerLink]="['/index']">
+          <mat-icon>home</mat-icon>
+        </a>
+
+        <a mat-raised-button color="secondary" [routerLink]="['/settings']">
           <mat-icon>person</mat-icon>
         </a>
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
+        <div class="header-page">
+          <span *ngIf="userService.isLoggedIn() && userService.currentUser">
+            {{ userService.currentUser.username }}
+            <span class="divider">|</span>
+            <button class="btn btn-primary" (click)="logout()">Logout</button>
+          </span>
+        </div>
       </form>
     </div>
   </div>

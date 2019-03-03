@@ -14,22 +14,29 @@ export class HeaderComponent implements OnInit {
   message = '';
   data: any;
 
-  constructor(private userService: UserService,private router: Router) { }
+  constructor(public userService: UserService,private router: Router) { }
 
   ngOnInit() {
   }
   //Login a user
   login() {
-    console.log(`Enter login func`);
     this.userService.loginUser(this.loginData)
       .subscribe(resp => {
         this.data = resp;
         // Save response jwtToken
         this.userService.saveJwtToken(this.data.token);
         this.router.navigate(['index']);
+
+        // Check if user is logged in
         if (this.userService.isLoggedIn) {
-          console.log("User is logged in" + this.data);
           var user = this.userService.getUserData();
+
+          // Get user details
+          var curUser = this.userService.getUserPayLoad();
+
+          // Set logged in user as current user
+          this.userService.setCurrentUser(curUser);
+         
           this.loginData.username = user + "";
         }
       }, err => {

@@ -35,7 +35,7 @@ var UserSchema = new mongoose.Schema({
   },
   image:{
     type: String,
-    default: 'img string'
+    default: 'profile.jpg'
   },
   password: {
     type: String,

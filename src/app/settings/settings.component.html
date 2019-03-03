@@ -1,0 +1,50 @@
+<p>
+  current user {{ userService.currentUser.username }}
+</p>
+<form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit(settingsForm.value)">
+<!--
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="email" formControlName="email" [errorStateMatcher]="matcher">
+    <mat-error>
+      <span *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">Please enter email</span>
+    </mat-error>
+  </mat-form-field>
+-->
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-error *ngIf="settingsForm.hasError('email') && !settingsForm.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="settingsForm.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="first_name" formControlName="first_name" [errorStateMatcher]="matcher">
+    <mat-error>
+      <span *ngIf="!settingsForm.get('first_name').valid && settingsForm.get('first_name').touched">Please enter
+        firstname</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="surname" formControlName="surname" [errorStateMatcher]="matcher">
+    <mat-error>
+      <span *ngIf="!settingsForm.get('surname').valid && settingsForm.get('surname').touched">Please enter surname</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="bio" formControlName="bio" [errorStateMatcher]="matcher">
+    <mat-error>
+      <span *ngIf="!settingsForm.get('bio').valid && settingsForm.get('bio').touched">Please enter bio</span>
+    </mat-error>
+  </mat-form-field>
+
+  <div class="button-row">
+    <button type="submit" [disabled]="!settingsForm.valid" mat-raised-button color="primary">
+      <mat-icon>save</mat-icon>
+    </button>
+  </div>
+  <form>

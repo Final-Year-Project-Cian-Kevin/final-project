@@ -1,0 +1,11 @@
+.profile-card {
+  margin: auto;
+  width: 50%;
+  border: 3px solid blue;
+  padding: 10px;
+  }
+  
+  .example-header-image {
+
+    background-size: cover;
+  }
