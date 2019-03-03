@@ -63,6 +63,12 @@ export class RedditApiService {
       catchError(this.handleError));
   }
 
+  getPostsUser(): Observable<any> {
+    return this.http.get("/api/redditapi/userpost", httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
   postCreate(data): Observable<any> {
     return this.http.post("/api/redditapi/postall", data, httpOptions)
       .pipe(

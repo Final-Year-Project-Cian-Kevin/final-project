@@ -14,6 +14,7 @@ router.post('/postall', function(req, res, next) {
         req.body.thumbnail = req.body.url;
     }else{
         req.body.pic = "";
+        req.body.thumbnail = 'http://localhost:3000/api/assets/images/userContent.jpg';
     }
 
     Reddit.create(req.body, function (err, post) {
@@ -30,6 +31,7 @@ router.post('/postuser', function(req, res, next) {
         req.body.thumbnail = req.body.url;
     }else{
         req.body.pic = "";
+        req.body.thumbnail = 'http://localhost:3000/api/assets/images/userContent.jpg';
     }
 
     UserPost.create(req.body, function (err, post) {

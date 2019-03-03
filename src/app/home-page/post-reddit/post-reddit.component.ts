@@ -13,6 +13,7 @@ export class PostRedditComponent implements OnInit {
 
   postsPopular: any;
   postsNews: any;
+  postsUser: any;
 
   constructor(private api: RedditApiService, private router: Router, private titleService: Title) { }
 
@@ -40,6 +41,16 @@ export class PostRedditComponent implements OnInit {
           this.router.navigate(['login']);
         }
     });
+
+    this.api.getPostsUser()
+    .subscribe(res => {
+      this.postsUser = res;
+    }, err => {
+      console.log(err);
+      if(err.status=401){
+        this.router.navigate(['login']);
+      }
+  });
 
       this.setTitle("Popular Today!");
   }
