@@ -37,13 +37,14 @@ export class PostCreateComponent implements OnInit {
       '_id' : this._id,
       'title' : [null, Validators.required],
       'url' : [null, Validators.required],
+      'pic' : [null],
       'thumbnail' : [null],
       'subreddit' : this.subreddit,
       'selftext' : [null, Validators.required]
     });
   }
 
-  onFormSubmit(form:NgForm) {
+  onFormSubmit() {
 
     this._id = this.subreddit + "-" +Math.floor(Math.random() * 99999999) + 1;
 
@@ -53,7 +54,6 @@ export class PostCreateComponent implements OnInit {
     });
 
     console.log(this.postForm.value);
-    console.log(form.value);
 
     this.api.postCreate(this.postForm.value)
       .subscribe(res => {

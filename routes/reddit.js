@@ -19,14 +19,14 @@ router.get('/pf', function(req, res){
 /* Create post */
 router.post('/post', function(req, res, next) {
 
-    console.log(req.body);
-
-    if(['.png', '.gif', '.jpg', '.jpeg'].indexOf(req.body.url) >= 0){
-        console.log(req.body.url);
+    if(req.body.url.indexOf(".png") > -1 || req.body.url.indexOf(".jpg") > -1 || req.body.url.indexOf(".gif") > -1 || req.body.url.indexOf(".jpeg") > -1){
+        req.body.pic = req.body.url;
+        req.body.thumbnail = req.body.url;
+    }else{
+        req.body.pic = "";
     }
 
     Reddit.create(req.body, function (err, post) {
-        
       if (err) return next(err);
       res.json(post);
     });
