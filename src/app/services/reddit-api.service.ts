@@ -64,7 +64,14 @@ export class RedditApiService {
   }
 
   postCreate(data): Observable<any> {
-    return this.http.post("/api/redditapi/post", data, httpOptions)
+    return this.http.post("/api/redditapi/postall", data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  postCreateUser(data): Observable<any> {
+    return this.http.post("/api/redditapi/postuser", data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
