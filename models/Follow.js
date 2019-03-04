@@ -1,6 +1,8 @@
+var mongoose = require('mongoose');
+
 let Schema = mongoose.Schema;
 
-let FollowSchema = new Schema({
+var FollowSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

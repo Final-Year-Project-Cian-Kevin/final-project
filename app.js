@@ -44,6 +44,8 @@ app.use(express.static(path.join(__dirname, 'dist/mean-angular6')));
 //create a cors middleware , that adds the cors origin header ro the response, as well as allowed methods for that origin
 app.use(function(req, res, next) {
   //set headers to allow cross origin request.
+  console.log("[SERVER INFO]: Access control");
+
       res.header("Access-Control-Allow-Origin", "*");
       res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

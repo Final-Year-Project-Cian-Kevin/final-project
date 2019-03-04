@@ -114,6 +114,15 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+    /**
+     * Follow a user  */
+    followUser(data): Observable<any> {
+      const url = `${userApiURL}/follow`;
+      return this.http.post(url, data, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
 
   // Error Handler
   private handleError(error: HttpErrorResponse) {

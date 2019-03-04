@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private userAPI: UserService, private titleService: Title) { }
 
-  public setTitle( newTitle: string) {
+  public setTitle( newTitle: string) { 
     this.titleService.setTitle( newTitle );
   }
 
@@ -30,6 +30,32 @@ export class ProfileComponent implements OnInit {
       });
 
       
+  }
+
+  /**
+   * 
+   * @param id the users id
+   */
+  follow(){
+    var user = this.userAPI.getCurrentUser();
+    console.log("[DEBUG]: follow");
+    console.log(user);
+    const user_id = user.id;
+    const follow_id  =this.route.snapshot.params['id'];
+
+    var followUser={
+      user_id:user_id,
+      follow_id:follow_id
+    };
+    this.userAPI.followUser(followUser)
+      .subscribe(res => {
+        let id = res['_id'];
+        this.router.navigate(['/profile', this.userAPI.currentUser.username]);
+      }, (err) => {
+        console.log(err);
+      }
+      );
+
   }
 
 }
