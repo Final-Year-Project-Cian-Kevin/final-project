@@ -75,6 +75,17 @@ router.get('/userpost', function(req, res){
 });
 
 /* 
+Get method for User Posts with user id
+Link - /redditapi/userpostid
+*/
+router.get('/userpostid/:id', function(req, res){
+    UserPost.find({subreddit: req.params.id}).sort({date: 'desc'}).limit(10).exec(function(err, posts){ 
+        if (err) return next(err);
+        res.json(posts);
+     });
+});
+
+/* 
 Get method for ProgrammerHumor subreddit 
 Link - /redditapi/all
 */

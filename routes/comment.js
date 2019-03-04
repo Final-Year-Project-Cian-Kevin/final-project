@@ -16,7 +16,7 @@ router.get('/all', function(req, res){
 
 /* 
 Get method for specific comments on a post using ID
-Link - /comment/all/:id
+Link - /comment/post/:id
 */
 router.get('/post/:id', function (req, res, next) {
   Comments.find({post_id: req.params.id}, function (err, posts) {
@@ -27,14 +27,24 @@ router.get('/post/:id', function (req, res, next) {
 
 /* 
 Get method for specific comments made by a suer using user ID
-Link - /comment/all/:id
+Link - /comment/profile/:id
 */
 router.get('/profile/:id', function (req, res, next) {
   Comments.find({profile_id: req.params.id}, function (err, posts) {
-    console.log(posts);
     if (err) return next(err);
     res.json(posts);
   });
+});
+
+/* 
+Get method for specific comments made by a suer using user ID
+Link - /comment/profiledate/:id
+*/
+router.get('/profiledate/:id', function(req, res){
+  Comments.find({profile_id: req.params.id}).sort({date: 'desc'}).limit(10).exec(function(err, posts){ 
+      if (err) return next(err);
+      res.json(posts);
+   });
 });
 
 /* 
