@@ -69,6 +69,14 @@ export class RedditApiService {
       catchError(this.handleError));
   }
 
+  getRecentPostsUser(id: string): Observable<any> {
+    const url = `${"/api/redditapi/userpostid"}/${id}`;
+
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
   postCreate(data): Observable<any> {
     return this.http.post("/api/redditapi/postall", data, httpOptions)
       .pipe(

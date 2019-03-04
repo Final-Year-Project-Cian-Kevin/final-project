@@ -50,7 +50,7 @@ export class PostRedditComponent implements OnInit {
       if(err.status=401){
         this.router.navigate(['login']);
       }
-  });
+    });
 
       this.setTitle("Popular Today!");
   }

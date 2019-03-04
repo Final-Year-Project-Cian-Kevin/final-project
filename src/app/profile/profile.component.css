@@ -3,9 +3,30 @@
   width: 50%;
   border: 3px solid blue;
   padding: 10px;
-  }
+}
   
-  .example-header-image {
+.example-header-image {
+  background-size: cover;
+}
 
-    background-size: cover;
-  }
+.post-card {
+  max-width: 400px;
+  min-width: 400px;
+}
+
+.post-header-image {
+  background-size: cover;
+}
+
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu div {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
