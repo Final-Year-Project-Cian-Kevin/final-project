@@ -72,7 +72,7 @@ router.post('/signin', function (req, res) {
 
     // check if valid user
     if (!user) {
-      
+
       res.status(401).send({
         success: false,
         msg: 'Log in failed. User not found.'
@@ -93,7 +93,7 @@ router.post('/signin', function (req, res) {
           res.json({
             success: true,
 
-            token : user.generateJWT()
+            token: user.generateJWT()
           });
         } else {
           res.status(401).send({
@@ -114,7 +114,9 @@ router.get('/userdata/:id', function (req, res, next) {
 
 // Get user details for profiles
 router.get('/profile/:id', function (req, res, next) {
-  User.find({username: req.params.id}).lean().select('username bio image email first_name surname join_date').exec(function(err, user) {
+  User.find({
+    username: req.params.id
+  }).lean().select('username bio image email first_name surname join_date').exec(function (err, user) {
     res.json(user);
   });
 });
@@ -125,125 +127,146 @@ router.put('/update/:id', function (req, res, next) {
   console.log(req.params.id);
   console.log("Update test ===== req.body");
   console.log(req.body);
-    User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+  User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
     if (err) return next(err);
     res.json(user);
   });
 });
 
 // add follower and following to db
-router.post('/follow', function(req, res) {
+router.post('/follow', function (req, res) {
   console.log("[SERVER INFO]: post follow");
-console.log(req);
-  const user_id = req.user._id;
-  const to_follow_id  = req.body.follow_id;
+  console.log(req);
+  const user_id = req.body.user_id;
+  const to_follow_id = req.body.follow_id;
+
+  
+  console.log("[SERVER INFO]: user.id ",user_id);
+  console.log("[SERVER INFO]:  follow.d ",to_follow_id);
+  console.log("[SERVER INFO]:  types follow.d ",mongoose.Types.ObjectId(to_follow_id));
+
+
+  //const to_follow_id = req.body.follow_id;
 
   // Inilise bulk object
   let followBuilder = Follow.collection.initializeUnorderedBulkOp();
 
   // add main user
-  followBuilder.find({ 'user': Types.ObjectId(user_id) }).upsert().updateOne({
-      $addToSet: {
-          following: Types.ObjectId(to_follow_id )
-      }
+  followBuilder.find({
+    'user': mongoose.Types.ObjectId(user_id)
+  }).upsert().updateOne({
+    $addToSet: {
+      following: mongoose.Types.ObjectId(to_follow_id)
+    }
   });
   //add follower
-  followBuilder.find({ 'user': Types.ObjectId(to_follow_id ) }).upsert().updateOne({
-      $addToSet: {
-          followers: Types.ObjectId(user_id)
-      }
-  })
-  followBuilder.execute(function(err, doc) {
-      if (err) {
-          return res.json({
-              'state': false,
-              'msg': err
-          })
-      }
-      res.json({
-          'state': true,
-          'msg': 'Followed'
+  followBuilder.find({
+    'user': mongoose.Types.ObjectId(to_follow_id)
+  }).upsert().updateOne({
+    $addToSet: {
+      followers: mongoose.Types.ObjectId(user_id)
+    }
+  });
+  followBuilder.execute(function (err, doc) {
+    if (err) {
+      console.log("[SERVER ERROR]: ",err);
+      console.log(err);
+
+      return res.json({
+        'state': false,
+        'msg': err
       })
+    }
+    res.json({
+      'state': true,
+      'msg': 'Followed'
+    })
   })
 })
 
-router.post('/unfollow', function(req, res) {
+router.post('/unfollow', function (req, res) {
   const user_id = req.user._id;
   const to_follow_id = req.body.follow_id;
 
   let followBuilder = Follow.collection.initializeUnorderedBulkOp();
 
-  followBuilder.find({ 'user': Types.ObjectId(user_id) }).upsert().updateOne({
-      $pull: {
-          following: Types.ObjectId(to_follow_id)
-      }
+  followBuilder.find({
+    'user': Types.ObjectId(user_id)
+  }).upsert().updateOne({
+    $pull: {
+      following: Types.ObjectId(to_follow_id)
+    }
   });
 
-  followBuilder.find({ 'user': Types.ObjectId(to_follow_id) }).upsert().updateOne({
-      $pull: {
-          followers: Types.ObjectId(user_id)
-      }
+  followBuilder.find({
+    'user': Types.ObjectId(to_follow_id)
+  }).upsert().updateOne({
+    $pull: {
+      followers: Types.ObjectId(user_id)
+    }
   })
 
-  followBuilder.execute(function(err, doc) {
-      if (err) {
-          return res.json({
-              'state': false,
-              'msg': err
-          })
-      }
-      res.json({
-          'state': true,
-          'msg': 'Unfollowed'
+  followBuilder.execute(function (err, doc) {
+    if (err) {
+      return res.json({
+        'state': false,
+        'msg': err
       })
+    }
+    res.json({
+      'state': true,
+      'msg': 'Unfollowed'
+    })
   })
 })
 
-router.get('/follow/list', function(req, res) {
+router.get('/follow/list', function (req, res) {
   const username = req.query.username;
-  
-  User.findOne({ 'username': username }, function(err, user) {
-      if (!user) {
-          return res.json({
-              'state': false,
-              'msg': `No user found with username ${username}`
-          })
-      } else {
-          const user_id = user._id;
-          Follow.aggregate([{
-                  $match: {
-                      "user": Types.ObjectId(user_id)
-                  }
-              },
-              {
-                  $lookup: {
-                      "from": "user",
-                      "localField": "following",
-                      "as": "userFollowing"
-                  }
-              },
-              {
-                  $lookup: {
-                      "from": "user",
-                      "localField": "followers",
-                      "as": "userFollowers"
-                  }
-              }, {
-                  $project: {
-                      "user": 1,
-                      "userFollowers": 1,
-                      "userFollowing": 1
-                  }
-              }
-          ]).exec(function(err, doc) {
 
-              res.json({
-                  'state': true,
-                  'msg': 'Follow list',
-                  'doc': doc
-              })
-          })
-      }
+  User.findOne({
+    'username': username
+  }, function (err, user) {
+    if (!user) {
+      return res.json({
+        'state': false,
+        'msg': `No user found with username ${username}`
+      })
+    } else {
+      const user_id = user._id;
+      Follow.aggregate([{
+          $match: {
+            "user": Types.ObjectId(user_id)
+          }
+        },
+        {
+          $lookup: {
+            "from": "user",
+            "localField": "following",
+            "as": "userFollowing"
+          }
+        },
+        {
+          $lookup: {
+            "from": "user",
+            "localField": "followers",
+            "as": "userFollowers"
+          }
+        }, {
+          $project: {
+            "user": 1,
+            "userFollowers": 1,
+            "userFollowing": 1
+          }
+        }
+      ]).exec(function (err, doc) {
+
+        res.json({
+          'state': true,
+          'msg': 'Follow list',
+          'doc': doc
+        })
+      })
+    }
 
   })
 
