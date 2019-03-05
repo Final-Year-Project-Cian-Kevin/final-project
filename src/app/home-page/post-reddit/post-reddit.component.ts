@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RedditApiService } from '../../services/reddit-api.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-reddit',
@@ -11,11 +13,13 @@ import {MatGridListModule} from '@angular/material/grid-list';
 })
 export class PostRedditComponent implements OnInit {
 
+  saveForm: FormGroup;
   postsPopular: any;
   postsNews: any;
   postsUser: any;
+  username;
 
-  constructor(private api: RedditApiService, private router: Router, private titleService: Title) { }
+  constructor(private api: RedditApiService, private router: Router, private titleService: Title, private formBuilder: FormBuilder, private userAPI: UserService) { }
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
@@ -52,6 +56,40 @@ export class PostRedditComponent implements OnInit {
       }
     });
 
+    this.saveForm = this.formBuilder.group({
+      'profile_id' : [null],
+      'post_id' : [null]
+    });
+
+    if(this.userAPI.isLoggedIn()){
+      this.userAPI.getUserData()
+      .subscribe(res => {
+        this.username = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+      });
+    }
+
       this.setTitle("Popular Today!");
+  }
+
+  save(id) {
+    this.saveForm.patchValue({
+      profile_id: this.username,
+      post_id: id
+    });
+
+    console.log(this.saveForm.value);
+
+    this.api.postSave(this.saveForm.value)
+    .subscribe(res => {
+        let id = res['_id'];
+        location.reload(true); // Page refresh
+      }, (err) => {
+        console.log(err);
+    });
   }
 }

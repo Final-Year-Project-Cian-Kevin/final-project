@@ -25,6 +25,26 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getProfileData(this.route.snapshot.params['id']);
+
+    this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
+      .subscribe(res => {
+        this.postsUser = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+    });
+
+    this.commentAPI.getCommentProfileId(this.route.snapshot.params['id'])
+      .subscribe(res => {
+        this.commentsUser = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+    });
   }
 
   getProfileData(id) {
@@ -32,26 +52,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         this.profile = data[0];
         this.setTitle(data.username);
-  });
-
-  this.postAPI.getRecentPostsUser(id)
-    .subscribe(res => {
-      this.postsUser = res;
-    }, err => {
-      console.log(err);
-      if(err.status=401){
-        this.router.navigate(['login']);
-      }
-  });
-
-  this.commentAPI.getCommentProfileId(this.route.snapshot.params['id'])
-    .subscribe(res => {
-      this.commentsUser = res;
-    }, err => {
-      console.log(err);
-      if(err.status=401){
-        this.router.navigate(['login']);
-      }
-  });
+    });
   }
 }

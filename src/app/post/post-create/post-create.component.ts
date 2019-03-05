@@ -53,8 +53,6 @@ export class PostCreateComponent implements OnInit {
       subreddit: this.subreddit
     });
 
-    console.log(this.postForm.value);
-
     this.api.postCreate(this.postForm.value)
       .subscribe(res => {
           let id = res['_id'];

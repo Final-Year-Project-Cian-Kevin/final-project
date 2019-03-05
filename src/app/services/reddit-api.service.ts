@@ -90,4 +90,11 @@ export class RedditApiService {
         catchError(this.handleError)
       );
   }
+
+  postSave(data): Observable<any> {
+    return this.http.post("/api/savedPost/post", data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 }

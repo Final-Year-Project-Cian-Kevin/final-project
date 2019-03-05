@@ -44,11 +44,10 @@
   </div>
 </div>
 
-
 <h1>User Posts:</h1>
 <div class="scrollmenu">
   <div *ngFor="let postUser of postsUser" class="example-item">
-      <mat-card class="post-card" [routerLink]="['/post/', postUser._id]">
+      <mat-card class="post-card">
         <mat-card-header>
           <div mat-card-avatar class="post-header-image"></div>
           <mat-card-title>{{postUser.title}}</mat-card-title>
@@ -61,8 +60,8 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>VIEW</button>
-          <button mat-button>SAVE</button>
+          <button mat-button [routerLink]="['/post/', postUser._id]">VIEW</button>
+          <button mat-button (click)="save(postUser._id)">SAVE</button>
         </mat-card-actions>
       </mat-card>
   </div>
