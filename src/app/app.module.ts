@@ -38,6 +38,7 @@ import { RedditPostComponent } from './post/reddit-post/reddit-post.component';
 import { CommentsComponent } from './post/comments/comments.component';
 import { PostRedditComponent } from './home-page/post-reddit/post-reddit.component';
 import { SettingsComponent } from './settings/settings.component';
+import { FollowComponent } from './follow/follow.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -82,6 +83,11 @@ const appRoutes: Routes = [
     data: { title: 'Book List' }
   },
   {
+    path: 'follow',
+    component: BookComponent,
+    data: { title: 'Follow List' }
+  },
+  {
     path: 'book-details/:id',
     component: BookDetailComponent,
     data: { title: 'Book Details' }
@@ -114,7 +120,8 @@ const appRoutes: Routes = [
     CommentsComponent,
     PostRedditComponent,
     SettingsComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    FollowComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

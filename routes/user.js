@@ -218,7 +218,7 @@ router.post('/unfollow', function (req, res) {
   })
 })
 
-router.get('/follow/list', function (req, res) {
+router.get('/follow', function (req, res) {
   const username = req.query.username;
 
   User.findOne({
