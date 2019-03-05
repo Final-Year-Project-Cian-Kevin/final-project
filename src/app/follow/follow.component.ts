@@ -18,7 +18,7 @@ export class FollowComponent implements OnInit {
 
   ngOnInit() {
     //var currentUser= this.UserService.getCurrentUser();
-    // chnage to routed
+    // Must change how id value is accesed to allow other users to view a users following data.
     var userToCheck = this.userService.getCurrentUser();
     //const userName = ;
     console.log("[DEBUG]: follow comp ",userToCheck.username);
@@ -33,8 +33,15 @@ export class FollowComponent implements OnInit {
    * @param id 
    */
   loadFollowData(id) {
+    console.log("[DEBUG]: loadFollowData :",id,":",id.length);
+
     this.followService.getFollowers(id)
       .subscribe((res) => {
+        console.log("[DEBUG]: Load follwer");
+        console.log(res.json().doc);
+        console.log(res);
+
+
         if (res.json().state) {
           let response = res.json().doc;
           let followers = [];

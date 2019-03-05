@@ -218,35 +218,49 @@ router.post('/unfollow', function (req, res) {
   })
 })
 
-router.get('/follow', function (req, res) {
-  const username = req.query.username;
+/** 
+ * Return all following data
+ */
+router.get('/follow/:id', function (req, res) {
 
+  const username = req.params.id;
+  console.log("[DEBUG]: /follow username", username);
+  //console.log(req);
   User.findOne({
     'username': username
   }, function (err, user) {
     if (!user) {
+      console.log("[DEBUG]: /follow : no user found");
+
       return res.json({
         'state': false,
         'msg': `No user found with username ${username}`
       })
     } else {
       const user_id = user._id;
+
+      console.log("[DEBUG]: /follow :  user found");
+      console.log("[DEBUG]: /follow :  uid",user_id);
+
       Follow.aggregate([{
           $match: {
-            "user": Types.ObjectId(user_id)
+            "user": mongoose.Types.ObjectId(user_id)
           }
         },
         {
           $lookup: {
-            "from": "user",
+            "from": "follows",
             "localField": "following",
+            "foreignField": "_id",
             "as": "userFollowing"
           }
         },
         {
           $lookup: {
-            "from": "user",
+            "from": "follows",
             "localField": "followers",
+            "foreignField": "_id",
+
             "as": "userFollowers"
           }
         }, {
@@ -257,7 +271,8 @@ router.get('/follow', function (req, res) {
           }
         }
       ]).exec(function (err, doc) {
-
+        console.log("[DEBUG] Follow/:id");
+        console.log(doc);
         res.json({
           'state': true,
           'msg': 'Follow list',

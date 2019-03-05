@@ -19,10 +19,14 @@ export class FollowService {
 
   getFollowers(id: string): Observable<any> {
     const url = `${userApiURL}/follow/${id}`;
+    console.log("[DEBUG] getFollowers id/username: ",id);
     return this.http.get(url, httpOptions).pipe(
-      map(this.extractData),
+      //map(this.extractData),
       catchError(this.handleError));
   }
+
+
+  
   private extractData(res: Response) {
     let body = res;
     return body || { };

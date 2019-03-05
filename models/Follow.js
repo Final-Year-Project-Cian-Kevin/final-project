@@ -9,11 +9,11 @@ var FollowSchema = new Schema({
   },
   followers: [{
     type: Schema.Types.ObjectId,
-    ref: 'Card'
+    ref: 'User'
   }],
   following: [{
     type: Schema.Types.ObjectId,
-    ref: 'Card'
+    ref: 'User'
   }]
 }, { toJSON: { virtuals: true } }
 );
