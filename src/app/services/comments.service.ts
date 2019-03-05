@@ -49,7 +49,7 @@ export class CommentsService {
     }
 
     getCommentProfileId(id: string): Observable<any> {
-      const url = `${"/api/comment/profile"}/${id}`;
+      const url = `${"/api/comment/profiledate"}/${id}`;
       return this.http.get(url, httpOptions).pipe(
         map(this.extractData),
         catchError(this.handleError));
@@ -62,4 +62,5 @@ export class CommentsService {
           catchError(this.handleError)
         );
     }
+
 }

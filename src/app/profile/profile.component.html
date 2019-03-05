@@ -1,49 +1,61 @@
 
 <mat-card class="profile-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image">
-      <!--  <img alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>-->
-      </div>
-      <mat-card-title>{{profile.first_name}} {{profile.surname}}</mat-card-title>
-      <mat-card-subtitle>{{profile.username}}</mat-card-subtitle>
-      <img mat-card-avatar  alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-          {{profile.bio}}
-      </p>
-      <p>
-         Email : {{profile.email}}
-      </p>
-      <p>
-         User since : {{profile.join_date}}
-       </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>ADD AS FRIEND</button>
-    </mat-card-actions>
-  </mat-card>
-
-  <h1>Recent Posts:</h1>
-  <div class="scrollmenu">
-    <div *ngFor="let postUser of postsUser" class="example-item">
-        <mat-card class="post-card" [routerLink]="['/post/', postUser._id]">
-          <mat-card-header>
-            <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
-            <mat-card-title>{{postUser.title}}</mat-card-title>
-            <mat-card-subtitle>{{postUser.subreddit}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image [src]="postUser.thumbnail" width="100" height="200">
-          <mat-card-content>
-            <p>
-              {{postUser.selftext}}
-            </p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>VIEW</button>
-            <button mat-button>SAVE</button>
-          </mat-card-actions>
-        </mat-card>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image">
+    <!--  <img alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>-->
     </div>
+    <mat-card-title>{{profile.first_name}} {{profile.surname}}</mat-card-title>
+    <mat-card-subtitle>{{profile.username}}</mat-card-subtitle>
+    <img mat-card-avatar  alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      {{profile.bio}}
+    </p>
+    <p>
+      Email : {{profile.email}}
+    </p>
+    <p>
+      User since : {{profile.join_date}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>ADD AS FRIEND</button>
+  </mat-card-actions>
+</mat-card>
+
+<h1>Recent Posts:</h1>
+<div class="scrollmenu">
+  <div *ngFor="let postUser of postsUser" class="example-item">
+      <mat-card class="post-card" [routerLink]="['/post/', postUser._id]">
+        <mat-card-header>
+          <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
+          <mat-card-title>{{postUser.title}}</mat-card-title>
+          <mat-card-subtitle>{{postUser.subreddit}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="postUser.thumbnail" width="100" height="200">
+        <mat-card-content>
+          <p>
+            {{postUser.selftext}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>VIEW</button>
+          <button mat-button>SAVE</button>
+        </mat-card-actions>
+      </mat-card>
   </div>
+</div>
+
+<h1>Recent Comments:</h1>
+<div *ngFor="let commentUser of commentsUser">
+<p>
+  {{commentUser.post_id}}
+</p>
+
+<p>
+  {{commentUser.comment}}
+</p>
+<br>
+</div>
