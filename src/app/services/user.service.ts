@@ -49,8 +49,8 @@ export class UserService {
     let baseObject;
 
     return this.http.post(`${userApiURL}/signin`, data, httpOptions);
-     // .pipe(
-     //   catchError(this.handleError)
+    // .pipe(
+    //   catchError(this.handleError)
     //  );
   }
 
@@ -114,15 +114,24 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-    /**
-     * Follow a user  */
-    followUser(data): Observable<any> {
-      const url = `${userApiURL}/follow`;
-      return this.http.post(url, data, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        );
-    }
+  /**
+   * Follow a user  */
+  followUser(data): Observable<any> {
+    const url = `${userApiURL}/follow`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  /**
+  * Unfollow a user  */
+  unFollowUser(data): Observable<any> {
+    const url = `${userApiURL}/unfollow`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   // Error Handler
   private handleError(error: HttpErrorResponse) {

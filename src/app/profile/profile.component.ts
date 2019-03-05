@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 import { Profile } from 'selenium-webdriver/firefox';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-profile',
@@ -35,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
   /**
    * 
-   * @param id the users id
+   * @param _id the users id
    */
   follow(_id){
     console.log("[DEBUG]: follow profile ");
@@ -57,13 +58,39 @@ export class ProfileComponent implements OnInit {
     };
     this.userAPI.followUser(followUser)
       .subscribe(res => {
-        let id = res['_id'];
-        this.router.navigate(['/profile', this.userAPI.currentUser.username]);
+        //let id = res['_id'];
+       // this.router.navigate(['/profile', this.userAPI.currentUser.username]);
+       console.log("[INFO]: User followed");
+       alert("User followed");
+
       }, (err) => {
         console.log(err);
       }
       );
 
   }
+/**
+   * 
+   * @param _id the users id
+   */
+  unFollow(_id){
+    var user = this.userAPI.getCurrentUser();
+    const user_id = user.id;
 
+    var followUser={
+      user_id:user_id,
+      follow_id: _id
+    };
+    this.userAPI.unFollowUser(followUser)
+      .subscribe(res => {
+        //let id = res['_id'];
+       // this.router.navigate(['/profile', this.userAPI.currentUser.username]);
+       console.log("[INFO]: User unfollowed");
+       alert("User unfollowed");
+      }, (err) => {
+        console.log(err);
+      }
+      );
+
+  }
 }

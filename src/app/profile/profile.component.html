@@ -20,6 +20,9 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE</button>
+    
     <button mat-button (click)="follow(profile._id)">Follow</button>
+    <button mat-button (click)="unFollow(profile._id)">Unfollow</button>
+
   </mat-card-actions>
 </mat-card>
