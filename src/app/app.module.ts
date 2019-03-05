@@ -84,7 +84,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'follow',
-    component: BookComponent,
+    component: FollowComponent,
     data: { title: 'Follow List' }
   },
   {

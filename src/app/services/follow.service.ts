@@ -18,7 +18,7 @@ export class FollowService {
   constructor(private http: HttpClient) { }
 
   getFollowers(id: string): Observable<any> {
-    const url = `${"userApiURL"}/follow/${id}`;
+    const url = `${userApiURL}/follow/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));

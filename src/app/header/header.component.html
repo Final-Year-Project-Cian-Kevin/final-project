@@ -45,6 +45,9 @@
         <a mat-raised-button color="secondary" [routerLink]="['/settings']">
           <mat-icon>person</mat-icon>
         </a>
+        <a mat-raised-button color="secondary" [routerLink]="['/follow']">Follow
+          <mat-icon>person</mat-icon>
+        </a>
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
         <div class="header-page">
           <span *ngIf="userService.isLoggedIn() && userService.currentUser">
