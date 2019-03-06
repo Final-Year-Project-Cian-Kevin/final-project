@@ -1,13 +1,3 @@
-<!--
-<p>
-  Welcome User! !
-  <a mat-raised-button color="primary" [routerLink]="['/index']"><mat-icon>Home Page</mat-icon></a>
-  <a mat-raised-button color="primary" [routerLink]="['/books']"><mat-icon>Books</mat-icon></a>
-  <a mat-raised-button color="secondary" *ngIf="userSerice.isLoggedIn()" (click)="logout()"><mat-icon>logout</mat-icon></a>
-  <a mat-raised-button color="secondary" *ngIf="!userSerice.isLoggedIn()" [routerLink]="['/login']"><mat-icon>login</mat-icon></a>
-
-</p>
--->
 <!--<nav class="navbar navbar-default navbar-fixed-top">-->
 <nav class="navbar  navbar-dark bg-dark navbar-fixed-top">
   <div class="container">
@@ -46,17 +36,20 @@
           <mat-icon>local_post_office</mat-icon>
         </a>
 
-        <a mat-raised-button color="secondary" [routerLink]="['/settings']">
+        <a mat-raised-button color="secondary" [routerLink]="['/settings']">Settings
           <mat-icon>person</mat-icon>
         </a>
+
+        <a mat-raised-button color="secondary" [routerLink]="['/follow']">Follow
+          <mat-icon>person</mat-icon>
+        </a>
+
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
         <div class="header-page">
-          <span *ngIf="userService.isLoggedIn() && userService.currentUser">
-            {{ userService.currentUser.username }}
+            {{ username }}
             <span class="divider">|</span>
             <button class="btn btn-primary" (click)="logout()">Logout</button>
-          </span>
-        </div>
+            </div>
       </form>
     </div>
   </div>

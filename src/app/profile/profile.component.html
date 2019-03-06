@@ -1,12 +1,11 @@
-
 <mat-card class="profile-card">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image">
-    <!--  <img alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>-->
-    </div>
+    <!-- <div mat-card-avatar class="example-header-image">-->
+    <!--  </div>-->
     <mat-card-title>{{profile.first_name}} {{profile.surname}}</mat-card-title>
     <mat-card-subtitle>{{profile.username}}</mat-card-subtitle>
-    <img mat-card-avatar  alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
+    <!--<img mat-card-avatar  alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>-->
+    <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
   </mat-card-header>
   <mat-card-content>
     <p>
@@ -21,9 +20,13 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE</button>
-    <button mat-button>ADD AS FRIEND</button>
+    
+    <button mat-button (click)="follow(profile._id)">Follow</button>
+    <button mat-button (click)="unFollow(profile._id)">Unfollow</button>
+
   </mat-card-actions>
 </mat-card>
+
 
 <h1>Recent Posts:</h1>
 <div class="scrollmenu">
