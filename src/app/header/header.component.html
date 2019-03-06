@@ -50,11 +50,9 @@
         </a>
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
         <div class="header-page">
-          <span *ngIf="userService.isLoggedIn() && userService.currentUser">
             {{ userService.currentUser.username }}
             <span class="divider">|</span>
             <button class="btn btn-primary" (click)="logout()">Logout</button>
-          </span>
         </div>
       </form>
     </div>
