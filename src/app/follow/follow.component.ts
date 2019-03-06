@@ -22,6 +22,7 @@ export class FollowComponent implements OnInit {
     var userToCheck = this.userService.getCurrentUser();
     //const userName = ;
     console.log("[DEBUG]: follow comp ",userToCheck.username);
+    console.log("[DEBUG]: page loaded - follow");
 
     this.loadFollowData(userToCheck.username);
 
@@ -38,12 +39,14 @@ export class FollowComponent implements OnInit {
     this.followService.getFollowers(id)
       .subscribe((res) => {
         console.log("[DEBUG]: Load follwer");
-        console.log(res.json().doc);
         console.log(res);
 
+        console.log(res.doc);
+        //console.log(res);
 
-        if (res.json().state) {
-          let response = res.json().doc;
+
+        if (res.state) {
+          let response = res.doc;
           let followers = [];
           let following = [];
 

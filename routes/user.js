@@ -234,7 +234,8 @@ router.get('/follow/:id', function (req, res) {
 
       return res.json({
         'state': false,
-        'msg': `No user found with username ${username}`
+        'msg': `No user found with username ${username}`,
+        'err':err
       })
     } else {
       const user_id = user._id;
@@ -249,7 +250,7 @@ router.get('/follow/:id', function (req, res) {
         },
         {
           $lookup: {
-            "from": "follows",
+            "from": "users",
             "localField": "following",
             "foreignField": "_id",
             "as": "userFollowing"
@@ -257,10 +258,9 @@ router.get('/follow/:id', function (req, res) {
         },
         {
           $lookup: {
-            "from": "follows",
+            "from": "users",
             "localField": "followers",
             "foreignField": "_id",
-
             "as": "userFollowers"
           }
         }, {
