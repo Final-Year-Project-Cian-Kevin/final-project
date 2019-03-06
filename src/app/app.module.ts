@@ -40,6 +40,7 @@ import { PostRedditComponent } from './home-page/post-reddit/post-reddit.compone
 import { SettingsComponent } from './settings/settings.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
 import { FollowComponent } from './follow/follow.component';
+import { SavedpostsComponent } from './savedposts/savedposts.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -82,6 +83,11 @@ const appRoutes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     data: { title: 'Settings' }
+  },
+  {
+    path: 'saved/:id',
+    component: SavedpostsComponent,
+    data: { title: 'Saved' }
   },
 
   {
@@ -129,7 +135,8 @@ const appRoutes: Routes = [
     SettingsComponent,
     PostCreateComponent,
     FileSelectDirective,
-    FollowComponent
+    FollowComponent,
+    SavedpostsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
