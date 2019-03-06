@@ -47,16 +47,18 @@
         </a>
 
         <a mat-raised-button color="secondary" [routerLink]="['/settings']">
+        <a mat-raised-button color="secondary" [routerLink]="['/settings']">Settings
+          <mat-icon>person</mat-icon>
+        </a>
+        <a mat-raised-button color="secondary" [routerLink]="['/follow']">Follow
           <mat-icon>person</mat-icon>
         </a>
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
         <div class="header-page">
-          <span *ngIf="userService.isLoggedIn() && userService.currentUser">
             {{ userService.currentUser.username }}
             <span class="divider">|</span>
             <button class="btn btn-primary" (click)="logout()">Logout</button>
-          </span>
-        </div>
+            </div>
       </form>
     </div>
   </div>

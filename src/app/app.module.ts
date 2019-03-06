@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import the ng2-file-upload directive for uploading images 
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import {
   MatInputModule,
@@ -37,6 +39,7 @@ import { CommentsComponent } from './post/comments/comments.component';
 import { PostRedditComponent } from './home-page/post-reddit/post-reddit.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
+import { FollowComponent } from './follow/follow.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -87,6 +90,11 @@ const appRoutes: Routes = [
     data: { title: 'Book List' }
   },
   {
+    path: 'follow',
+    component: FollowComponent,
+    data: { title: 'Follow List' }
+  },
+  {
     path: 'book-details/:id',
     component: BookDetailComponent,
     data: { title: 'Book Details' }
@@ -119,7 +127,9 @@ const appRoutes: Routes = [
     CommentsComponent,
     PostRedditComponent,
     SettingsComponent,
-    PostCreateComponent
+    PostCreateComponent,
+    FileSelectDirective,
+    FollowComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

@@ -48,10 +48,10 @@ export class UserService {
   loginUser(data): Observable<any> {
     let baseObject;
 
-    return this.http.post(`${userApiURL}/signin`, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post(`${userApiURL}/signin`, data, httpOptions);
+    // .pipe(
+    //   catchError(this.handleError)
+    //  );
   }
 
   // Post save a user
@@ -110,6 +110,24 @@ export class UserService {
   updateUser(id: string, data): Observable<any> {
     const url = `${userApiURL}/update/${id}`;
     return this.http.put(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  /**
+   * Follow a user  */
+  followUser(data): Observable<any> {
+    const url = `${userApiURL}/follow`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  /**
+  * Unfollow a user  */
+  unFollowUser(data): Observable<any> {
+    const url = `${userApiURL}/unfollow`;
+    return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
