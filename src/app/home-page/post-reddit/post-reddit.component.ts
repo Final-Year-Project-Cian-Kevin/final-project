@@ -13,7 +13,6 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 })
 export class PostRedditComponent implements OnInit {
 
-  saveForm: FormGroup;
   postsPopular: any;
   postsNews: any;
   postsUser: any;
@@ -56,11 +55,6 @@ export class PostRedditComponent implements OnInit {
       }
     });
 
-    this.saveForm = this.formBuilder.group({
-      'profile_id' : [null],
-      'post_id' : [null]
-    });
-
     if(this.userAPI.isLoggedIn()){
       this.userAPI.getUserData()
       .subscribe(res => {
@@ -73,23 +67,6 @@ export class PostRedditComponent implements OnInit {
       });
     }
 
-      this.setTitle("Popular Today!");
-  }
-
-  save(id) {
-    this.saveForm.patchValue({
-      profile_id: this.username,
-      post_id: id
-    });
-
-    console.log(this.saveForm.value);
-
-    this.api.postSave(this.saveForm.value)
-    .subscribe(res => {
-        let id = res['_id'];
-        location.reload(true); // Page refresh
-      }, (err) => {
-        console.log(err);
-    });
+    this.setTitle("Popular Today!");
   }
 }

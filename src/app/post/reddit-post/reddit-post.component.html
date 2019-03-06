@@ -7,6 +7,14 @@
       <dd><img src="{{post?.pic}}" height="500"/></dd>
       <dd><p> {{post.selftext}} </p></dd>
     </dl>
+    <mat-card-actions>
+      <div *ngIf="userAPI.isLoggedIn() && followed == false">
+          <button mat-button (click)="sub()">SUBSCRIBE</button>
+      </div>
+      <div *ngIf="userAPI.isLoggedIn() && followed == true">
+          <button mat-button (click)="unsub()">UNSUBSCRIBE</button>
+      </div>
+    </mat-card-actions>
   </mat-card-content>
 </mat-card>
 

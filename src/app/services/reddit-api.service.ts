@@ -97,4 +97,20 @@ export class RedditApiService {
         catchError(this.handleError)
       );
   }
+
+  getIsSaved(id1: string, id2: string): Observable<any> {
+    const url = `${"/api/savedpost/post"}/${id1}/${id2}`;
+
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  delUnSub(id1: string, id2: string): Observable<any> {
+    const url = `${"/api/savedpost/delete"}/${id1}/${id2}`;
+
+    return this.http.delete(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
 }
