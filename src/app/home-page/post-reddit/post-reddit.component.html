@@ -14,8 +14,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>VIEW</button>
-          <button mat-button>SAVE</button>
+          <button mat-button [routerLink]="['/post/', postPop._id]">VIEW</button>
         </mat-card-actions>
       </mat-card>
   </div>
@@ -37,8 +36,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>VIEW</button>
-          <button mat-button>SAVE</button>
+          <button mat-button [routerLink]="['/post/', postNews._id]">VIEW</button>
         </mat-card-actions>
       </mat-card>
   </div>
@@ -61,7 +59,6 @@
         </mat-card-content>
         <mat-card-actions>
           <button mat-button [routerLink]="['/post/', postUser._id]">VIEW</button>
-          <button mat-button>SAVE</button>
         </mat-card-actions>
       </mat-card>
   </div>
