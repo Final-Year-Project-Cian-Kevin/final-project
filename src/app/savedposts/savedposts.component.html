@@ -1,3 +1,11 @@
+<h1>Recent Comments:</h1>
+<div *ngFor="let save of saved">
 <p>
-  savedposts works!
+  {{save.post_id}}
 </p>
+
+<p>
+  {{save.profile_id}}
+</p>
+<br>
+</div>

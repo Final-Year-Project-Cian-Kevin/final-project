@@ -11,7 +11,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 })
 export class SavedpostsComponent implements OnInit {
 
-  saved = {};
+  saved: any;
 
   constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router) { }
 
