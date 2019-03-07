@@ -163,7 +163,7 @@ router.post('/follow', function (req, res) {
   // Execute bulk command
   followBuilder.execute(function (err, doc) {
     if (err) {
-      console.log("[SERVER ERROR]: ", err);
+      console.log("[Server Error - follow]",err)
       return res.json({
         'state': false,
         'msg': err
@@ -206,6 +206,7 @@ router.post('/unfollow', function (req, res) {
   // Execute bulk command
   followBuilder.execute(function (err, doc) {
     if (err) {
+      console.log("[Server Error - unfollow]",err)
       return res.json({
         'state': false,
         'msg': err

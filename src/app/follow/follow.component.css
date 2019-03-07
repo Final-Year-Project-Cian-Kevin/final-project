@@ -1,3 +1,32 @@
 .example-selected-value {
-    margin: 15px 0;
-  }
+  margin: 15px 0;
+}
+.h
+.profile-card {
+  margin: auto;
+  width: 50%;
+  border: 3px solid blue;
+  padding: 10px;
+}
+.profile-card h3 {
+    text-align: center;
+}
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.buttonGroup {
+  margin: auto;
+  align-items: center;
+
+}
+
+div.scrollmenu div {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
