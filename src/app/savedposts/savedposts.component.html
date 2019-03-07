@@ -1,11 +1,18 @@
-<h1>Recent Comments:</h1>
+<h1>Saved Posts:</h1>
 <div *ngFor="let save of saved">
-<p>
+<div>
+  <a></a>
   {{save.post_id}}
-</p>
+</div>
 
 <p>
   {{save.profile_id}}
 </p>
 <br>
 </div>
+
+<mat-list>
+  <mat-list-item *ngFor="let post of posts">
+    <p>{{post.subreddit}}</p><a [routerLink]="['/post/', post._id]">{{post.title}}</a> 
+  </mat-list-item>
+</mat-list>

@@ -3,7 +3,7 @@ import { RedditApiService } from '../../services/reddit-api.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { BrowserModule, Title }  from '@angular/platform-browser';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
