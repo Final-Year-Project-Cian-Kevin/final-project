@@ -8,6 +8,17 @@
   background-size: cover;
 }
 
+.user {
+  float: left;
+}
+
+.post {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
 div.scrollmenu {
   overflow: auto;
   white-space: nowrap;
