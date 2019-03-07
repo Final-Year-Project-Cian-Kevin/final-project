@@ -17,15 +17,37 @@ export class FollowComponent implements OnInit {
 
   // The username of the User we want to generate follow component for.
   username;
+  // Selected value of toggle-button.
+  public selectedVal: boolean;
+
   constructor(private route: ActivatedRoute, private followService: FollowService, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
     // Set the username to the valuue passed by route.
-    this.username=this.route.snapshot.params['id'];
-    console.log("[DEBUG] followcomponent username:",this.username);
+    this.username = this.route.snapshot.params['id'];
+    console.log("[DEBUG] followcomponent username:", this.username);
 
     // Load the follwing data using the username.
     this.loadFollowData(this.username);
+
+    // Set the initial value of the toggle button
+    this.selectedVal = true;
+  }
+  /**
+   * Change selected value when button is toggled.
+   * @param val 
+   */
+  public onValChange() {
+    this.selectedVal = !this.selectedVal;
+    /** 
+    console.log("[DEBUG]- follow - Selected value :", value)
+    if (value == "true") {
+      this.selectedVal = true;
+
+    } else {
+      this.selectedVal = false;
+    }
+*/
   }
 
   /**
@@ -33,7 +55,7 @@ export class FollowComponent implements OnInit {
    * @param id 
    */
   loadFollowData(username) {
-    console.log("[DEBUG]: loadFollowData :",username,":",username.length);
+    console.log("[DEBUG]: loadFollowData :", username, ":", username.length);
 
     this.followService.getFollowers(username)
       .subscribe((res) => {

@@ -23,7 +23,8 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatGridListModule,
-  MatListModule } from "@angular/material";
+  MatListModule,
+  MatButtonToggleModule } from "@angular/material";
 
 // Component Source
 import { IndexComponent } from './home-page/index/index.component';
@@ -156,7 +157,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatFormFieldModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
