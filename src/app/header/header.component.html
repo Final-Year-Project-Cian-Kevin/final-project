@@ -46,7 +46,7 @@
 
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
         <div class="header-page">
-            {{ username }}
+            <a [routerLink]="['/profile', username]">{{ username }}</a>
             <span class="divider">|</span>
             <button class="btn btn-primary" (click)="logout()">Logout</button>
             </div>
