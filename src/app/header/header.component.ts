@@ -18,17 +18,7 @@ export class HeaderComponent implements OnInit {
   constructor(public userService: UserService,private router: Router) { }
 
   ngOnInit() {
-    if(this.userService.isLoggedIn()){
-      this.userService.getUserData()
-      .subscribe(res => {
-        this.username = res;
-      }, err => {
-        console.log(err);
-        if(err.status=401){
-          this.router.navigate(['login']);
-        }
-      });
-    }
+    this.usernameCheck();
   }
 
   //Login a user
@@ -51,6 +41,9 @@ export class HeaderComponent implements OnInit {
           this.userService.setCurrentUser(curUser);
          
           //this.loginData.username = user + "";
+
+          // Checks current username
+          this.usernameCheck();
         }
       }, err => {
 
@@ -64,7 +57,22 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     //localStorage.removeItem('jwtToken');
+    this.username ="";
     this.userService.logout();
     this.router.navigate(['login']);
+  }
+
+  usernameCheck(){
+    if(this.userService.isLoggedIn()){
+      this.userService.getUserData()
+      .subscribe(res => {
+        this.username = res;
+      }, err => {
+        console.log(err);
+        if(err.status=401){
+          this.router.navigate(['login']);
+        }
+      });
+    }
   }
 }
