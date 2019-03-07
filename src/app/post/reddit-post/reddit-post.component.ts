@@ -83,7 +83,7 @@ export class RedditPostComponent implements OnInit {
     });
   }
 
-  unsub(id) {
+  unsub() {
     this.api.delUnSub(this.route.snapshot.params['id'], this.username)
       .subscribe(res => {
           location.reload(true); // Page refresh
