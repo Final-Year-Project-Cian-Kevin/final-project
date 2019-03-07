@@ -14,57 +14,47 @@ export class FollowComponent implements OnInit {
   allFollowing = [];
   allFollowers = [];
   message = '';
+
+  // The username of the User we want to generate follow component for.
+  username;
   constructor(private route: ActivatedRoute, private followService: FollowService, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    //var currentUser= this.UserService.getCurrentUser();
-    // Must change how id value is accesed to allow other users to view a users following data.
-    var userToCheck = this.userService.getCurrentUser();
-    //const userName = ;
-    console.log("[DEBUG]: follow comp ",userToCheck.username);
-    console.log("[DEBUG]: page loaded - follow");
+    // Set the username to the valuue passed by route.
+    this.username=this.route.snapshot.params['id'];
+    console.log("[DEBUG] followcomponent username:",this.username);
 
-    this.loadFollowData(userToCheck.username);
-
-
+    // Load the follwing data using the username.
+    this.loadFollowData(this.username);
   }
 
   /**
-   * Load all following data
+   * Load all following data.
    * @param id 
    */
-  loadFollowData(id) {
-    console.log("[DEBUG]: loadFollowData :",id,":",id.length);
+  loadFollowData(username) {
+    console.log("[DEBUG]: loadFollowData :",username,":",username.length);
 
-    this.followService.getFollowers(id)
+    this.followService.getFollowers(username)
       .subscribe((res) => {
-        console.log("[DEBUG]: Load follwer");
-        console.log(res);
-
-        console.log(res.doc);
-        //console.log(res);
-
-
+        // If server returned 'true' state.
         if (res.state) {
           let response = res.doc;
           let followers = [];
           let following = [];
 
+          // for each object in response add to array.
           response.forEach(function (obj) {
             followers = followers.concat(obj.userFollowers);
             following = following.concat(obj.userFollowing);
           });
 
+          // Add data to local variables for view.
           this.allFollowing = followers;
-
           this.allFollowers = following;
-          console.log("[DEBUG FOLLOW]");
-          console.log(this.allFollowers);
 
         } else {
           console.log('[INFO]: Something is wrong');
-
-          // this.toastr.info(res.json().msg, 'Something is wrong');
           this.message = res.json().msg;
         }
       })
