@@ -11,8 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class FollowComponent implements OnInit {
-  allFollowing = [];
-  allFollowers = [];
+  allFollowing = [];  // Users that currentuser is following.
+  allFollowers = [];  // Users that are following currentuser.
   message = '';
 
   // The username of the User we want to generate follow component for.
@@ -50,8 +50,8 @@ export class FollowComponent implements OnInit {
           });
 
           // Add data to local variables for view.
-          this.allFollowing = followers;
-          this.allFollowers = following;
+          this.allFollowers = followers;
+          this.allFollowing = following;
 
         } else {
           console.log('[INFO]: Something is wrong');

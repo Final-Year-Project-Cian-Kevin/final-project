@@ -1,26 +1,25 @@
-<p>
-  follow works!
-</p>
-<h3>Followers</h3>
-<div *ngFor="let user of allFollowers">
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title my-0">{{ user.fullName }}</h4>
-      <p class="text-muted my-0"><a [routerLink]="['/account', user.username]">@{{ user.username }}</a></p>
-      <p class="card-text my-0">{{ user.bio || 'No bio info'}}</p>
-    </div>
-  </div>
-</div>
 
-
+<!-- List of all that a user is following -->
 <h3>Following</h3>
 
   <div *ngFor="let user of allFollowing">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title my-0">{{ user.fullName }}</h4>
-        <p class="text-muted my-0"><a [routerLink]="['/account', user.username]">@{{ user.username }}</a></p>
+        <p class="text-muted my-0"><a [routerLink]="['/profile', user.username]">@{{ user.username }}</a></p>
         <p class="card-text my-0">{{ user.bio || 'No bio info'}}</p>
       </div>
     </div>
   </div>
+<!-- List of all that is following user -->
+<h3>Followers</h3>
+<div *ngFor="let user of allFollowers">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title my-0">{{ user.fullName }}</h4>
+      <p class="text-muted my-0"><a [routerLink]="['/profile', user.username]">@{{ user.username }}</a></p>
+      <p class="card-text my-0">{{ user.bio || 'No bio info'}}</p>
+    </div>
+  </div>
+</div>
+
