@@ -7,6 +7,8 @@
     </mat-error>
   </mat-form-field>
 
+  <br>
+
   <mat-form-field class="example-full-width">
     <input matInput placeholder="URL" formControlName="url"
            [errorStateMatcher]="matcher">
@@ -15,6 +17,8 @@
     </mat-error>
   </mat-form-field>
 
+  <br>
+
   <mat-form-field class="example-full-width">
     <input matInput placeholder="selftext" formControlName="selftext"
            [errorStateMatcher]="matcher">
@@ -22,7 +26,8 @@
       <span *ngIf="!postForm.get('selftext').valid && postForm.get('selftext').touched">Please enter text</span>
     </mat-error>
   </mat-form-field>
+  
   <div class="button-row">
-    <button type="submit" [disabled]="!postForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+    <button type="submit" [disabled]="!postForm.valid" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
   </div>
 </form>

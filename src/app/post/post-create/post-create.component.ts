@@ -63,9 +63,9 @@ export class PostCreateComponent implements OnInit {
     this.api.postCreateUser(this.postForm.value)
     .subscribe(res => {
         let id = res['_id'];
-        this.router.navigate(['/index']);
+        this.router.navigate(['/post', this._id]);
       }, (err) => {
         console.log(err);
-  });
+    });
   }
 }
