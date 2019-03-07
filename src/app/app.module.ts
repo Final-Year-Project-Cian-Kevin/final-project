@@ -97,7 +97,7 @@ const appRoutes: Routes = [
     data: { title: 'Book List' }
   },
   {
-    path: 'follow',
+    path: 'follow/:id',
     component: FollowComponent,
     data: { title: 'Follow List' }
   },
