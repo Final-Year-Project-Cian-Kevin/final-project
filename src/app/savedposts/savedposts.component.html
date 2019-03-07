@@ -1,18 +1,19 @@
-<h1>Saved Posts:</h1>
-<div *ngFor="let save of saved">
-<div>
-  <a></a>
-  {{save.post_id}}
-</div>
 
-<p>
-  {{save.profile_id}}
-</p>
-<br>
+<div *ngFor="let post of posts" class="example-item">
+  <mat-card class="post-card">
+    <mat-card-header>
+      <div mat-card-avatar class="post-header-image"></div>
+      <mat-card-title class="post">{{post.title}}</mat-card-title>
+      <mat-card-subtitle [routerLink]="['/profile/', post.subreddit]" class="user">{{post.subreddit}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="post.thumbnail" width="100" height="200">
+    <mat-card-content>
+      <p>
+        {{post.selftext}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/post/', post._id]">VIEW</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
-
-<mat-list>
-  <mat-list-item *ngFor="let post of posts">
-    <p>{{post.subreddit}}</p><a [routerLink]="['/post/', post._id]">{{post.title}}</a> 
-  </mat-list-item>
-</mat-list>

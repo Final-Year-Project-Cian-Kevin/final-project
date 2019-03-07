@@ -1,0 +1,23 @@
+.post-card {
+    max-width: 400px;
+    min-width: 400px;
+    float: left;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+.post-header-image {
+    background-image: url('https://b.thumbs.redditmedia.com/4KtrAN4OLE6PG-FY0Xtfn65arqXZrFRrsFDi_JvQCWM.png');
+    background-size: cover;
+}
+
+.user {
+    float: left;
+}
+
+.post {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}

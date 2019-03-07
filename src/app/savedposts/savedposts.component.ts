@@ -11,8 +11,6 @@ import { MatListModule } from '@angular/material/list';
   styleUrls: ['./savedposts.component.css']
 })
 export class SavedpostsComponent implements OnInit {
-
-  saved: any;
   posts = [];
 
   constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router) { }
@@ -24,9 +22,7 @@ export class SavedpostsComponent implements OnInit {
   getSavedPosts(id) {
     this.api.getSaved(id)
       .subscribe(data => {
-        //this.saved = data;
-        this.saved = this.getIDs(data);
-        console.log(this.saved);
+        this.getIDs(data);
       });
   }
 
@@ -37,10 +33,8 @@ export class SavedpostsComponent implements OnInit {
   }
 
   getPostDetails(id) {
-    console.log(id);
     this.api.getPost(id)
       .subscribe(data => {
-        console.log(data);
         this.posts.push(data);
       });
   }
