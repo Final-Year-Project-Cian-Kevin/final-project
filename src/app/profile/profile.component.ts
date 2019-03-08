@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
   getProfileData(id) {
     this.userAPI.getProfile(id)
       .subscribe(data => {
-        this.profile = data[0];
+        this.profile =data;
         this.setTitle(data.username);
     });
   }

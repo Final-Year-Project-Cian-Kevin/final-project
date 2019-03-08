@@ -86,7 +86,8 @@ UserSchema.methods.toPublicUserJson = function (user) {
     surname: this.surname,
     bio: this.bio,
     image: this.image,
-    join_date:this.join_date
+    join_date:this.join_date,
+    email: this.email
   };
 };
 /**

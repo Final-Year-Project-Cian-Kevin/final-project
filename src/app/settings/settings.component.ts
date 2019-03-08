@@ -67,18 +67,19 @@ export class SettingsComponent implements OnInit {
 
 
     this.userService.getProfile(id)
-      .subscribe(data => {
+      .subscribe(profile => {
         console.log("User in settings");
-        console.log(data);
+        console.log(profile);
+        console.log("[Debug settings]- profile email",profile.email);
+
         this.settingsForm.setValue({
-          email: data.email,
-          first_name: data.first_name,
-          surname: data.surname,
-          bio: data.bio
+          email: profile.email,
+          first_name: profile.first_name,
+          surname: profile.surname,
+          bio: profile.bio
 
         });
         console.log("User in settings");
-        console.log(data);
       });
 
     console.log("User out set settings");
