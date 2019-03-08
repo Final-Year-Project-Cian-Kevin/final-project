@@ -23,6 +23,7 @@ export class SettingsComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
+  errorMessage = '';
 
   //declare a property called fileuploader and assign it to an instance of a new fileUploader.
   //pass in the Url to be uploaded to, and pass the itemAlais, which would be the name of the //file input when sending the post request.
@@ -31,6 +32,7 @@ export class SettingsComponent implements OnInit {
   constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
     this.setForm(this.userService.currentUser.username);
     this.settingsForm = this.formBuilder.group({
       'email': [null, Validators.email],
@@ -93,9 +95,13 @@ export class SettingsComponent implements OnInit {
   onFormSubmit(form: NgForm) {
     this.userService.updateUser(this.userService.currentUser.id, form)
       .subscribe(res => {
+        console.error("[SETTINGS] submitting update")
+        console.log(res);
         let id = res['_id'];
         this.router.navigate(['/profile', this.userService.currentUser.username]);
       }, (err) => {
+        this.errorMessage = err.error.msg;
+        console.error("[ERROR] submitting update :",this.errorMessage);
         console.log(err);
       }
       );

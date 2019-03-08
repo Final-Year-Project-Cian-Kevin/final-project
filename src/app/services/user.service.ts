@@ -122,10 +122,8 @@ export class UserService {
   }
   updateUser(id: string, data): Observable<any> {
     const url = `${userApiURL}/update/${id}`;
-    return this.http.put(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.put(url, data, httpOptions);
+     
   }
   /**
    * Follow a user  */

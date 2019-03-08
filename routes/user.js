@@ -123,15 +123,24 @@ router.get('/profile/:id', function (req, res, next) {
 
 // Update profile
 router.put('/update/:id', function (req, res, next) {
-  console.log("Update test ===== req.params.id");
-  console.log(req.params.id);
-  console.log("Update test ===== req.body");
-  console.log(req.body);
+
   User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
-    if (err) return next(err);
-    res.json(user);
+    if (err) {
+      console.error("[ERROR] - update - email already in system ");
+
+      console.error(err);
+      return res.status(401).send({
+        success: false,
+        msg: 'Email already exists, please choose another.'
+      });
+    }
+    res.json({
+      success: true,
+      msg: 'Successful user account edited.'
+    });
   });
 });
+
 
 /**
  * Add data to follow table.
@@ -163,7 +172,7 @@ router.post('/follow', function (req, res) {
   // Execute bulk command
   followBuilder.execute(function (err, doc) {
     if (err) {
-      console.log("[Server Error - follow]",err)
+      console.log("[Server Error - follow]", err)
       return res.json({
         'state': false,
         'msg': err
@@ -206,7 +215,7 @@ router.post('/unfollow', function (req, res) {
   // Execute bulk command
   followBuilder.execute(function (err, doc) {
     if (err) {
-      console.log("[Server Error - unfollow]",err)
+      console.log("[Server Error - unfollow]", err)
       return res.json({
         'state': false,
         'msg': err
@@ -236,13 +245,13 @@ router.get('/follow/:id', function (req, res) {
       return res.json({
         'state': false,
         'msg': `No user found with username ${username}`,
-        'err':err
+        'err': err
       })
     } else {
       const user_id = user._id;
 
       console.log("[DEBUG]: /follow :  user found");
-      console.log("[DEBUG]: /follow :  uid",user_id);
+      console.log("[DEBUG]: /follow :  uid", user_id);
 
       Follow.aggregate([{
           $match: {
