@@ -65,14 +65,8 @@ export class SettingsComponent implements OnInit {
 
   // set initial values for form
   setForm(id) {
-    console.log("+++++++++++++++++ SetForm Settings");
-
-
     this.userService.getProfile(id)
       .subscribe(profile => {
-        console.log("User in settings");
-        console.log(profile);
-        console.log("[Debug settings]- profile email",profile.email);
 
         this.settingsForm.setValue({
           email: profile.email,
@@ -81,28 +75,24 @@ export class SettingsComponent implements OnInit {
           bio: profile.bio
 
         });
-        console.log("User in settings");
       });
-
-    console.log("User out set settings");
-
-
-
-
-
   }
 
+  /**
+   * Sends a request to userService to update user details.
+   * 
+   * @param form form data to update.
+   */
   onFormSubmit(form: NgForm) {
     this.userService.updateUser(this.userService.currentUser.id, form)
       .subscribe(res => {
-        console.error("[SETTINGS] submitting update")
-        console.log(res);
         let id = res['_id'];
+        alert("Account updated!");
+
         this.router.navigate(['/profile', this.userService.currentUser.username]);
       }, (err) => {
         this.errorMessage = err.error.msg;
-        console.error("[ERROR] submitting update :",this.errorMessage);
-        console.log(err);
+        console.error("[ERROR] submitting update :", this.errorMessage);
       }
       );
   }

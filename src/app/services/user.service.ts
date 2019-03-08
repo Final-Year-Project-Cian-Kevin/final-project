@@ -120,11 +120,16 @@ export class UserService {
       map(this.extractData),
       catchError(this.handleError));
   }
+  /**
+   * PUT request to API to update profile data.
+   * @param id The id of user to update.
+   * @param data the form data to update.
+   */
   updateUser(id: string, data): Observable<any> {
     const url = `${userApiURL}/update/${id}`;
     return this.http.put(url, data, httpOptions);
-     
   }
+  
   /**
    * Follow a user  */
   followUser(data): Observable<any> {

@@ -121,14 +121,15 @@ router.get('/profile/:id', function (req, res, next) {
   });
 });
 
-// Update profile
+/**
+ * Update a users details.
+ * Returns a 401 status code if email is duplicate.
+ */
 router.put('/update/:id', function (req, res, next) {
 
   User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
     if (err) {
       console.error("[ERROR] - update - email already in system ");
-
-      console.error(err);
       return res.status(401).send({
         success: false,
         msg: 'Email already exists, please choose another.'
