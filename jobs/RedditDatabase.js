@@ -2,6 +2,8 @@ var request = require('request');
 var RedditPF = require('../models/Reddit/PopularFunny.js');
 var RedditNews = require('../models/Reddit/News.js');
 var Reddit = require('../models/Reddit/RedditAll.js');
+var User = require("../models/user");
+var Profile = require("../models/profile");
 
 var urlsPop = [
   "https://www.reddit.com/r/ProgrammerHumor/.json", 
@@ -180,20 +182,20 @@ exports.news = function () {
             thumbnail: posts[i].thumbnail,
             selftext: posts[i].selftext,
             subreddit: posts[i].subreddit,
-        });
+          });
 
-        // Save new data to mongoDB
-        newRedditPostNews.save(function (err) {if (err) {}});
+          // Save new data to mongoDB
+          newRedditPostNews.save(function (err) {if (err) {}});
 
-        var newRedditPost = new Reddit({
-          _id: posts[i].id,
-          title: posts[i].title,
-          url: posts[i].url,
-          pic: posts[i].pic,
-          thumbnail: posts[i].thumbnail,
-          selftext: posts[i].selftext,
-          subreddit: posts[i].subreddit
-        });
+          var newRedditPost = new Reddit({
+            _id: posts[i].id,
+            title: posts[i].title,
+            url: posts[i].url,
+            pic: posts[i].pic,
+            thumbnail: posts[i].thumbnail,
+            selftext: posts[i].selftext,
+            subreddit: posts[i].subreddit
+          });
           
         // Save new data to mongoDB
         newRedditPost.save(function (err) {if (err) {}});
@@ -202,3 +204,57 @@ exports.news = function () {
     })
   }
 };
+
+exports.createUsers = function () {
+  var programmerHumor = new User ({
+    username : "ProgrammerHumor",
+    email: "programmerHumor@Techbook.ie",
+    first_name: "Programmer",
+    surname: "Humor",
+    bio: "Where progrogrammers come to laugh.",
+    image: "programmingHumor.png",
+    password: "Test"
+  });
+
+  // Save the programmerHumor user
+  programmerHumor.save(function (err) {});
+
+  var softwareGore = new User({
+    username : "softwaregore",
+    email: "softwareGore@Techbook.ie",
+    first_name: "Software",
+    surname: "Gore",
+    bio: "Where progrogrammers come to feel beter about their work.",
+    image: "softwaregore.png",
+    password: "Test",
+  });
+
+  // Save the softwareGore user
+  softwareGore.save(function (err) {});
+
+  var technology = new User({
+    username : "technology",
+    email: "technology@Techbook.ie",
+    first_name: "Technology",
+    surname: "News",
+    bio: "Where you can come to find the best of recent technology news!",
+    image: "technology.png",
+    password: "Test",
+  });
+
+  // Save the softwareGore user
+  technology.save(function (err) {});
+
+  var Futurology = new User({
+    username : "Futurology",
+    email: "Futurology@Techbook.ie",
+    first_name: "Futurology",
+    surname: "News",
+    bio: "Where you can come to think of what might be.",
+    image: "Futurology.jpg",
+    password: "Test",
+  });
+
+  // Save the softwareGore user
+  Futurology.save(function (err) {});
+}
