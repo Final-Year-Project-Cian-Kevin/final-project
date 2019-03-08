@@ -99,14 +99,27 @@ export class UserService {
       map(this.extractData),
       catchError(this.handleError));
   }
+  /*
+    getProfile(id: string): Observable<any> {
+      const url = `${"/api/user/profile"}/${id}`;
+      return this.http.get(url, httpOptions).pipe(
+        map(this.extractData),
+        catchError(this.handleError));
+    }
+  */
 
+  /**
+   * GET request to API to return profile data.
+   * Can take either a user_id or username.
+   *
+   * @param id The id or username to check
+   */
   getProfile(id: string): Observable<any> {
-    const url = `${"/api/user/profile"}/${id}`;
+    const url = `${"/api/profile"}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
-
   updateUser(id: string, data): Observable<any> {
     const url = `${userApiURL}/update/${id}`;
     return this.http.put(url, data, httpOptions)

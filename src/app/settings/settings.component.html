@@ -12,10 +12,10 @@
 -->
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
-    <mat-error *ngIf="settingsForm.hasError('email') && !settingsForm.hasError('required')">
+    <mat-error *ngIf="settingsForm.hasError('email')">
       Please enter a valid email address
     </mat-error>
-    <mat-error *ngIf="settingsForm.hasError('required')">
+    <mat-error *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">
       Email is <strong>required</strong>
     </mat-error>
   </mat-form-field>

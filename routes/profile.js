@@ -22,12 +22,12 @@ router.get('/get', function (req, res, next) {
 /** 
  * GET to user based on username or id
  */
-router.get('/:details', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
   User.findOne({
       $or: [{
-        username: req.body.details
+        username: req.params.id
       }, {
-        userId: req.body.details
+        userId: req.params.id
       }]
     },
     function (err, user) {
