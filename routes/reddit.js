@@ -108,6 +108,7 @@ router.get('/allprofile/:id', function (req, res, next) {
 });
 
 /* 
+This route is used by individual post to get their information when called
 Get method for specific post using ID
 Link - /redditapi/all/:id
 */
