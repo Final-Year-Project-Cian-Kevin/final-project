@@ -74,7 +74,10 @@ export class FollowComponent implements OnInit {
           // Add data to local variables for view.
           this.allFollowers = followers;
           this.allFollowing = following;
-
+          console.log("[DEBUG FOLLOWers]");
+          console.log(this.allFollowers);
+          console.log("[DEBUG FOLLOWeing]");
+          console.log(this.allFollowing);
         } else {
           console.log('[INFO]: Something is wrong');
           this.message = res.json().msg;

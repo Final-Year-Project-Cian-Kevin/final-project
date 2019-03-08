@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.setForm(this.userService.currentUser.username);
     this.settingsForm = this.formBuilder.group({
-      'email': [Validators.email, Validators.required],
+      'email': [null, Validators.required],
       'first_name': [null, Validators.required],
       'surname': [null, Validators.required],
       'bio': [null, Validators.required]
@@ -68,6 +68,8 @@ export class SettingsComponent implements OnInit {
 
     this.userService.getProfile(id)
       .subscribe(data => {
+        console.log("User in settings");
+        console.log(data);
         this.settingsForm.setValue({
           email: data.email,
           first_name: data.first_name,
