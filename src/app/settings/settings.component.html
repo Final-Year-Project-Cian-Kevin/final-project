@@ -1,7 +1,7 @@
-<p>
-  current user {{ userService.currentUser.username }}
-</p>
-<form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit(settingsForm.value)">
+<form class="form-signin" [formGroup]="settingsForm" (ngSubmit)="onFormSubmit(settingsForm.value)">
+  <h3>
+    Edit settings for<strong> {{ userService.currentUser.username }}</strong>
+  </h3>
   <!--
   <mat-form-field class="example-full-width">
     <input matInput placeholder="email" formControlName="email" [errorStateMatcher]="matcher">
@@ -11,7 +11,7 @@
   </mat-form-field>
 -->
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Email" formControlName="email"  [errorStateMatcher]="matcher">
+    <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
     <mat-error *ngIf="settingsForm.hasError('email') && !settingsForm.hasError('required')">
       Please enter a valid email address
     </mat-error>
@@ -47,11 +47,11 @@
       <mat-icon>save</mat-icon>
     </button>
   </div>
-  
 
+  <h3>Edit Profile Image</h3>
   <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
-  <input type="file" name="{{userService.currentUser.username}}" ng2FileSelect [uploader]="uploader" />
+  <input  type="file" name="{{userService.currentUser.username}}" ng2FileSelect [uploader]="uploader" />
   <!-- button to trigger the file upload when submitted -->
   <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-    Upload with ng-2 file uploader
-  </button>
+    Upload new profile image </button>
+</form>

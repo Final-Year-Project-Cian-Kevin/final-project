@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.setForm(this.userService.currentUser.username);
     this.settingsForm = this.formBuilder.group({
-      'email': [null, Validators.required],
+      'email': [null, Validators.email],
       'first_name': [null, Validators.required],
       'surname': [null, Validators.required],
       'bio': [null, Validators.required]
