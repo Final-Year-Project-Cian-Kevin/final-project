@@ -97,6 +97,18 @@ router.get('/all', function(req, res){
 });
 
 /* 
+Get method for specific profile using ID
+Link - /redditapi/allprofile/:id
+*/
+router.get('/allprofile/:id', function (req, res, next) {
+    Reddit.find({subreddit: req.params.id}).sort({date: 'desc'}).limit(10).exec(function(err, posts){ 
+        if (err) return next(err);
+        res.json(posts);
+     });
+});
+
+/* 
+This route is used by individual post to get their information when called
 Get method for specific post using ID
 Link - /redditapi/all/:id
 */

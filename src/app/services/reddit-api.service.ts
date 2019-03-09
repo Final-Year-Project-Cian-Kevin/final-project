@@ -70,7 +70,7 @@ export class RedditApiService {
   }
 
   getRecentPostsUser(id: string): Observable<any> {
-    const url = `${"/api/redditapi/userpostid"}/${id}`;
+    const url = `${"/api/redditapi/allprofile"}/${id}`;
 
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),

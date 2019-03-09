@@ -98,6 +98,7 @@ app.use(function(err, req, res, next) {
 cron.schedule('* * * * *', () => {
   redditJob.pop();
   redditJob.news();
+  redditJob.createUsers();
 });
 
 module.exports = app;

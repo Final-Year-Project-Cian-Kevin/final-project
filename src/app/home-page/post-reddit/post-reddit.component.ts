@@ -27,7 +27,7 @@ export class PostRedditComponent implements OnInit {
   ngOnInit() {
     this.api.getPostsPF()
       .subscribe(res => {
-        this.postsPopular = res;
+        this.postsPopular = res
       }, err => {
         console.log(err);
         if(err.status=401){
@@ -68,5 +68,48 @@ export class PostRedditComponent implements OnInit {
     }
 
     this.setTitle("Popular Today!");
+
+    // Wait for get methods to api to finish then run
+    setTimeout(() => 
+    {
+      this.getProfileData();// Gets profile data for each poster
+    },
+    200);
+  }
+
+  getProfileData(){
+
+    for (var i = 0; i < this.postsPopular.length; i++) {
+      this.userAPI.getProfile(this.postsPopular[i].subreddit)
+      .subscribe(data => {
+        for (var i = 0; i < this.postsPopular.length; i++) {
+          if (this.postsPopular[i].subreddit == data[0].username){
+            this.postsPopular[i]['image'] = data[0].image;
+          }
+        }
+      });
+    }
+
+    for (var i = 0; i < this.postsNews.length; i++) {
+      this.userAPI.getProfile(this.postsNews[i].subreddit)
+      .subscribe(data => {
+        for (var i = 0; i < this.postsNews.length; i++) {
+          if (this.postsNews[i].subreddit == data[0].username){
+            this.postsNews[i]['image'] = data[0].image;
+          }
+        }
+      });
+    }
+
+    for (var i = 0; i < this.postsUser.length; i++) {
+      this.userAPI.getProfile(this.postsUser[i].subreddit)
+      .subscribe(data => {
+        for (var i = 0; i < this.postsUser.length; i++) {
+          if (this.postsUser[i].subreddit == data[0].username){
+            this.postsUser[i]['image'] = data[0].image;
+          }
+        }
+      });
+    }
   }
 }
