@@ -15,9 +15,12 @@ import { Alert } from 'selenium-webdriver';
 export class ProfileComponent implements OnInit {
 
   profile: any;
+  currentUser: any;
   postsUser: any;
   commentsUser: any;
   follow_id;
+  // isUser determines if the user is on their own account.
+  isUser: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private userAPI: UserService, private postAPI: RedditApiService, private commentAPI: CommentsService, private titleService: Title) { }
 
@@ -29,6 +32,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getProfileData(this.route.snapshot.params['id']);
+    // Get current user.
+    this.currentUser = this.userAPI.getUserPayLoad();
+
+    console.log("[PROFILE]:isUser:", this.isUser)
 
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
@@ -62,6 +69,9 @@ export class ProfileComponent implements OnInit {
         console.log("[DEBUG]: profile id ");
 
         console.log(this.profile._id);
+
+        // Check if users account.
+        this.isUser = (this.currentUser.id === this.profile._id);
       });
   }
 
