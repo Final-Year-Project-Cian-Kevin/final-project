@@ -69,11 +69,12 @@ export class PostRedditComponent implements OnInit {
 
     this.setTitle("Popular Today!");
 
+    // Wait for get methods to api to finish then run
     setTimeout(() => 
     {
-      this.getProfileData();
+      this.getProfileData();// Gets profile data for each poster
     },
-    500);
+    200);
   }
 
   getProfileData(){
