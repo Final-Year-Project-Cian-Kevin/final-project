@@ -15,6 +15,15 @@ const userApiURL = "/api/user";
 export interface UserDetails {
   username: string;
 }
+export interface Profile {
+  username: string;
+  first_name: string;
+  surname: string;
+  bio: string;
+  image: string;
+  join_date: Date;
+  email:string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -113,13 +122,15 @@ export class UserService {
    * Can take either a user_id or username.
    *
    * @param id The id or username to check
-   */
+  */
   getProfile(id: string): Observable<any> {
     const url = `${"/api/profile"}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
+   
+
   /**
    * PUT request to API to update profile data.
    * @param id The id of user to update.
