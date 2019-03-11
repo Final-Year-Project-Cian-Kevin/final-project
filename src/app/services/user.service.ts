@@ -40,7 +40,67 @@ export class UserService {
   // Constructor
   constructor(private http: HttpClient) { }
 
-  /*********** ********************************/
+  /************************ API use functions ********************************/
+
+  /**
+   * GET request to API to return profile data.
+   * Can take either a user_id or username.
+   *
+   * @param id The id or username to check
+  */
+  getProfile(id: string): Observable<any> {
+    const url = `${"/api/profile"}/${id}`;
+    return this.http.get(url, httpOptions).pipe(
+      // map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  /**
+   * PUT request to API to update profile data.
+   * @param id The id of user to update.
+   * @param data the form data to update.
+   */
+  updateUser(id: string, data): Observable<any> {
+    const url = `${userApiURL}/update/${id}`;
+    return this.http.put(url, data, httpOptions);
+  }
+
+  /**
+   * POST request to api to add a new user to the 'users' table in db.
+   * 
+   * @param data the new signup data for the user
+   */
+  postUser(data): Observable<any> {
+    return this.http.post(`${userApiURL}/signup`, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * POST request to api to log in a user from the 'users' table in db.
+   * 
+   * @param data the log in data for the user
+   */
+  loginUser(data): Observable<any> {
+    let baseObject;
+
+    return this.http.post(`${userApiURL}/signin`, data, httpOptions);
+    // .pipe(
+    //   catchError(this.handleError)
+    //  );
+  }
+  
+  getUserData(): Observable<any> {
+    const url = `${"/api/user/userdata"}/${this.getJwtToken()}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+
+  /************************ General use functions ********************************/
+
   // save a token
   saveJwtToken(token: string): void {
     localStorage.setItem('jwtToken', token);
@@ -56,24 +116,6 @@ export class UserService {
   logout() {
     localStorage.removeItem('jwtToken');
     this.isLoggedIn();
-  }
-
-  // Login a user
-  loginUser(data): Observable<any> {
-    let baseObject;
-
-    return this.http.post(`${userApiURL}/signin`, data, httpOptions);
-    // .pipe(
-    //   catchError(this.handleError)
-    //  );
-  }
-
-  // Post save a user
-  postUser(data): Observable<any> {
-    return this.http.post(`${userApiURL}/signup`, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
   }
 
   isLoggedIn(): boolean {
@@ -107,12 +149,7 @@ export class UserService {
     }
   }
 
-  getUserData(): Observable<any> {
-    const url = `${"/api/user/userdata"}/${this.getJwtToken()}`;
-    return this.http.get(url, httpOptions).pipe(
-      map(this.extractData),
-      catchError(this.handleError));
-  }
+
   /*
     getProfile(id: string): Observable<any> {
       const url = `${"/api/user/profile"}/${id}`;
@@ -121,30 +158,6 @@ export class UserService {
         catchError(this.handleError));
     }
   */
-
-  /**
-   * GET request to API to return profile data.
-   * Can take either a user_id or username.
-   *
-   * @param id The id or username to check
-  */
-  getProfile(id: string): Observable<any> {
-    const url = `${"/api/profile"}/${id}`;
-    return this.http.get(url, httpOptions).pipe(
-     // map(this.extractData),
-      catchError(this.handleError));
-  }
-
-
-  /**
-   * PUT request to API to update profile data.
-   * @param id The id of user to update.
-   * @param data the form data to update.
-   */
-  updateUser(id: string, data): Observable<any> {
-    const url = `${userApiURL}/update/${id}`;
-    return this.http.put(url, data, httpOptions);
-  }
 
 
 
