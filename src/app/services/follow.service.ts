@@ -29,6 +29,16 @@ export class FollowService {
       );
   }
 
+  /**
+   * Unfollow a user 
+   */
+  unFollowUser(data): Observable<any> {
+    const url = `${followApiURL}/remove`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
 
   /**

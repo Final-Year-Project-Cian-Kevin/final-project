@@ -146,15 +146,6 @@ export class UserService {
   }
 
 
-  /**
-  * Unfollow a user  */
-  unFollowUser(data): Observable<any> {
-    const url = `${userApiURL}/unfollow`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
 
   // Error Handler
   private handleError(error: HttpErrorResponse) {

@@ -78,7 +78,7 @@ router.post('/add', function (req, res) {
 /**
  * Remove data from 'follows' table.
  */
-router.post('/unfollow', function (req, res) {
+router.post('/remove', function (req, res) {
   const user_id = req.body.user_id;
   const to_unfollow_id = req.body.follow_id;
 
@@ -105,12 +105,13 @@ router.post('/unfollow', function (req, res) {
   // Execute bulk command
   followBuilder.execute(function (err, doc) {
     if (err) {
-      console.log("[Server Error - unfollow]", err)
+      console.log("[Server Error - follow/remove]", err)
       return res.json({
         'state': false,
         'msg': err
       })
     }
+    console.log("[Server Success - follow/remove]", err)
     res.json({
       'state': true,
       'msg': 'User unfollowed'

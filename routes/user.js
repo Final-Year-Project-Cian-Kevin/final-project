@@ -142,50 +142,6 @@ router.put('/update/:id', function (req, res, next) {
   });
 });
 
-
-/**
- * Remove data to follow table.
- */
-router.post('/unfollow', function (req, res) {
-  const user_id = req.body.user_id;
-  const to_unfollow_id = req.body.follow_id;
-
-  let followBuilder = Follow.collection.initializeUnorderedBulkOp();
-
-  // Remove following data from set.
-  followBuilder.find({
-    'user': mongoose.Types.ObjectId(user_id)
-  }).upsert().updateOne({
-    $pull: {
-      following: mongoose.Types.ObjectId(to_unfollow_id)
-    }
-  });
-
-  // Remove follower data from set.
-  followBuilder.find({
-    'user': mongoose.Types.ObjectId(to_unfollow_id)
-  }).upsert().updateOne({
-    $pull: {
-      followers: mongoose.Types.ObjectId(user_id)
-    }
-  })
-
-  // Execute bulk command
-  followBuilder.execute(function (err, doc) {
-    if (err) {
-      console.log("[Server Error - unfollow]", err)
-      return res.json({
-        'state': false,
-        'msg': err
-      })
-    }
-    res.json({
-      'state': true,
-      'msg': 'User unfollowed'
-    })
-  })
-})
-
 /** 
  * Return all following data
  */

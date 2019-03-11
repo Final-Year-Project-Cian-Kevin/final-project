@@ -116,7 +116,7 @@ export class ProfileComponent implements OnInit {
       user_id: user_id,
       follow_id: _id
     };
-    this.userAPI.unFollowUser(followUser)
+    this.followService.unFollowUser(followUser)
       .subscribe(res => {
         // Alert the user of the success.
         alert("User unfollowed");
