@@ -34,7 +34,7 @@ router.get('/profile/:id', function (req, res, next) {
 /**
  *  Add data to 'follows' table.
  */
-router.post('/follow', function (req, res) {
+router.post('/add', function (req, res) {
   const user_id = req.body.user_id;
   const to_follow_id = req.body.follow_id;
   // Inilise bulk object
@@ -61,12 +61,13 @@ router.post('/follow', function (req, res) {
   // Execute bulk command
   followBuilder.execute(function (err, doc) {
     if (err) {
-      console.log("[Server Error - follow]", err)
+      console.log("[Server Error - follow/add]", err)
       return res.json({
         'state': false,
         'msg': err
       })
     }
+    console.log("[Server Success - follow/add]", err)
     res.json({
       'state': true,
       'msg': 'User Followed'

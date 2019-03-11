@@ -38,6 +38,7 @@ var apiRouterProfile = require('./routes/profile');// change book to api
 var apiRouterAssets = require('./routes/assets');
 var apiRouterComment = require('./routes/comment');
 var apiRouterSavePost = require('./routes/savedPost');
+var apiRouterFollow = require('./routes/follow');// change book to api
 
 // Using mean-angular6 database
 app.use(express.static(path.join(__dirname, 'dist/mean-angular6')));
@@ -70,6 +71,7 @@ app.use('/api/redditapi', apiReddit);
 app.use('/api/assets', apiRouterAssets);
 app.use('/api/comment', apiRouterComment);
 app.use('/api/savedPost', apiRouterSavePost);
+app.use('/api/follow', apiRouterFollow);
 
 // Books route
 app.use('/books', express.static(path.join(__dirname, 'dist/mean-angular6')));

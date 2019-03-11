@@ -144,49 +144,6 @@ router.put('/update/:id', function (req, res, next) {
 
 
 /**
- * Add data to follow table.
- */
-router.post('/follow', function (req, res) {
-  const user_id = req.body.user_id;
-  const to_follow_id = req.body.follow_id;
-  // Inilise bulk object
-  let followBuilder = Follow.collection.initializeUnorderedBulkOp();
-
-  // Add follower data to set.
-  followBuilder.find({
-    'user': mongoose.Types.ObjectId(user_id)
-  }).upsert().updateOne({
-    $addToSet: {
-      following: mongoose.Types.ObjectId(to_follow_id)
-    }
-  });
-
-  // Add following data to set.
-  followBuilder.find({
-    'user': mongoose.Types.ObjectId(to_follow_id)
-  }).upsert().updateOne({
-    $addToSet: {
-      followers: mongoose.Types.ObjectId(user_id)
-    }
-  });
-
-  // Execute bulk command
-  followBuilder.execute(function (err, doc) {
-    if (err) {
-      console.log("[Server Error - follow]", err)
-      return res.json({
-        'state': false,
-        'msg': err
-      })
-    }
-    res.json({
-      'state': true,
-      'msg': 'User Followed'
-    })
-  })
-})
-
-/**
  * Remove data to follow table.
  */
 router.post('/unfollow', function (req, res) {

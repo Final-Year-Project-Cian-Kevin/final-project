@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, } from '../services/user.service';
+import { FollowService, } from '../services/follow.service';
+
 import { RedditApiService } from '../services/reddit-api.service';
 import { CommentsService } from '../services/comments.service';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -23,7 +25,7 @@ export class ProfileComponent implements OnInit {
   // isUser determines if the user is on their own account.
   isUser: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, private userAPI: UserService, private postAPI: RedditApiService, private commentAPI: CommentsService, private titleService: Title) { }
+  constructor(private route: ActivatedRoute,private followService: FollowService, private router: Router, private userAPI: UserService, private postAPI: RedditApiService, private commentAPI: CommentsService, private titleService: Title) { }
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
@@ -87,7 +89,7 @@ export class ProfileComponent implements OnInit {
       follow_id: _id
     };
 
-    this.userAPI.followUser(followUser)
+    this.followService.followUser(followUser)
       .subscribe(res => {
         // Alert the user of the success.
         alert("User followed");

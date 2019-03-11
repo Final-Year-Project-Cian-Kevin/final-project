@@ -10,6 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 const userApiURL = "/api/user";
+//const followApiURL = "/api/user";
 
 // Interface to store user details
 export interface UserDetails {
@@ -144,15 +145,7 @@ export class UserService {
     return this.http.put(url, data, httpOptions);
   }
 
-  /**
-   * Follow a user  */
-  followUser(data): Observable<any> {
-    const url = `${userApiURL}/follow`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+
   /**
   * Unfollow a user  */
   unFollowUser(data): Observable<any> {

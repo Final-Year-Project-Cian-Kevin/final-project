@@ -10,12 +10,26 @@ const httpOptions = {
 };
 
 const userApiURL = "/api/user";
+const followApiURL = "/api/follow";
 @Injectable({
   providedIn: 'root'
 })
 export class FollowService {
 
   constructor(private http: HttpClient) { }
+
+  /**
+    * Follow a user  
+    */
+  followUser(data): Observable<any> {
+    const url = `${followApiURL}/add`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
 
   /**
    * returns a http call to recieve a users following data.
