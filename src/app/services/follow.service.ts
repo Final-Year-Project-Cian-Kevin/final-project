@@ -47,7 +47,7 @@ export class FollowService {
    * @param id the object id of the user we want to return following data for.
    */
   getFollowers(id: string): Observable<any> {
-    const url = `${userApiURL}/follow/${id}`;
+    const url = `${followApiURL}/${id}`;
     console.log("[DEBUG] getFollowers id/username: ", id);
     return this.http.get(url, httpOptions).pipe(
       catchError(this.handleError));

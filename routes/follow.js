@@ -122,7 +122,7 @@ router.post('/remove', function (req, res) {
 /** 
  * Return all following data
  */
-router.get('/follow/:id', function (req, res) {
+router.get('/:id', function (req, res) {
 
   const username = req.params.id;
   //console.log("[DEBUG]: /follow username", username);
@@ -131,7 +131,7 @@ router.get('/follow/:id', function (req, res) {
     'username': username
   }, function (err, user) {
     if (!user) {
-      console.log("[DEBUG]: /follow : no user found");
+      //console.log("[DEBUG]: /follow : no user found");
 
       return res.json({
         'state': false,
