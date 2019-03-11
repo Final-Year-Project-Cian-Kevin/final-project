@@ -22,13 +22,16 @@ export interface Profile {
   bio: string;
   image: string;
   join_date: Date;
-  email:string;
+  email: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 
+/**
+ * UserService is a api service for dealing with all user resources.
+ */
 export class UserService {
   // jwt
   private token: string;
@@ -129,7 +132,7 @@ export class UserService {
       map(this.extractData),
       catchError(this.handleError));
   }
-   
+
 
   /**
    * PUT request to API to update profile data.
@@ -140,7 +143,7 @@ export class UserService {
     const url = `${userApiURL}/update/${id}`;
     return this.http.put(url, data, httpOptions);
   }
-  
+
   /**
    * Follow a user  */
   followUser(data): Observable<any> {

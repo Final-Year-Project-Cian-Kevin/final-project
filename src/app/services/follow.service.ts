@@ -17,26 +17,30 @@ export class FollowService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * returns a http call to recieve a users following data.
+   * 
+   * @param id the object id of the user we want to return following data for.
+   */
   getFollowers(id: string): Observable<any> {
     const url = `${userApiURL}/follow/${id}`;
-    console.log("[DEBUG] getFollowers id/username: ",id);
+    console.log("[DEBUG] getFollowers id/username: ", id);
     return this.http.get(url, httpOptions).pipe(
-      //map(this.extractData),
       catchError(this.handleError));
   }
 
 
-  
+
   private extractData(res: Response) {
     let body = res;
-    return body || { };
+    return body || {};
   }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
     } else {
-     // console.error('DEBUG HANDLE ERROR:',error.error.message)
+      // console.error('DEBUG HANDLE ERROR:',error.error.message)
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(
