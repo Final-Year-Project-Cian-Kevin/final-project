@@ -40,6 +40,7 @@ export class UserService {
   // Constructor
   constructor(private http: HttpClient) { }
 
+  /*********** ********************************/
   // save a token
   saveJwtToken(token: string): void {
     localStorage.setItem('jwtToken', token);
@@ -130,7 +131,7 @@ export class UserService {
   getProfile(id: string): Observable<any> {
     const url = `${"/api/profile"}/${id}`;
     return this.http.get(url, httpOptions).pipe(
-      map(this.extractData),
+     // map(this.extractData),
       catchError(this.handleError));
   }
 
