@@ -17,6 +17,26 @@
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" class="form-control" placeholder="Password" [(ngModel)]="signupData.password" name="password"
       required />
+      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="signupData.confpassword" name="confpassword"
+      required />
+
+    </form>
+      <form class="form-signin" [formGroup]="passwordFormGroup" (ngSubmit)="onFormSubmit(settingsForm.value)">
+        <h3>
+          Practice Form group for password
+        </h3>
+      <mat-form-field class ="spacer">
+        <input matInput type="password" placeholder="Password" formControlName="password" (input)="onPasswordInput()">
+        <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="password.hasError('minlength')">Password must have at least {{minimumPwLength}} characters</mat-error>
+      </mat-form-field>
+    <p>a                                                               a</p>
+      <mat-form-field  class ="spacer">
+        <input matInput type="password" placeholder="Confirm password" formControlName="password2" (input)="onPasswordInput()">
+        <mat-error *ngIf="password2.hasError('required')">Please confirm your password</mat-error>
+        <mat-error *ngIf="password2.invalid && !password2.hasError('required')">Passwords don't match</mat-error>
+      </mat-form-field>
+      </form>
     <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
-  </form>
+ 
 </div>
