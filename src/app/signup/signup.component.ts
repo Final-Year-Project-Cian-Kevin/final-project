@@ -24,26 +24,19 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  // convert to api 
-  /*
-  signup() {
-    this.http.post('/api/signup', this.signupData).subscribe(resp => {
-      console.log(resp);
-      this.router.navigate(['login']);
-    }, err => {
-      this.message = err.error.msg;
-    });
-  }
-  */
+  /**
+   * Calls the postUser api method to add a user to the 'users'.
+   */
   signup() {
     this.api.postUser(this.signupData)
       .subscribe(resp => {
-        console.log(resp);
+        //console.log(resp);
         this.router.navigate(['login']);
       }, err => {
         this.message = err.error.msg;
       });
   }
+  
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead

@@ -15,11 +15,23 @@ const userApiURL = "/api/user";
 export interface UserDetails {
   username: string;
 }
+export interface Profile {
+  username: string;
+  first_name: string;
+  surname: string;
+  bio: string;
+  image: string;
+  join_date: Date;
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 
+/**
+ * UserService is a api service for dealing with all user resources.
+ */
 export class UserService {
   // jwt
   private token: string;
@@ -99,21 +111,39 @@ export class UserService {
       map(this.extractData),
       catchError(this.handleError));
   }
+  /*
+    getProfile(id: string): Observable<any> {
+      const url = `${"/api/user/profile"}/${id}`;
+      return this.http.get(url, httpOptions).pipe(
+        map(this.extractData),
+        catchError(this.handleError));
+    }
+  */
 
+  /**
+   * GET request to API to return profile data.
+   * Can take either a user_id or username.
+   *
+   * @param id The id or username to check
+  */
   getProfile(id: string): Observable<any> {
-    const url = `${"/api/user/profile"}/${id}`;
+    const url = `${"/api/profile"}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
+
+  /**
+   * PUT request to API to update profile data.
+   * @param id The id of user to update.
+   * @param data the form data to update.
+   */
   updateUser(id: string, data): Observable<any> {
     const url = `${userApiURL}/update/${id}`;
-    return this.http.put(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.put(url, data, httpOptions);
   }
+
   /**
    * Follow a user  */
   followUser(data): Observable<any> {

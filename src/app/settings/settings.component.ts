@@ -23,6 +23,7 @@ export class SettingsComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
+  errorMessage = '';
 
   //declare a property called fileuploader and assign it to an instance of a new fileUploader.
   //pass in the Url to be uploaded to, and pass the itemAlais, which would be the name of the //file input when sending the post request.
@@ -31,6 +32,7 @@ export class SettingsComponent implements OnInit {
   constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
     this.setForm(this.userService.currentUser.username);
     this.settingsForm = this.formBuilder.group({
       'email': [null, Validators.email],
@@ -63,39 +65,34 @@ export class SettingsComponent implements OnInit {
 
   // set initial values for form
   setForm(id) {
-    console.log("+++++++++++++++++ SetForm Settings");
-
-
     this.userService.getProfile(id)
-      .subscribe(data => {
-        console.log("User in settings");
-        console.log(data);
+      .subscribe(profile => {
+
         this.settingsForm.setValue({
-          email: data.email,
-          first_name: data.first_name,
-          surname: data.surname,
-          bio: data.bio
+          email: profile.email,
+          first_name: profile.first_name,
+          surname: profile.surname,
+          bio: profile.bio
 
         });
-        console.log("User in settings");
-        console.log(data);
       });
-
-    console.log("User out set settings");
-
-
-
-
-
   }
 
+  /**
+   * Sends a request to userService to update user details.
+   * 
+   * @param form form data to update.
+   */
   onFormSubmit(form: NgForm) {
     this.userService.updateUser(this.userService.currentUser.id, form)
       .subscribe(res => {
         let id = res['_id'];
+        alert("Account updated!");
+
         this.router.navigate(['/profile', this.userService.currentUser.username]);
       }, (err) => {
-        console.log(err);
+        this.errorMessage = err.error.msg;
+        console.error("[ERROR] submitting update :", this.errorMessage);
       }
       );
   }

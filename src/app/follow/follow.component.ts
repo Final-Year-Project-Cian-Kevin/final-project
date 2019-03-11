@@ -33,21 +33,13 @@ export class FollowComponent implements OnInit {
     // Set the initial value of the toggle button
     this.selectedVal = true;
   }
+
   /**
    * Change selected value when button is toggled.
    * @param val 
    */
   public onValChange() {
     this.selectedVal = !this.selectedVal;
-    /** 
-    console.log("[DEBUG]- follow - Selected value :", value)
-    if (value == "true") {
-      this.selectedVal = true;
-
-    } else {
-      this.selectedVal = false;
-    }
-*/
   }
 
   /**
@@ -55,7 +47,7 @@ export class FollowComponent implements OnInit {
    * @param id 
    */
   loadFollowData(username) {
-    console.log("[DEBUG]: loadFollowData :", username, ":", username.length);
+    //console.log("[DEBUG]: loadFollowData :", username, ":", username.length);
 
     this.followService.getFollowers(username)
       .subscribe((res) => {
@@ -74,12 +66,12 @@ export class FollowComponent implements OnInit {
           // Add data to local variables for view.
           this.allFollowers = followers;
           this.allFollowing = following;
-          console.log("[DEBUG FOLLOWers]");
-          console.log(this.allFollowers);
-          console.log("[DEBUG FOLLOWeing]");
-          console.log(this.allFollowing);
+          //   console.log("[DEBUG FOLLOWers]");
+          //   console.log(this.allFollowers);
+          //   console.log("[DEBUG FOLLOWeing]");
+          //   console.log(this.allFollowing);
         } else {
-          console.log('[INFO]: Something is wrong');
+          //   console.log('[INFO]: Something is wrong');
           this.message = res.json().msg;
         }
       })

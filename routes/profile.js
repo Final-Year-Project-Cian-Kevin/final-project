@@ -22,18 +22,17 @@ router.get('/get', function (req, res, next) {
 /** 
  * GET to user based on username or id
  */
-router.get('/:details', function (req, res, next) {
-  User.findOne({
-      $or: [{
-        username: req.body.details
-      }, {
-        userId: req.body.details
-      }]
-    },
-    function (err, user) {
-      if (err) return next(err);
-      res.json(user.toPublicUserJson());
-    });
+router.get('/:id', function (req, res, next) {
+  User.find({
+    $or: [{
+      username: req.params.id
+    }, {
+      userId: req.params.id
+    }]
+  }).lean().select('username bio image email first_name surname join_date').exec(function (err, user) {
+    if (err) return next(err);
+    res.json(user);
+  });
 });
 // export router as module
 module.exports = router;

@@ -85,7 +85,9 @@ UserSchema.methods.toPublicUserJson = function (user) {
     first_name: this.first_name,
     surname: this.surname,
     bio: this.bio,
-    image: this.image || 'https://defaultimageurl'
+    image: this.image,
+    join_date:this.join_date,
+    email: this.email
   };
 };
 /**
