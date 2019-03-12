@@ -35,22 +35,25 @@ router.post('/signup', function (req, res) {
       password: req.body.password
     });
 
-
     newUser.save(function (err) {
       if (err) {
 
         // Error message for generic server error.
         var serverError = 'A server error has occurred please try again';
+        var serverErrorMsg="[Error] - register error occured";
 
         // Confirm if error is due to dupliacte email or username added.
         if (err.errmsg.includes('email')) {
-          console.log("[Error] - register error duplicate email found");
-          serverError = "[Error] - register error duplicate email found";
+          serverError = "Email already in use please choose another";
+          serverErrorMsg= "[Error] - register error duplicate email found";
         } else if (err.errmsg.includes('username')) {
-          console.log("[Error] - register error duplicate username found");
-          serverError = "[Error] - register error duplicate username found";
+          serverError = "Username already in use please choose another";
+          serverErrorMsg = "Username already in use please choose another";
         }
-        return res.json({
+
+        // Return a 401 error if duplicate key found.
+        console.log(serverErrorMsg);
+        return res.status(401).send({
           success: false,
           msg: serverError
         });

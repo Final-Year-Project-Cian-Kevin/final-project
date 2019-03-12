@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
+//import { setServers } from 'dns';
 
 @Component({
   selector: 'app-signup',
@@ -19,8 +17,8 @@ export class SignupComponent implements OnInit {
 
   // Server Response messages.
   message = '';
-  serverErrorEmail = '';
-serverErrorUsername='';
+  serverErrorMessage = '';
+  serverErrorType = '';
   constructor(private router: Router, private api: UserService, private formBuilder: FormBuilder) {
   }
 
@@ -66,30 +64,27 @@ serverErrorUsername='';
       };
   };
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
-      console.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
-
   /**
    * Subscribes to userService to register a user.
    * 
    * @param form form data to register.
    */
   onFormSubmit(form: NgForm) {
-    console.log("[Register] : submitting request");
+    // Reset the error message.
+    this.serverErrorMessage = '';
     this.api.postUser(this.passwordFormGroup.value)
       .subscribe(resp => {
+        alert("Account created welcome to TechBook !")
         this.router.navigate(['login']);
       }, err => {
-        console.log("[Register] : request failed");
+        this.serverErrorMessage = err.error.msg;
+        console.error(this.serverErrorMessage);
 
-        console.error(err.error.msg);
-       //this.message = err.error.msg;
-        //this.serverErrorMessage;
+        // Check error type returned from server and assign to serverErrorType.
+        // This section is not in use but may be used to move error to specific input.
+        if (this.serverErrorMessage.includes('email')) { this.serverErrorType = 'email'; }
+        else if (this.serverErrorMessage.includes('username')) { this.serverErrorType = 'username'; }
+        else { this.serverErrorType = 'generic'; }
       });
   };
 

@@ -2,15 +2,21 @@
 
   <form class="form-register" [formGroup]="passwordFormGroup" (ngSubmit)="onFormSubmit()">
     <h3>Register new user account</h3>
-
+   <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="serverErrorMessage !== ''">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{serverErrorMessage}}
+      </div>
+      
     <mat-form-field class="spacer">
       <input matInput placeholder="username" formControlName="username" [errorStateMatcher]="matcher">
       <mat-error>
         <span *ngIf="!passwordFormGroup.get('username').valid && passwordFormGroup.get('username').touched">Please
           Enter
-          firstname</span>
+          Username</span>
       </mat-error>
-      <mat-error *ngIf="serverError == 'error'">Email is <strong>{{serverError}}</strong></mat-error>
+      <mat-error>
+        <span *ngIf="serverErrorType === 'username'">{{serverErrorMessage}}</span>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="spacer">
@@ -39,8 +45,10 @@
       <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
       <mat-error *ngIf="!passwordFormGroup.get('email').valid && passwordFormGroup  .get('email').touched">
         Email is <strong>required</strong>
-      </mat-error>
+      </mat-error>  
       <mat-error *ngIf="passwordFormGroup.hasError('email')">Please enter a valid email address</mat-error>
+      <mat-error *ngIf="serverErrorType == 'email' && serverErrorMessage != ''"><strong>{{serverErrorMessage}}</strong></mat-error>
+
     </mat-form-field>
 
     <mat-form-field class="spacer">
