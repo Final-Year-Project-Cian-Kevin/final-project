@@ -1,0 +1,8 @@
+2019-03-12T22:52:24.856Z : [Login] : user unsuccesfully attempted log in with username ndwfkbu
+2019-03-12T22:52:31.567Z : [Login] : user kevin unsuccesfully attempted log in with invalid password 
+2019-03-12T22:53:11.482Z : CastError: Cast to ObjectId failed for value "undefined" at path "_id" for model "User"
+2019-03-12T22:53:11.482Z : [Profile update] : user undefined attempted to change email to an invalid address
+2019-03-12T22:53:11.482Z : undefined
+2019-03-12T22:56:20.103Z : CastError: Cast to ObjectId failed for value "undefined" at path "_id" for model "User"
+2019-03-12T22:56:20.103Z : [Profile update] : user undefined attempted to change email to an invalid address
+2019-03-12T22:56:20.103Z : undefined
