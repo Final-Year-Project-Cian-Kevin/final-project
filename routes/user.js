@@ -18,7 +18,6 @@ var Follow = require("../models/follow");
  * Create router to register new user
  */
 router.post('/signup', function (req, res) {
-  // console.log("DEBUG_user.jsPOSTUSER /signup")
   console.log('\x1b[34m%s\x1b[0m', "DEBUG : POST USER signup"); //blue cmd
 
   if (!req.body.username || !req.body.password) {
@@ -35,18 +34,25 @@ router.post('/signup', function (req, res) {
       surname: req.body.surname,
       password: req.body.password
     });
-    var newProfile = new Profile({
-      username: req.body.username,
-      first_name: req.body.first_name,
-      surname: req.body.surname
-    });
 
-    // save the user
+
     newUser.save(function (err) {
       if (err) {
+
+        // Error message for generic server error.
+        var serverError = 'A server error has occurred please try again';
+
+        // Confirm if error is due to dupliacte email or username added.
+        if (err.errmsg.includes('email')) {
+          console.log("[Error] - register error duplicate email found");
+          serverError = "[Error] - register error duplicate email found";
+        } else if (err.errmsg.includes('username')) {
+          console.log("[Error] - register error duplicate username found");
+          serverError = "[Error] - register error duplicate username found";
+        }
         return res.json({
           success: false,
-          msg: 'Username already exists, please choose another.'
+          msg: serverError
         });
       }
       res.json({
@@ -54,7 +60,6 @@ router.post('/signup', function (req, res) {
         msg: 'Successful user account created.'
       });
     });
-    newProfile.save();
   }
 });
 

@@ -1,11 +1,8 @@
 <div class="container">
- 
+
   <form class="form-register" [formGroup]="passwordFormGroup" (ngSubmit)="onFormSubmit()">
-    <h3>
-      Register new user account
-    </h3>
-   
--->
+    <h3>Register new user account</h3>
+
     <mat-form-field class="spacer">
       <input matInput placeholder="username" formControlName="username" [errorStateMatcher]="matcher">
       <mat-error>
@@ -13,9 +10,7 @@
           Enter
           firstname</span>
       </mat-error>
-      <mat-error *ngIf="serverError == 'error'">
-        Email is <strong>{{serverError}}</strong>
-      </mat-error>
+      <mat-error *ngIf="serverError == 'error'">Email is <strong>{{serverError}}</strong></mat-error>
     </mat-form-field>
 
     <mat-form-field class="spacer">
@@ -45,18 +40,13 @@
       <mat-error *ngIf="!passwordFormGroup.get('email').valid && passwordFormGroup  .get('email').touched">
         Email is <strong>required</strong>
       </mat-error>
-      <mat-error *ngIf="passwordFormGroup.hasError('email')">
-        Please enter a valid email address
-      </mat-error>
-
-
+      <mat-error *ngIf="passwordFormGroup.hasError('email')">Please enter a valid email address</mat-error>
     </mat-form-field>
 
     <mat-form-field class="spacer">
       <input matInput type="password" placeholder="Password" formControlName="password" (input)="onPasswordInput()">
       <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
       <mat-error *ngIf="password.hasError('minlength')">Password must have at least {{minimumPwLength}} characters</mat-error>
-
     </mat-form-field>
 
     <mat-form-field class="spacer">
@@ -66,13 +56,7 @@
     </mat-form-field>
 
     <div class="button-row">
-      <button type="submit" [disabled]="!passwordFormGroup.valid" mat-raised-button color="primary">
-        Sign Up New Way
-        <mat-icon>save</mat-icon>
-      </button>
+      <button type="submit" [disabled]="!passwordFormGroup.valid" mat-raised-button color="primary">Register<mat-icon>save</mat-icon></button>
     </div>
   </form>
-
-  <!--<button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>-->
-
 </div>

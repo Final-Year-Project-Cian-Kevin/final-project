@@ -13,13 +13,14 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 })
 
 export class SignupComponent implements OnInit {
-  message = '';
-  serverErrorMessage = '';
-
   // Form group variables.
   minimumPwLength = 8;
   passwordFormGroup: FormGroup;
 
+  // Server Response messages.
+  message = '';
+  serverErrorEmail = '';
+serverErrorUsername='';
   constructor(private router: Router, private api: UserService, private formBuilder: FormBuilder) {
   }
 
@@ -34,8 +35,6 @@ export class SignupComponent implements OnInit {
     }, { validator: this.passwordMatchValidator });
   }
 
-
-
   /**
    * Adapted from https://stackoverflow.com/questions/50728460/password-confirm-angular-material
    *  
@@ -44,9 +43,11 @@ export class SignupComponent implements OnInit {
   get password() { return this.passwordFormGroup.get('password'); }
   get password2() { return this.passwordFormGroup.get('password2'); }
 
-  /* Called on each input in either password field */
+  /**
+   *  Called on each input in either password field.
+   */
   onPasswordInput() {
-    console.log("[DEBUG- SIGNUP]: Entered onPasswordInput");
+    // Check if passwords are the same.
     if (this.passwordFormGroup.hasError('passwordMismatch'))
       this.password2.setErrors([{ 'passwordMismatch': true }]);
     else
@@ -54,14 +55,17 @@ export class SignupComponent implements OnInit {
   }
 
   /**
-   * 
+   * Validate passwords inputed to ensure values are equal.
    */
   passwordMatchValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
     if (formGroup.get('password').value === formGroup.get('password2').value)
       return null;
     else
-      return { passwordMismatch: true };
+      return {
+        passwordMismatch: true
+      };
   };
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
@@ -69,21 +73,23 @@ export class SignupComponent implements OnInit {
       return of(result as T);
     };
   }
+
   /**
- * Sends a request to userService to register a user .
- * 
- * @param form form data to update.
- */
+   * Subscribes to userService to register a user.
+   * 
+   * @param form form data to register.
+   */
   onFormSubmit(form: NgForm) {
-    console.log("[DEBUG - SIGN UP]: onFormSUbmit form");
-    console.log(this.passwordFormGroup.value);
+    console.log("[Register] : submitting request");
     this.api.postUser(this.passwordFormGroup.value)
       .subscribe(resp => {
-        //console.log(resp);
         this.router.navigate(['login']);
       }, err => {
-        this.message = err.error.msg;
-        this.serverErrorMessage;
+        console.log("[Register] : request failed");
+
+        console.error(err.error.msg);
+       //this.message = err.error.msg;
+        //this.serverErrorMessage;
       });
   };
 

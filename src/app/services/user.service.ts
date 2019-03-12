@@ -72,9 +72,9 @@ export class UserService {
    */
   postUser(data): Observable<any> {
     return this.http.post(`${userApiURL}/signup`, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+     // .pipe(
+      //  catchError(this.handleError)
+      //);
   }
 
   /**
