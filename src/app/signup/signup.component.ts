@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
-
 
 @Component({
   selector: 'app-signup',
@@ -15,36 +13,29 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 })
 
 export class SignupComponent implements OnInit {
-  signupData = { username: '',email: '',first_name:'',surname:'', password: '' };
   message = '';
+  serverErrorMessage = '';
 
   // Form group variables.
   minimumPwLength = 8;
   passwordFormGroup: FormGroup;
 
   constructor(private router: Router, private api: UserService, private formBuilder: FormBuilder) {
-    console.log('DEBUG : SignupComponent: IN constructor');
   }
 
   ngOnInit() {
     this.passwordFormGroup = this.formBuilder.group({
+      username: [null, [Validators.required]],
+      first_name: [null, [Validators.required]],
+      surname: [null, [Validators.required]],
+      email: [null, [Validators.email]],
       password: ['', [Validators.required, Validators.minLength(this.minimumPwLength)]],
       password2: ['', [Validators.required]]
-    }, {validator: this.passwordMatchValidator});
+    }, { validator: this.passwordMatchValidator });
   }
 
-  /**
-   * Calls the postUser api method to add a user to the 'users'.
-   */
-  signup() {
-    this.api.postUser(this.signupData)
-      .subscribe(resp => {
-        //console.log(resp);
-        this.router.navigate(['login']);
-      }, err => {
-        this.message = err.error.msg;
-      });
-  }
+
+
   /**
    * Adapted from https://stackoverflow.com/questions/50728460/password-confirm-angular-material
    *  
@@ -55,17 +46,21 @@ export class SignupComponent implements OnInit {
 
   /* Called on each input in either password field */
   onPasswordInput() {
+    console.log("[DEBUG- SIGNUP]: Entered onPasswordInput");
     if (this.passwordFormGroup.hasError('passwordMismatch'))
-      this.password2.setErrors([{'passwordMismatch': true}]);
+      this.password2.setErrors([{ 'passwordMismatch': true }]);
     else
       this.password2.setErrors(null);
   }
 
+  /**
+   * 
+   */
   passwordMatchValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
     if (formGroup.get('password').value === formGroup.get('password2').value)
       return null;
     else
-      return {passwordMismatch: true};
+      return { passwordMismatch: true };
   };
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -74,5 +69,22 @@ export class SignupComponent implements OnInit {
       return of(result as T);
     };
   }
+  /**
+ * Sends a request to userService to register a user .
+ * 
+ * @param form form data to update.
+ */
+  onFormSubmit(form: NgForm) {
+    console.log("[DEBUG - SIGN UP]: onFormSUbmit form");
+    console.log(this.passwordFormGroup.value);
+    this.api.postUser(this.passwordFormGroup.value)
+      .subscribe(resp => {
+        //console.log(resp);
+        this.router.navigate(['login']);
+      }, err => {
+        this.message = err.error.msg;
+        this.serverErrorMessage;
+      });
+  };
 
 }

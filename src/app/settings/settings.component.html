@@ -1,6 +1,6 @@
 <form class="form-signin" [formGroup]="settingsForm" (ngSubmit)="onFormSubmit(settingsForm.value)">
   <h3>
-    Edit settings for<strong> {{ userService.currentUser.username }}</strong>
+    Edit settings for<strong> {{ currentUserName }}</strong>
   </h3>
   <!--
   <mat-form-field class="example-full-width">
@@ -10,20 +10,20 @@
     </mat-error>
   </mat-form-field>
 -->
-  <mat-form-field class="example-full-width">
-    <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{errorMessage}}
-    </div>
-    <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
-    <mat-error *ngIf="settingsForm.hasError('email')">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">
-      Email is <strong>required</strong>
-    </mat-error>
+    <mat-form-field class="example-full-width">
+      <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{errorMessage}}
+      </div>
+      <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="settingsForm.hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">
+        Email is <strong>required</strong>
+      </mat-error>
 
-  </mat-form-field>
+    </mat-form-field>
 
   <mat-form-field class="example-full-width">
     <input matInput placeholder="first_name" formControlName="first_name" [errorStateMatcher]="matcher">
@@ -56,7 +56,7 @@
 
   <h3>Edit Profile Image</h3>
   <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
-  <input type="file" name="{{userService.currentUser.username}}" ng2FileSelect [uploader]="uploader" />
+  <input type="file" name="{{currentUserName}}" ng2FileSelect [uploader]="uploader" />
   <!-- button to trigger the file upload when submitted -->
   <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
     Upload new profile image </button>

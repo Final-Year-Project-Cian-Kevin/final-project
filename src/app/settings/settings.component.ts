@@ -15,6 +15,8 @@ const URL = 'http://localhost:3000/api/assets/';
 })
 export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
+  currentUser: any; // user object of current logged in user
+  currentUserName: String; // username of current logged in user
   //email: string = '';
   first_name: string = '';
   surname: string = '';
@@ -32,9 +34,13 @@ export class SettingsComponent implements OnInit {
   constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+this.currentUser= this.userService.getUserPayLoad();
 
-    this.setForm(this.userService.currentUser.username);
-    this.settingsForm = this.formBuilder.group({
+this.currentUserName = this.currentUser.username;
+
+   // this.setForm(this.userService.currentUser.username);
+   this.setForm(this.currentUserName);
+   this.settingsForm = this.formBuilder.group({
       'email': [null, Validators.email],
       'first_name': [null, Validators.required],
       'surname': [null, Validators.required],

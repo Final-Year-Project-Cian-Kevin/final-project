@@ -31,7 +31,7 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
  // .catch((err) => console.error(err));
 
  // variable for API route
-var apiRouter = require('./routes/book');
+var apiRouter = require('./routes/book'); 
 var apiReddit = require('./routes/reddit');
 var apiRouterUser = require('./routes/user');// change book to api
 var apiRouterProfile = require('./routes/profile');// change book to api
@@ -62,6 +62,9 @@ app.use('/post/:id', express.static(path.join(__dirname, 'dist/mean-angular6')))
 app.use('/profile/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/post-create', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/saved/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/settings    ', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/signup', express.static(path.join(__dirname, 'dist/mean-angular6')));
+
 
 // Add API route to endpoint URL
 app.use('/api', apiRouter);

@@ -1,42 +1,78 @@
 <div class="container">
-  <form class="form-signin" (ngSubmit)="signup()" #signupForm="ngForm">
-    <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{message}}
-    </div>
-    <h2 class="form-signin-heading">Sign Up Now</h2>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" class="form-control" placeholder="Username" [(ngModel)]="signupData.username" name="username"
-      required />
-    <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="signupData.first_name" name="first_name"
-      required />
-    <input type="text" class="form-control" placeholder="Surname" [(ngModel)]="signupData.surname" name="surname"
-      required />
-    <input type="text" class="form-control" placeholder="Email" [(ngModel)]="signupData.email" name="email" required />
-
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="signupData.password" name="password"
-      required />
-      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="signupData.confpassword" name="confpassword"
-      required />
-
-    </form>
-      <form class="form-signin" [formGroup]="passwordFormGroup" (ngSubmit)="onFormSubmit(settingsForm.value)">
-        <h3>
-          Practice Form group for password
-        </h3>
-      <mat-form-field class ="spacer">
-        <input matInput type="password" placeholder="Password" formControlName="password" (input)="onPasswordInput()">
-        <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
-        <mat-error *ngIf="password.hasError('minlength')">Password must have at least {{minimumPwLength}} characters</mat-error>
-      </mat-form-field>
-    <p>a                                                               a</p>
-      <mat-form-field  class ="spacer">
-        <input matInput type="password" placeholder="Confirm password" formControlName="password2" (input)="onPasswordInput()">
-        <mat-error *ngIf="password2.hasError('required')">Please confirm your password</mat-error>
-        <mat-error *ngIf="password2.invalid && !password2.hasError('required')">Passwords don't match</mat-error>
-      </mat-form-field>
-      </form>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
  
+  <form class="form-register" [formGroup]="passwordFormGroup" (ngSubmit)="onFormSubmit()">
+    <h3>
+      Register new user account
+    </h3>
+   
+-->
+    <mat-form-field class="spacer">
+      <input matInput placeholder="username" formControlName="username" [errorStateMatcher]="matcher">
+      <mat-error>
+        <span *ngIf="!passwordFormGroup.get('username').valid && passwordFormGroup.get('username').touched">Please
+          Enter
+          firstname</span>
+      </mat-error>
+      <mat-error *ngIf="serverError == 'error'">
+        Email is <strong>{{serverError}}</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="spacer">
+      <input matInput placeholder="first_name" formControlName="first_name" [errorStateMatcher]="matcher">
+      <mat-error>
+        <span *ngIf="!passwordFormGroup.get('first_name').valid && passwordFormGroup.get('first_name').touched">Please
+          Enter
+          firstname</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="spacer">
+      <input matInput placeholder="surname" formControlName="surname" [errorStateMatcher]="matcher">
+      <mat-error>
+        <span *ngIf="!passwordFormGroup.get('surname').valid && passwordFormGroup.get('surname').touched">Please enter
+          surname</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="spacer">
+      <!-- <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{errorMessage}}
+      </div>
+      -->
+      <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="!passwordFormGroup.get('email').valid && passwordFormGroup  .get('email').touched">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordFormGroup.hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+
+
+    </mat-form-field>
+
+    <mat-form-field class="spacer">
+      <input matInput type="password" placeholder="Password" formControlName="password" (input)="onPasswordInput()">
+      <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+      <mat-error *ngIf="password.hasError('minlength')">Password must have at least {{minimumPwLength}} characters</mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="spacer">
+      <input matInput type="password" placeholder="Confirm password" formControlName="password2" (input)="onPasswordInput()">
+      <mat-error *ngIf="password2.hasError('required')">Please confirm your password</mat-error>
+      <mat-error *ngIf="password2.invalid && !password2.hasError('required')">Passwords don't match</mat-error>
+    </mat-form-field>
+
+    <div class="button-row">
+      <button type="submit" [disabled]="!passwordFormGroup.valid" mat-raised-button color="primary">
+        Sign Up New Way
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </form>
+
+  <!--<button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>-->
+
 </div>
