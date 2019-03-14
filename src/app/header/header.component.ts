@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ export class HeaderComponent implements OnInit {
   message = '';
   data: any;
   username;
+  usernamepic;
 
   constructor(public userService: UserService,private router: Router) { }
 
@@ -67,12 +69,20 @@ export class HeaderComponent implements OnInit {
       this.userService.getUserData()
       .subscribe(res => {
         this.username = res;
+        this.getProfileData(res);
       }, err => {
         console.log(err);
         if(err.status=401){
           this.router.navigate(['login']);
         }
       });
-    }
+    } 
+  }
+
+  getProfileData(id) {
+    this.userService.getProfile(id)
+      .subscribe(data => {
+        this.usernamepic = data[0].image;
+    });
   }
 }
