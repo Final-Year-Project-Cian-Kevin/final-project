@@ -34,8 +34,8 @@
       <mat-card class="post-card">
         <mat-card-header>
           <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
-          <mat-card-title>{{postUser.title}}</mat-card-title>
-          <mat-card-subtitle>{{postUser.subreddit}}</mat-card-subtitle>
+          <mat-card-title class="post">{{postUser.title}}</mat-card-title>
+          <mat-card-subtitle class="user">{{postUser.subreddit}}</mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image [src]="postUser.thumbnail" width="100" height="200">
         <mat-card-content>

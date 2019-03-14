@@ -3,7 +3,7 @@
   <div *ngFor="let postUser of postsPopular" class="example-item">
       <mat-card class="post-card">
         <mat-card-header>
-          <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{postUser.image}}'>
+          <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{postUser.image}}'>
           <mat-card-title class="post">{{postUser.title}}</mat-card-title>
           <mat-card-subtitle [routerLink]="['/profile/', postUser.subreddit]" class="user">{{postUser.subreddit}}</mat-card-subtitle>
         </mat-card-header>
@@ -25,7 +25,7 @@
   <div *ngFor="let postNews of postsNews" class="example-item">
       <mat-card class="post-card">
         <mat-card-header>
-          <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{postNews.image}}'>
+          <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{postNews.image}}'>
           <mat-card-title class="post">{{postNews.title}}</mat-card-title>
           <mat-card-subtitle [routerLink]="['/profile/', postNews.subreddit]" class="user">{{postNews.subreddit}}</mat-card-subtitle>
         </mat-card-header>
@@ -47,7 +47,7 @@
   <div *ngFor="let postUser of postsUser" class="example-item">
       <mat-card class="post-card">
         <mat-card-header>
-          <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{postUser.image}}'>
+          <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{postUser.image}}'>
           <mat-card-title class="post">{{postUser.title}}</mat-card-title>
           <mat-card-subtitle [routerLink]="['/profile/', postUser.subreddit]" class="user">{{postUser.subreddit}}</mat-card-subtitle>
         </mat-card-header>

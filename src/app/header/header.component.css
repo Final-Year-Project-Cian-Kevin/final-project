@@ -13,3 +13,14 @@
   opacity: .5;
   padding: 0 4px;
 }
+
+.header-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.left {
+  float: left;
+}
