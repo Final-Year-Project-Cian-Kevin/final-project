@@ -1,7 +1,8 @@
 <img src="/api/assets/images/Logo.png" class="header-img" />
 
 <!--<nav class="navbar navbar-default navbar-fixed-top">-->
-<nav class="navbar  navbar-dark bg-dark navbar-fixed-top">
+<nav class="navbar  navbar-light bg-dark navbar-fixed-top">
+  
   <div class="container">
     <!-- Do not show if user is logged in-->
     <div *ngIf="!userService.isLoggedIn()">
@@ -38,20 +39,34 @@
           <mat-icon>local_post_office</mat-icon>
         </a>
 
-        <a mat-raised-button color="secondary" [routerLink]="['/settings']">Settings
-          <mat-icon>person</mat-icon>
-        </a>
-
         <a mat-raised-button color="secondary" [routerLink]="['/follow', username]">Follow
           <mat-icon>person</mat-icon>
         </a>
 
         <input type="text" class="form-control" name="username" placeholder="Username...." required />
+
         <div class="header-page">
-            <a [routerLink]="['/profile', username]">{{ username }}</a>
-            <span class="divider">|</span>
-            <button class="btn btn-primary" (click)="logout()">Logout</button>
-            </div>
+          <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{usernamepic}}'>
+          {{username}}
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/profile', username]">
+                  <mat-icon>account_circle</mat-icon>
+                  <span>Profile</span>
+                </button>
+                <button mat-menu-item [routerLink]="['/settings']">
+                  <mat-icon>settings</mat-icon>
+                  <span>Account</span>
+                </button>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </button>
+              </mat-menu>
+          </div>
+          
       </form>
     </div>
   </div>
