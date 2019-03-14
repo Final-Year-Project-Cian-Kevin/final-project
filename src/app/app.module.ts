@@ -44,6 +44,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
 import { FollowComponent } from './follow/follow.component';
 import { SavedpostsComponent } from './savedposts/savedposts.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -92,6 +93,11 @@ const appRoutes: Routes = [
     component: SavedpostsComponent,
     data: { title: 'Saved' }
   },
+  {
+    path: 'about',
+    component: AboutPageComponent,
+    data: { title: 'About TechBook' }
+  },
 
   {
     path: 'books',
@@ -139,7 +145,8 @@ const appRoutes: Routes = [
     PostCreateComponent,
     FileSelectDirective,
     FollowComponent,
-    SavedpostsComponent
+    SavedpostsComponent,
+    AboutPageComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

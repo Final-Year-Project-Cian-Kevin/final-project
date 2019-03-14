@@ -7,9 +7,10 @@
     <!-- Do not show if user is logged in-->
     <div *ngIf="!userService.isLoggedIn()">
       <form class="form-inline">
-        <a mat-raised-button color="primary" [routerLink]="['/index']">
-          <mat-icon>home</mat-icon>
-        </a>
+          <a [routerLink]="['/index']">
+            <img src="/api/assets/images/Logo-Small.png" class="index-button"/>
+            <span>Home</span>
+          </a>
         <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {{message}}
@@ -31,40 +32,46 @@
     <div *ngIf="userService.isLoggedIn()">
       <form class="form-inline">
 
-        <a mat-raised-button color="primary" [routerLink]="['/index']">
+        <a [routerLink]="['/index']" class="link">
           <mat-icon>home</mat-icon>
+          <span>Home</span>
         </a>
 
-        <a mat-raised-button color="primary" [routerLink]="['/post-create']">
+        <a [routerLink]="['/post-create']" class="link">
           <mat-icon>local_post_office</mat-icon>
+          <span>Make post</span>
         </a>
 
-        <a mat-raised-button color="secondary" [routerLink]="['/follow', username]">Follow
-          <mat-icon>person</mat-icon>
+        <a [routerLink]="['/about']" class="link">
+          <mat-icon>info</mat-icon>
+          <span>About Us</span>
         </a>
-
-        <input type="text" class="form-control" name="username" placeholder="Username...." required />
 
         <div class="header-page">
           <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{usernamepic}}'>
-          {{username}}
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>arrow_drop_down</mat-icon>
+            {{username}}
+
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="['/profile', username]">
+                <mat-icon>account_circle</mat-icon>
+                <span>Profile</span>
               </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item [routerLink]="['/profile', username]">
-                  <mat-icon>account_circle</mat-icon>
-                  <span>Profile</span>
-                </button>
-                <button mat-menu-item [routerLink]="['/settings']">
-                  <mat-icon>settings</mat-icon>
-                  <span>Account</span>
-                </button>
-                <button mat-menu-item (click)="logout()">
-                    <mat-icon>exit_to_app</mat-icon>
-                    <span>Logout</span>
-                </button>
-              </mat-menu>
+              <button mat-menu-item [routerLink]="['/settings']">
+                <mat-icon>settings</mat-icon>
+                <span>Account</span>
+              </button>
+              <button mat-menu-item [routerLink]="['/saved', username]">
+                <mat-icon>save</mat-icon>
+                <span>Saved Posts</span>
+              </button>
+              <button mat-menu-item (click)="logout()">
+                  <mat-icon>exit_to_app</mat-icon>
+                  <span>Logout</span>
+              </button>
+            </mat-menu>
           </div>
           
       </form>

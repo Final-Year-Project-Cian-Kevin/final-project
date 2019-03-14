@@ -64,6 +64,8 @@ app.use('/post-create', express.static(path.join(__dirname, 'dist/mean-angular6'
 app.use('/saved/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/settings    ', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/signup', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/about', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/follow/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 
 
 // Add API route to endpoint URL
