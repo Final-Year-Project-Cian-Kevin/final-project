@@ -37,6 +37,7 @@ export class UserService {
   // jwt
   private token: string;
   currentUser: any;
+  
   // Constructor
   constructor(private http: HttpClient) { }
 
