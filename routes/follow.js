@@ -225,17 +225,18 @@ router.get('/following/:id', function (req, res) {
             "as": "userFollowing"
           }
         },
+        //     {
+        //     $lookup: {
+        //     "from": "users",
+        //    "localField": "followers",
+        //   "foreignField": "_id",
+        //  "as": "userFollowers"
+        // }
+        // },
         {
-          $lookup: {
-            "from": "users",
-            "localField": "followers",
-            "foreignField": "_id",
-            "as": "userFollowers"
-          }
-        }, {
           $project: {
-            "user": 1,
-            "userFollowers": 1,
+
+
             "userFollowing": 1
           }
         }
