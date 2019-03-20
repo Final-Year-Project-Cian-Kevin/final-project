@@ -1,2 +1,13 @@
-2019-03-20T21:32:58.021Z : [Follow] - User kevin has requested following list.
-2019-03-20T21:33:06.421Z : [Follow] - User kevin has requested following list.
+2019-03-20T22:45:29.851Z : [Login] : user kevinb has succesfully logged in
+2019-03-20T22:45:43.506Z : [Login] : user kevinb has succesfully logged in
+2019-03-20T22:46:04.208Z : [Follow] - User kevinb has requested following list.
+2019-03-20T22:46:04.229Z : [Follow](Success) - User kevinb has requested following list.
+2019-03-20T22:46:44.750Z : [Login] : user ciang has succesfully logged in
+2019-03-20T22:46:47.790Z : [Follow] - User ciang has requested following list.
+2019-03-20T22:46:47.793Z : [Follow](Success) - User ciang has requested following list.
+2019-03-20T22:51:12.782Z : [File upload] : image 0aea655b2e985d18d17ede6bde558d0duploaded to server
+2019-03-20T22:51:12.791Z : [Profile update](fail) : user undefined is attempting to update profile.
+2019-03-20T22:51:19.677Z : [Follow] - User ciang has requested following list.
+2019-03-20T22:51:19.682Z : [Follow](Success) - User ciang has requested following list.
+2019-03-20T22:52:08.885Z : [File upload] : image 7423b497002a1b0db999a1a5b0e8bbc2uploaded to server
+2019-03-20T22:52:08.898Z : [Profile update](fail) : user undefined is attempting to update profile.

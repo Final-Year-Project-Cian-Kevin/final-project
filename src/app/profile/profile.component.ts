@@ -16,12 +16,14 @@ import { Alert } from 'selenium-webdriver';
 })
 export class ProfileComponent implements OnInit {
 
-  profile: any;
-  currentUser: any;
+  profile: any; // The current profile to be loaded to view.
+
+  currentUser: any; // The current logged in user.
+  isFollowing: boolean = false; // Boolean to hold
+
   postsUser: any;
   commentsUser: any;
   follow_id;
-isFollowing:boolean = false;;
 
   // isUser determines if the user is on their own account.
   isUser: boolean;
@@ -38,7 +40,8 @@ isFollowing:boolean = false;;
     this.getProfileData(this.route.snapshot.params['id']);
     // Get current user.
     this.currentUser = this.userAPI.getUserPayLoad();
-
+    // test for get following
+    this.getFollowList();
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.postsUser = res;
@@ -58,8 +61,7 @@ isFollowing:boolean = false;;
           this.router.navigate(['login']);
         }
       });
-    // test for get following
-    this.getFollowList();
+
   }
 
   /**
@@ -91,15 +93,26 @@ isFollowing:boolean = false;;
           //let fList = res.followlist;
           // console.log("FLIST");
           //console.log(fList);         // for each object in response add to array.
+          // for debug
+          let userIsFollowing =[];
           for (let username of res.followlist) {
+            userIsFollowing.push(username);
             console.log(username);
-            if (username === this.currentUser.username) {
+            console.log("check is ",this.profile.username," following:",username);
+            if (username == this.profile.username) {
+              console.log("Yuuuuup");
               this.isFollowing = true;
-            };
-          }
+            }else{
+              console.log("Naaaah");
 
-         // console.log("Is following:", isFollowing);
-         console.log("[follow]:following this user:",String(this.isFollowing));
+            }
+          }
+          // for debug
+          console.log("Current user is following:");
+          console.log(userIsFollowing);
+
+          // console.log("Is following:", isFollowing);
+          console.log("[follow]:following this user:", String(this.isFollowing));
 
         } else {
           console.log('[INFO]: Something is wrong');
@@ -128,8 +141,8 @@ isFollowing:boolean = false;;
       .subscribe(res => {
         // Alert the user of the success.
         alert("User followed");
-         // Set isFollowing to true;
-         this.isFollowing= true;
+        // Set isFollowing to true;
+        this.isFollowing = true;
       }, (err) => {
         // Alert the user of the unsuccess
         alert("User not followed, an error occured");
@@ -158,7 +171,7 @@ isFollowing:boolean = false;;
         // Alert the user of the success.
         alert("User unfollowed");
         // Set isFollowing to false;
-        this.isFollowing= false;
+        this.isFollowing = false;
       }, (err) => {
         // Alert the user of the unsuccess
         alert("User not followed, an error occured");

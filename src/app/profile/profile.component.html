@@ -19,10 +19,10 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button [routerLink]="['/saved/', profile.username]">SUBSCRIBED POSTS</button>
-    <button mat-button [routerLink]="['/follow/', profile.username]">SUBSCRIBED POSTS</button>
+    <button mat-button [routerLink]="['/follow/', profile.username]">FOLLOW STUFF</button>
     <div *ngIf="!isUser">
-      <button mat-button (click)="follow(profile._id)">Follow</button>
-      <button mat-button (click)="unFollow(profile._id)">Unfollow</button>
+      <button *ngIf="!isFollowing" mat-button (click)="follow(profile._id)">Follow</button>
+      <button *ngIf="isFollowing" mat-button (click)="unFollow(profile._id)">Unfollow</button>
     </div>
   </mat-card-actions>
 </mat-card>

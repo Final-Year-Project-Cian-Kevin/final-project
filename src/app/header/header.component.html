@@ -55,6 +55,10 @@
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item [disabled]="isDisabled">
+                  <mat-icon></mat-icon>
+                  <span></span>
+                </button>
               <button mat-menu-item [routerLink]="['/profile', username]">
                 <mat-icon>account_circle</mat-icon>
                 <span>Profile</span>
@@ -62,6 +66,10 @@
               <button mat-menu-item [routerLink]="['/settings']">
                 <mat-icon>settings</mat-icon>
                 <span>Account</span>
+              </button>
+              <button mat-menu-item [routerLink]="['/follow', username]">
+                <mat-icon>account_circle</mat-icon>
+                <span>Friends</span>
               </button>
               <button mat-menu-item [routerLink]="['/saved', username]">
                 <mat-icon>save</mat-icon>

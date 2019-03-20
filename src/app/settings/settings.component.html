@@ -53,11 +53,11 @@
       <mat-icon>save</mat-icon>
     </button>
   </div>
-
+</form>
   <h3>Edit Profile Image</h3>
   <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
   <input type="file" name="{{currentUserName}}" ng2FileSelect [uploader]="uploader" />
   <!-- button to trigger the file upload when submitted -->
   <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
     Upload new profile image </button>
-</form>
+
