@@ -88,32 +88,18 @@ export class ProfileComponent implements OnInit {
 
     this.followService.getIsFollowing(this.currentUser.username)
       .subscribe((res) => {
+
         // If server returned 'true' state.
         if (res.state) {
-          //let fList = res.followlist;
-          // console.log("FLIST");
-          //console.log(fList);         // for each object in response add to array.
-          // for debug
-          let userIsFollowing =[];
+
+          let userIsFollowing = [];
           for (let username of res.followlist) {
             userIsFollowing.push(username);
-            console.log(username);
-            console.log("check is ",this.profile.username," following:",username);
-            if (username == this.profile.username) {
-              console.log("Yuuuuup");
-              this.isFollowing = true;
-            }else{
-              console.log("Naaaah");
 
+            if (username == this.profile.username) {
+              this.isFollowing = true;
             }
           }
-          // for debug
-          console.log("Current user is following:");
-          console.log(userIsFollowing);
-
-          // console.log("Is following:", isFollowing);
-          console.log("[follow]:following this user:", String(this.isFollowing));
-
         } else {
           console.log('[INFO]: Something is wrong');
           //this.message = res.json().msg;

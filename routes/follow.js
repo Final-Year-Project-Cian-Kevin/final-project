@@ -188,7 +188,7 @@ router.get('/:id', function (req, res) {
 });
 
 /** 
- * Return an json object containing a list of users that are followed
+ * Return an json object containing a list of usernames that are followed
  */
 router.get('/check/:id', function (req, res) {
 
