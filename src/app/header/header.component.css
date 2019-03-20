@@ -45,3 +45,8 @@ a {
   opacity: 0.7; 
   color: white;
 }
+
+:host {
+  background-color: white;
+  display: block;
+}
