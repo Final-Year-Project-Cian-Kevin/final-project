@@ -1,0 +1,12 @@
+:host {
+    background-color: white;
+    display: block;
+}
+
+
+.header-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }

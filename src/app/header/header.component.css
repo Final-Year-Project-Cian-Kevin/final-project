@@ -14,13 +14,6 @@
   padding: 0 4px;
 }
 
-.header-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
 .index-button {
   height: 17%;
   width: 17%;
@@ -44,9 +37,4 @@ a:active {
 a {
   opacity: 0.7; 
   color: white;
-}
-
-:host {
-  background-color: white;
-  display: block;
 }

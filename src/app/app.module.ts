@@ -45,6 +45,7 @@ import { PostCreateComponent } from './post/post-create/post-create.component';
 import { FollowComponent } from './follow/follow.component';
 import { SavedpostsComponent } from './savedposts/savedposts.component';
 import { AboutPageComponent } from './about-page/about-page.component';
+import { LogoHeaderComponent } from './logo-header/logo-header.component';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -146,7 +147,8 @@ const appRoutes: Routes = [
     FileSelectDirective,
     FollowComponent,
     SavedpostsComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    LogoHeaderComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
