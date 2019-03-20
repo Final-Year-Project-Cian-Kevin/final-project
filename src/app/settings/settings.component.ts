@@ -14,6 +14,7 @@ const URL = 'http://localhost:3000/api/assets/';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+  profileinfo: any;
   settingsForm: FormGroup;
   currentUser: any; // user object of current logged in user
   currentUserName: String; // username of current logged in user
@@ -34,13 +35,13 @@ export class SettingsComponent implements OnInit {
   constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-this.currentUser= this.userService.getUserPayLoad();
+    this.currentUser = this.userService.getUserPayLoad();
 
-this.currentUserName = this.currentUser.username;
+    this.currentUserName = this.currentUser.username;
 
-   // this.setForm(this.userService.currentUser.username);
-   this.setForm(this.currentUserName);
-   this.settingsForm = this.formBuilder.group({
+    // this.setForm(this.userService.currentUser.username);
+    this.setForm(this.currentUserName);
+    this.settingsForm = this.formBuilder.group({
       'email': [null, Validators.email],
       'first_name': [null, Validators.required],
       'surname': [null, Validators.required],
@@ -69,24 +70,24 @@ this.currentUserName = this.currentUser.username;
 
   }
 
-  // set initial values for form
+  /**
+   * Set the form data in SettingsForm to the details of the current user.
+   * 
+   * @param id The User._id of the current user.
+   */
   setForm(id) {
     this.userService.getProfile(id)
       .subscribe(profile => {
-        console.log("[Settings] set form profile1");
-        // must extract profile data from response
-        var profileinfo= profile[0];
-        console.log(profileinfo);
-        console.log(profileinfo.email);
-        this.settingsForm.setValue({
-          email: profileinfo.email,
-          first_name: profileinfo.first_name,
-          surname: profileinfo.surname,
-          bio: profileinfo.bio
 
+        // must extract profile data from response
+        this.profileinfo = profile[0];
+        
+        this.settingsForm.setValue({
+          email: this.profileinfo.email,
+          first_name: this.profileinfo.first_name,
+          surname: this.profileinfo.surname,
+          bio: this.profileinfo.bio
         });
-        console.log("[Settings] set form profile");
-        console.log(profile);
       });
   }
 
@@ -96,12 +97,13 @@ this.currentUserName = this.currentUser.username;
    * @param form form data to update.
    */
   onFormSubmit(form: NgForm) {
-    this.userService.updateUser(this.userService.currentUser.id, form)
+   
+    this.userService.updateUser(this.profileinfo._id, form)
       .subscribe(res => {
-        let id = res['_id'];
+        // Flash an alert to show success.
         alert("Account updated!");
-
-        this.router.navigate(['/profile', this.userService.currentUser.username]);
+        // Route user to profile page.
+        this.router.navigate(['/profile', this.profileinfo.username]);
       }, (err) => {
         this.errorMessage = err.error.msg;
         console.error("[ERROR] submitting update :", this.errorMessage);
@@ -109,6 +111,4 @@ this.currentUserName = this.currentUser.username;
       );
   }
 
-
-
-}
+}// End of SettingsComponent

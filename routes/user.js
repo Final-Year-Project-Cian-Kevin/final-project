@@ -141,23 +141,29 @@ router.get('/profile/:id', function (req, res, next) {
 });
 
 /**
- * Update a users details.
- * Returns a 401 status code if email is duplicate.
+ * Update a users details in the database.
+ * 
+ * The received request contains params.id and a req.body.
+ * 
+ * @param id The _id of the User object to be updated. 
+ * @param req.body The field value pairs of the User object to be updated.
+ * 
+ * @returns a status 401 if error occurs or a success object if success.
  */
+
 router.put('/update/:id', function (req, res, next) {
+  logger.info("[Profile update](fail) : user "+ req.params.id +" is attempting to update profile.");
 
   User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
     if (err) {
-      console.error("[ERROR] - update - email already in system ");
-      console.log(err)
       logger.error("[Profile update] :"+err);
-      logger.error("[Profile update] : user "+ req.params.id +" attempted to change email to an invalid address");
+      logger.error("[Profile update](fail) : user "+ req.params.id +" attempted to change email to an invalid address.");
       return res.status(401).send({
         success: false,
         msg: 'Email already exists, please choose another.'
       });
     }
-    logger.info("[Profile update] : user "+ req.params.id+" has updated profile info");
+    logger.info("[Profile update](success) : user "+ req.params.id+" has updated profile info");
     res.json({
       success: true,
       msg: 'Successful user account edited.'
