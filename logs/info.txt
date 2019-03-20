@@ -1,4 +1,0 @@
-2019-03-19T20:40:26.359Z : [Login] : user kevin has succesfully logged in
-2019-03-19T20:40:49.915Z : [Profile update](fail) : user 5c7fbad922deee357c82c596 is attempting to update profile.
-2019-03-19T20:40:49.923Z : [Profile update](success) : user 5c7fbad922deee357c82c596 has updated profile info
-2019-03-19T20:52:36.205Z : [Login] : user cian has succesfully logged in
