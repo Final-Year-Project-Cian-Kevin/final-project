@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     this.getProfileData(this.route.snapshot.params['id']);
     // Get current user.
     this.currentUser = this.userAPI.getUserPayLoad();
-
+    
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.postsUser = res;
@@ -55,6 +55,8 @@ export class ProfileComponent implements OnInit {
           this.router.navigate(['login']);
         }
       });
+      // test for get following
+      this.getIsFollowing();
   }
 
   /**
@@ -72,7 +74,44 @@ export class ProfileComponent implements OnInit {
         this.isUser = (this.currentUser.id === this.profile._id);
       });
   }
+/**
+ * Determine if a user is following or not.
+ * 
+ */
+  getIsFollowing(){
+    // User of current account
+    console.log("[Debug] getIsFollowing : profile_id"); 
 
+   console.log("[Debug] getIsFollowing : profile_id", this.profile._id); 
+    // user of account we are looking at
+
+
+    this.followService.getIsFollowing(this.profile._id)
+      .subscribe((res) => {
+        // If server returned 'true' state.
+        if (res.state) {
+          let response = res.doc;
+          let following = [];
+
+          // for each object in response add to array.
+          response.forEach(function (obj) {
+            following = following.concat(obj.userFollowing);
+          });
+
+          // Add data to local variables for view.
+         // this.allFollowers = followers;
+          //this.allFollowing = following;
+          //   console.log("[DEBUG FOLLOWers]");
+            // console.log(this.allFollowers);
+             console.log("[DEBUG FOLLOWeing]");
+             console.log(following);
+        } else {
+             console.log('[INFO]: Something is wrong');
+          //this.message = res.json().msg;
+        }
+      })
+    
+  }
   /**
    * Allows a user to be followed. Adds the user in the follows db table to the logged in users 'following' array.
    * Also adds the user to the following users 'followers' array. 

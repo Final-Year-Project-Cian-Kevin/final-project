@@ -53,6 +53,17 @@ export class FollowService {
       catchError(this.handleError));
   }
 
+    /**
+   * returns a http call to recieve a users following data.
+   * 
+   * @param id the object id of the user we want to return following data for.
+   */
+  getIsFollowing(id: string): Observable<any> {
+    const url = `${followApiURL}/check/${id}`;
+    console.log("[DEBUG] getFollowers id/username: ", id);
+    return this.http.get(url, httpOptions).pipe(
+      catchError(this.handleError));
+  }
 
 
   private extractData(res: Response) {
