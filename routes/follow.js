@@ -13,7 +13,8 @@ var jwt = require('jsonwebtoken');
 var User = require("../models/user");
 var Profile = require("../models/profile");
 var Follow = require("../models/follow");
-
+// Import logger to handle server logging. 
+var logger = require("../config/serverlogger").Logger;
 // Current logged in username by decoding jwt
 router.get('/userdata/:id', function (req, res, next) {
   var userData = jwt.decode(req.params.id, config.secret)
@@ -172,8 +173,8 @@ router.get('/:id', function (req, res) {
           }
         }
       ]).exec(function (err, doc) {
-        //  console.log("[DEBUG] Follow/:id");
-        //  console.log(doc);
+        console.log("[DEBUG] Follow check");
+        console.log(doc);
         res.json({
           'state': true,
           'msg': 'Follow list',
@@ -187,30 +188,26 @@ router.get('/:id', function (req, res) {
 });
 
 /** 
- * Return all following data
- * ================================ METHOD DEVELOPMENT IN PROGRESS ===================================
+ * Return an json object containing a list of users that are followed
  */
-router.get('/following/:id', function (req, res) {
+router.get('/check/:id', function (req, res) {
 
   const username = req.params.id;
-  console.log("[DEBUG]: /follow username", username);
-  //console.log(req);
+  logger.info("[Follow] - User " + username + " has requested following list.")
+
   User.findOne({
     'username': username
   }, function (err, user) {
     if (!user) {
-      console.log("[DEBUG]: /follow : no user found");
+      logger.info("[Follow](fail) - User " + username + " has requested following list.")
 
       return res.json({
         'state': false,
-        'msg': `No user found with username ${username}`,
+        'msg': `No followers found for ${username}`,
         'err': err
       })
     } else {
       const user_id = user._id;
-
-      console.log("[DEBUG]: /follow :  user found");
-      console.log("[DEBUG]: /follow :  uid", user_id);
 
       Follow.aggregate([{
           $match: {
@@ -225,28 +222,29 @@ router.get('/following/:id', function (req, res) {
             "as": "userFollowing"
           }
         },
-        //     {
-        //     $lookup: {
-        //     "from": "users",
-        //    "localField": "followers",
-        //   "foreignField": "_id",
-        //  "as": "userFollowers"
-        // }
-        // },
         {
           $project: {
-
-
             "userFollowing": 1
           }
         }
       ]).exec(function (err, doc) {
-        console.log("[DEBUG] Follow/:id");
-        console.log(doc);
+        let followinglist = [];
+        let fList = [];
+
+        doc.forEach(function (obj) {
+          followinglist = followinglist.concat(obj.userFollowing);
+        });
+
+        followinglist.forEach(function (value) {
+          //console.log(value.username);
+          fList.push(value.username);
+        });
+
+        logger.info("[Follow](Success) - User " + username + " has requested following list.")
         res.json({
           'state': true,
-          'msg': 'Follow list',
-          'doc': doc
+          'msg': 'Following list',
+          'followlist': fList
         })
       })
     }

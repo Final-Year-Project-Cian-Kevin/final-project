@@ -21,21 +21,24 @@ export class ProfileComponent implements OnInit {
   postsUser: any;
   commentsUser: any;
   follow_id;
+isFollowing:boolean = false;;
 
   // isUser determines if the user is on their own account.
   isUser: boolean;
 
-  constructor(private route: ActivatedRoute,private followService: FollowService, private router: Router, private userAPI: UserService, private postAPI: RedditApiService, private commentAPI: CommentsService, private titleService: Title) { }
+  constructor(private route: ActivatedRoute, private followService: FollowService, private router: Router, private userAPI: UserService, private postAPI: RedditApiService, private commentAPI: CommentsService, private titleService: Title) { }
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
   ngOnInit() {
+
+
     this.getProfileData(this.route.snapshot.params['id']);
     // Get current user.
     this.currentUser = this.userAPI.getUserPayLoad();
-    
+
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.postsUser = res;
@@ -55,8 +58,8 @@ export class ProfileComponent implements OnInit {
           this.router.navigate(['login']);
         }
       });
-      // test for get following
-      this.getIsFollowing();
+    // test for get following
+    this.getFollowList();
   }
 
   /**
@@ -74,43 +77,36 @@ export class ProfileComponent implements OnInit {
         this.isUser = (this.currentUser.id === this.profile._id);
       });
   }
-/**
- * Determine if a user is following or not.
- * 
- */
-  getIsFollowing(){
-    // User of current account
-    console.log("[Debug] getIsFollowing : profile_id"); 
 
-   console.log("[Debug] getIsFollowing : profile_id", this.profile._id); 
-    // user of account we are looking at
+  /**
+   * get the list of following
+   * 
+   */
+  getFollowList() {
 
-
-    this.followService.getIsFollowing(this.profile._id)
+    this.followService.getIsFollowing(this.currentUser.username)
       .subscribe((res) => {
         // If server returned 'true' state.
         if (res.state) {
-          let response = res.doc;
-          let following = [];
+          //let fList = res.followlist;
+          // console.log("FLIST");
+          //console.log(fList);         // for each object in response add to array.
+          for (let username of res.followlist) {
+            console.log(username);
+            if (username === this.currentUser.username) {
+              this.isFollowing = true;
+            };
+          }
 
-          // for each object in response add to array.
-          response.forEach(function (obj) {
-            following = following.concat(obj.userFollowing);
-          });
+         // console.log("Is following:", isFollowing);
+         console.log("[follow]:following this user:",String(this.isFollowing));
 
-          // Add data to local variables for view.
-         // this.allFollowers = followers;
-          //this.allFollowing = following;
-          //   console.log("[DEBUG FOLLOWers]");
-            // console.log(this.allFollowers);
-             console.log("[DEBUG FOLLOWeing]");
-             console.log(following);
         } else {
-             console.log('[INFO]: Something is wrong');
+          console.log('[INFO]: Something is wrong');
           //this.message = res.json().msg;
         }
       })
-    
+
   }
   /**
    * Allows a user to be followed. Adds the user in the follows db table to the logged in users 'following' array.
@@ -132,6 +128,8 @@ export class ProfileComponent implements OnInit {
       .subscribe(res => {
         // Alert the user of the success.
         alert("User followed");
+         // Set isFollowing to true;
+         this.isFollowing= true;
       }, (err) => {
         // Alert the user of the unsuccess
         alert("User not followed, an error occured");
@@ -159,10 +157,13 @@ export class ProfileComponent implements OnInit {
       .subscribe(res => {
         // Alert the user of the success.
         alert("User unfollowed");
+        // Set isFollowing to false;
+        this.isFollowing= false;
       }, (err) => {
         // Alert the user of the unsuccess
         alert("User not followed, an error occured");
-        console.log(err);      }
+        console.log(err);
+      }
       );
 
   }
