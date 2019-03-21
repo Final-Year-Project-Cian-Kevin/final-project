@@ -58,9 +58,7 @@ export class SettingsComponent implements OnInit {
     //overide the onCompleteItem property of the uploader so we are 
     //able to deal with the server response.
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      console.log("ImageUpload:uploaded:", item, status, response);
-      console.log("ImageUpload:response:", response);
-
+     
       // update the user profile with the new image url
       this.userService.updateUser(this.profileinfo._id, response)
         .subscribe(res => {

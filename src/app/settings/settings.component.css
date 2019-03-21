@@ -30,3 +30,17 @@
   button {
     text-align: center;
   }
+  .example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    /*background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');*/
+    background-size: cover;
+  }
+  .alligner{
+    text-align: center
+  }
+  .alligner input{
+    text-align: center
+  }

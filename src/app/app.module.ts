@@ -45,8 +45,8 @@ import { PostCreateComponent } from './post/post-create/post-create.component';
 import { FollowComponent } from './follow/follow.component';
 import { SavedpostsComponent } from './savedposts/savedposts.component';
 import { AboutPageComponent } from './about-page/about-page.component';
-import { LogoHeaderComponent } from './logo-header/logo-header.componen;
-import { ImagePreviewDirective } from './shared/image-preview.directive't';
+import { LogoHeaderComponent } from './logo-header/logo-header.component';
+import { ImagePreviewDirective } from './shared/image-preview.directive';
 
 // Angular Routes
 const appRoutes: Routes = [
@@ -149,8 +149,8 @@ const appRoutes: Routes = [
     FollowComponent,
     SavedpostsComponent,
     AboutPageComponent,
-    LogoHeaderCompone,
-    ImagePreviewDirectivent
+    LogoHeaderComponent,
+    ImagePreviewDirective
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
