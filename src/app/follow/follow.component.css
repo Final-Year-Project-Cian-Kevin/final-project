@@ -30,3 +30,8 @@ div.scrollmenu div {
   padding: 14px;
   text-decoration: none;
 }
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  }
