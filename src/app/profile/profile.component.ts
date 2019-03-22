@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, } from '../services/user.service';
@@ -36,16 +37,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    // If user is logged in show follow button
-    if(this.userAPI.isLoggedIn()){
-      // test for get following
-      this.getFollowList();
-    }
-
     this.getProfileData(this.route.snapshot.params['id']);
-
-    // Get current user.
-    this.currentUser = this.userAPI.getUserPayLoad();
 
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
@@ -67,6 +59,12 @@ export class ProfileComponent implements OnInit {
         }
       });
 
+      if(this.userAPI.isLoggedIn()){
+        // Get current user.
+        this.currentUser = this.userAPI.getUserPayLoad();
+        // test for get following
+        this.getFollowList();
+      }
   }
 
   /**
@@ -130,13 +128,9 @@ export class ProfileComponent implements OnInit {
 
     this.followService.followUser(followUser)
       .subscribe(res => {
-        // Alert the user of the success.
-        alert("User followed");
         // Set isFollowing to true;
         this.isFollowing = true;
       }, (err) => {
-        // Alert the user of the unsuccess
-        alert("User not followed, an error occured");
         console.log(err);
       }
       );
@@ -159,13 +153,9 @@ export class ProfileComponent implements OnInit {
     };
     this.followService.unFollowUser(followUser)
       .subscribe(res => {
-        // Alert the user of the success.
-        alert("User unfollowed");
         // Set isFollowing to false;
         this.isFollowing = false;
       }, (err) => {
-        // Alert the user of the unsuccess
-        alert("User not followed, an error occured");
         console.log(err);
       }
       );
