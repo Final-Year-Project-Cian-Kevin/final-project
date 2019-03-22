@@ -1,6 +1,6 @@
-<mat-card class="example-card">
+<mat-card class="card">
   <mat-card-header>
-    <mat-card-title><a href="{{post.url}}"><h2>{{post.title}}</h2></a></mat-card-title>
+    <mat-card-title align="left"><img src="{{post?.thumbnail}}" height="50" width="50" align="left"/><a align="left" href="{{post.url}}"><h2>{{post.title}}</h2></a></mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <dl>
@@ -9,13 +9,17 @@
     </dl>
     <mat-card-actions>
       <div *ngIf="userAPI.isLoggedIn() && followed == false">
-          <button mat-button (click)="sub()">SUBSCRIBE</button>
+          <button mat-button color="primary" (click)="sub()"><mat-icon>add</mat-icon>SUBSCRIBE</button>
+          <button mat-button color="primary" [routerLink]="['/profile/', post.subreddit]"><mat-icon>check_box</mat-icon>{{post.subreddit}}'s Profile</button>
       </div>
       <div *ngIf="userAPI.isLoggedIn() && followed == true">
-          <button mat-button (click)="unsub()">UNSUBSCRIBE</button>
+          <button mat-button color="primary" (click)="unsub()"><mat-icon>check_box</mat-icon>SUBSCRIBED</button>
+          <button mat-button color="primary" [routerLink]="['/profile/', post.subreddit]"><mat-icon>person</mat-icon>{{post.subreddit}}'s Profile</button>
       </div>
     </mat-card-actions>
   </mat-card-content>
 </mat-card>
 
-<app-comments></app-comments>
+<mat-card class="card">
+  <app-comments></app-comments>
+</mat-card>

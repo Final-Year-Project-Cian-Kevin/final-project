@@ -1,15 +1,16 @@
 <div *ngIf="userAPI.isLoggedIn()">
   <form [formGroup]="commentForm" (ngSubmit)="onFormSubmit(commentForm.value)">
-    <mat-form-field class="example-full-width">
-        <input matInput formControlName="comment"
-              [errorStateMatcher]="matcher">
+    <mat-form-field class="full-with-field" appearance="outline">
+        <mat-label>Comment here {{username}} to join the community discussion!</mat-label>
+        <input matInput formControlName="comment" [errorStateMatcher]="matcher">
+        <mat-icon matSuffix>comment</mat-icon>
         <mat-error>
           <span *ngIf="!commentForm.get('comment').valid && commentForm.get('comment').touched">Comment cannot be blank!</span>
         </mat-error>
     </mat-form-field>
 
     <div class="button-row">
-      <button type="submit" [disabled]="!commentForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+        <button type="submit" [disabled]="!commentForm.valid" mat-raised-button color="primary"><mat-icon>comment</mat-icon>Submit</button>
     </div>
   </form>
 </div>
