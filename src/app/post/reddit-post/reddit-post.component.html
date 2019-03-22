@@ -8,12 +8,13 @@
       <dd><p> {{post.selftext}} </p></dd>
     </dl>
     <mat-card-actions>
-      <div *ngIf="userAPI.isLoggedIn() && followed == false">
-          <button mat-button color="primary" (click)="sub()"><mat-icon>add</mat-icon>SUBSCRIBE</button>
+      <div *ngIf="userAPI.isLoggedIn()">
+          <button mat-button color="primary" *ngIf="!followed" (click)="sub()"><mat-icon>add</mat-icon>SUBSCRIBE</button>
+          <button mat-button color="primary" *ngIf="followed" (click)="unsub()"><mat-icon>check_box</mat-icon>SUBSCRIBED</button>
           <button mat-button color="primary" [routerLink]="['/profile/', post.subreddit]"><mat-icon>check_box</mat-icon>{{post.subreddit}}'s Profile</button>
       </div>
-      <div *ngIf="userAPI.isLoggedIn() && followed == true">
-          <button mat-button color="primary" (click)="unsub()"><mat-icon>check_box</mat-icon>SUBSCRIBED</button>
+      <div *ngIf="!userAPI.isLoggedIn()">
+          <button mat-button color="primary" [routerLink]="['/login/']"><mat-icon>add</mat-icon>SUBSCRIBE</button>
           <button mat-button color="primary" [routerLink]="['/profile/', post.subreddit]"><mat-icon>person</mat-icon>{{post.subreddit}}'s Profile</button>
       </div>
     </mat-card-actions>

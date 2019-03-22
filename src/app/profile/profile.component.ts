@@ -36,12 +36,17 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
+    // If user is logged in show follow button
+    if(this.userAPI.isLoggedIn()){
+      // test for get following
+      this.getFollowList();
+    }
 
     this.getProfileData(this.route.snapshot.params['id']);
+
     // Get current user.
     this.currentUser = this.userAPI.getUserPayLoad();
-    // test for get following
-    this.getFollowList();
+
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.postsUser = res;
