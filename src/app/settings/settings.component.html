@@ -2,15 +2,7 @@
   <h3>
     Edit settings for<strong> {{ currentUserName }}</strong>
   </h3>
-  <!--
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="email" formControlName="email" [errorStateMatcher]="matcher">
-    <mat-error>
-      <span *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">Please enter email</span>
-    </mat-error>
-  </mat-form-field>
--->
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="full-width">
     <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
           aria-hidden="true">&times;</span></button>
@@ -26,7 +18,7 @@
 
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="full-width">
     <input matInput placeholder="first_name" formControlName="first_name" [errorStateMatcher]="matcher">
     <mat-error>
       <span *ngIf="!settingsForm.get('first_name').valid && settingsForm.get('first_name').touched">Please enter
@@ -34,7 +26,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="full-width">
     <input matInput placeholder="surname" formControlName="surname" [errorStateMatcher]="matcher">
     <mat-error>
       <span *ngIf="!settingsForm.get('surname').valid && settingsForm.get('surname').touched">Please enter
@@ -42,7 +34,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="full-width">
     <input matInput placeholder="bio" formControlName="bio" [errorStateMatcher]="matcher">
     <mat-error>
       <span *ngIf="!settingsForm.get('bio').valid && settingsForm.get('bio').touched">Please enter bio</span>
@@ -59,7 +51,7 @@
   <!-- image upload-->
   <h3>Edit Profile Image</h3>
 
-  <mat-card class="example-card">
+  <mat-card class="card">
     <mat-card-header>
 
     </mat-card-header>

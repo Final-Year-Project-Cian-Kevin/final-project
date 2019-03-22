@@ -39,6 +39,8 @@ export class ProfileComponent implements OnInit {
 
     this.getProfileData(this.route.snapshot.params['id']);
 
+    this.setTitle("TB: " + this.route.snapshot.params['id'] + "'s Profile");
+
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.postsUser = res;
@@ -76,7 +78,6 @@ export class ProfileComponent implements OnInit {
     this.userAPI.getProfile(id)
       .subscribe(data => {
         this.profile = data[0];
-        this.setTitle(data.username);
 
         // Check if users account.
         this.isUser = (this.currentUser.id === this.profile._id);

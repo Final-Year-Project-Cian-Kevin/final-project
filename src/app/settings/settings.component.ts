@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from '../services/user.service';
+import { BrowserModule, Title }  from '@angular/platform-browser';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 // Import plugin for file upload
@@ -36,7 +37,11 @@ export class SettingsComponent implements OnInit {
     allowedFileType: ['image']
    });
 
-  constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder, private titleService: Title) { }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
 
   ngOnInit() {
     this.currentUser = this.userService.getUserPayLoad();
@@ -70,7 +75,7 @@ export class SettingsComponent implements OnInit {
       //console.log(response);
 
     };
-
+    this.setTitle("TB: Profile Settings");
   }
 
   /**

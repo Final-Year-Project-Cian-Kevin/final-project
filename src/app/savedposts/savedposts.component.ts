@@ -17,7 +17,11 @@ export class SavedpostsComponent implements OnInit {
   username;
   id
 
-  constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private userAPI: UserService) { }
+  constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private userAPI: UserService, private titleService: Title) { }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
 
   ngOnInit() {
     this.getSavedPosts(this.route.snapshot.params['id']);
@@ -35,6 +39,8 @@ export class SavedpostsComponent implements OnInit {
         }
       });
     }
+
+    this.setTitle("TB: " + this.route.snapshot.params['id'] + "'s Saved Posts");
   }
 
   getSavedPosts(id) {

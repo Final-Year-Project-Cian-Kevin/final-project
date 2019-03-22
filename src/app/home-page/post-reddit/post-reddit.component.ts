@@ -67,7 +67,7 @@ export class PostRedditComponent implements OnInit {
       });
     }
 
-    this.setTitle("Popular Today!");
+    this.setTitle("TB: Popular Today!");
 
     // Wait for get methods to api to finish then run
     setTimeout(() => 

@@ -20,7 +20,11 @@ export class PostCreateComponent implements OnInit {
   subreddit;
   selftext:string='';
 
-  constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private formBuilder: FormBuilder, private userAPI: UserService) { }
+  constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private formBuilder: FormBuilder, private userAPI: UserService, private titleService: Title) { }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
 
   ngOnInit() {
     this.userAPI.getUserData()
@@ -42,6 +46,8 @@ export class PostCreateComponent implements OnInit {
       'subreddit' : this.subreddit,
       'selftext' : [null, Validators.required]
     });
+
+    this.setTitle("TB: Create Post");
   }
 
   onFormSubmit() {

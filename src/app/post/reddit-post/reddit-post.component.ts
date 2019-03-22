@@ -51,7 +51,7 @@ export class RedditPostComponent implements OnInit {
     this.api.getPost(id)
       .subscribe(data => {
         this.post = data;
-        this.setTitle(data.title);
+        this.setTitle("TB: " + data.title);
       });
   }
 
@@ -59,7 +59,6 @@ export class RedditPostComponent implements OnInit {
     this.api.getIsSaved(id, username)
       .subscribe(data => {
         this.followData = data;
-        this.setTitle(data.title);
         if(data.length > 0){
           this.followed = true;
         } else{

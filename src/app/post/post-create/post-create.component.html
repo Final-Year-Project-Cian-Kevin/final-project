@@ -1,5 +1,8 @@
-<form [formGroup]="postForm" (ngSubmit)="onFormSubmit(postForm.value)">
-  <mat-form-field class="example-full-width">
+<form class="form-signin" [formGroup]="postForm" (ngSubmit)="onFormSubmit(postForm.value)">
+    <h3>
+      Create post
+    </h3>
+  <mat-form-field>
     <input matInput placeholder="Title" formControlName="title"
            [errorStateMatcher]="matcher">
     <mat-error>
@@ -9,7 +12,7 @@
 
   <br>
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field>
     <input matInput placeholder="URL" formControlName="url"
            [errorStateMatcher]="matcher">
     <mat-error>
@@ -19,7 +22,7 @@
 
   <br>
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field>
     <input matInput placeholder="selftext" formControlName="selftext"
            [errorStateMatcher]="matcher">
     <mat-error>

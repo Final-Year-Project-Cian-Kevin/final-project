@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from '../services/user.service';
+import { BrowserModule, Title }  from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +18,15 @@ export class LoginComponent implements OnInit {
   message = '';
   data: any;
 
-  constructor(private router: Router, private userService: UserService) {
-    console.log('DEBUG : LoginComponent: IN constructor');
+  constructor(private router: Router, private userService: UserService, private titleService: Title) {}
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   ngOnInit() {
+
+    this.setTitle("TB: Login");
   }
 
   // Login a user

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { BrowserModule, Title }  from '@angular/platform-browser';
 import { SettingsComponent } from './settings.component';
 
 describe('SettingsComponent', () => {

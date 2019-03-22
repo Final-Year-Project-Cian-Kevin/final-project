@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FollowService } from './../services/follow.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { BrowserModule, Title }  from '@angular/platform-browser';
 
 @Component({
   selector: 'app-follow',
@@ -20,18 +21,23 @@ export class FollowComponent implements OnInit {
   // Selected value of toggle-button.
   public selectedVal: boolean;
 
-  constructor(private route: ActivatedRoute, private followService: FollowService, private router: Router, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private titleService: Title, private followService: FollowService, private router: Router, private userService: UserService) { }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
 
   ngOnInit() {
     // Set the username to the valuue passed by route.
     this.username = this.route.snapshot.params['id'];
-    console.log("[DEBUG] followcomponent username:", this.username);
 
     // Load the follwing data using the username.
     this.loadFollowData(this.username);
 
     // Set the initial value of the toggle button
     this.selectedVal = true;
+
+    this.setTitle("TB: " + this.username + "'s Circle");
   }
 
   /**
@@ -66,12 +72,8 @@ export class FollowComponent implements OnInit {
           // Add data to local variables for view.
           this.allFollowers = followers;
           this.allFollowing = following;
-          //   console.log("[DEBUG FOLLOWers]");
-          //   console.log(this.allFollowers);
-          //   console.log("[DEBUG FOLLOWeing]");
-          //   console.log(this.allFollowing);
+        
         } else {
-          //   console.log('[INFO]: Something is wrong');
           this.message = res.json().msg;
         }
       })

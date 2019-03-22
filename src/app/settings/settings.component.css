@@ -1,14 +1,14 @@
-.example-form {
+.form {
     min-width: 150px;
     max-width: 500px;
     width: 100%;
   }
   
-  .example-full-width {
+  .full-width {
     width: 100%;
   }
   
-  .example-full-width:nth-last-child() {
+  .full-width:nth-last-child() {
     margin-bottom: 10px;
   }
   
@@ -30,12 +30,11 @@
   button {
     text-align: center;
   }
-  .example-card {
+  .card {
     max-width: 400px;
   }
   
-  .example-header-image {
-    /*background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');*/
+  .header-image {
     background-size: cover;
   }
   .alligner{

@@ -52,8 +52,7 @@ app.use(function(req, res, next) {
       res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       next();
-  });
-
+});
 
 app.use('/', express.static(path.join(__dirname, 'dist')));
 app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
@@ -62,7 +61,7 @@ app.use('/post/:id', express.static(path.join(__dirname, 'dist/mean-angular6')))
 app.use('/profile/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/post-create', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/saved/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
-app.use('/settings    ', express.static(path.join(__dirname, 'dist/mean-angular6')));
+app.use('/settings', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/signup', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/about', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/follow/:id', express.static(path.join(__dirname, 'dist/mean-angular6')));
