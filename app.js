@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cron = require('node-cron');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var fs = require("fs");
 
 var config = require('./config/database');
 var redditJob = require('./jobs/RedditDatabase.js');
