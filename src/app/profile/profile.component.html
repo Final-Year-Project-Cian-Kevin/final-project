@@ -21,8 +21,8 @@
     <div *ngIf="userAPI.isLoggedIn()">
       <button mat-button [routerLink]="['/saved/', profile.username]">SUBSCRIBED POSTS</button>
       <button mat-button [routerLink]="['/follow/', profile.username]">FOLLOWERS AND FOLLOWING</button>
-      <button *ngIf="!isFollowing" mat-button (click)="follow(profile._id)">FOLLOW</button>
-      <button *ngIf="isFollowing" mat-button (click)="unFollow(profile._id)">UNFOLLOW</button>
+      <button *ngIf="!isFollowing && !isUser" mat-button (click)="follow(profile._id)">FOLLOW</button>
+      <button *ngIf="isFollowing && !isUser" mat-button (click)="unFollow(profile._id)">UNFOLLOW</button>
     </div>
     <div *ngIf="!userAPI.isLoggedIn()">
         <button mat-button [routerLink]="['/saved/', profile.username]">SUBSCRIBED POSTS</button>
