@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 
 
-// build model of userSchema
-// username must be unique and is required
+// Schema used to 'filter' data to be stored in the 'ProfileSchema' collection in mongo
 var ProfileSchema = new mongoose.Schema({
   username: {
     type: String,

@@ -1,3 +1,4 @@
+// This routing file was used during early devlopement to test the capability of the 'MEAN' stack
 var express = require('express');
 var router = express.Router();
 var Book = require('../models/Book.js');
@@ -16,8 +17,9 @@ router.post('/book', passport.authenticate('jwt', {
   console.log("DEBUG ADDING BOOK using/book ========================");
   if (token) { // check if user is authorised
     // DEBUG
-    console.log(req.body);
     console.log("DEBUG ADDING BOOK is token");
+
+    // Setup the new book entry using the book schema
     var newBook = new Book({
       isbn: req.body.isbn,
       title: req.body.title,
@@ -27,21 +29,23 @@ router.post('/book', passport.authenticate('jwt', {
       publisher: req.body.publisher
     });
 
+    // Save the new book entry using the book schema 
     newBook.save(function (err) {
       if (err) {
         return res.json({
           success: false,
-          msg: 'Book(Post) failed to save.'
+          msg: 'Book(Post) failed to save.' // Return message to user
         });
       }
       res.json({
         success: true,
-        msg: 'Successful created new book(Post).'
+        msg: 'Successful created new book(Post).' // Return message to user
       });
     });
   } else {
     console.log("DEBUG ADDING BOOK is not token");
 
+    //inform the user they don't have access
     return res.status(403).send({
       success: false,
       msg: 'Unauthorized to upload.'
@@ -57,11 +61,13 @@ router.get('/book', passport.authenticate('jwt', {
   session: false
 }), function (req, res) {
   var token = getToken(req.headers);
+  // if user is logged in then give them the book they're looking for
   if (token) {
     Book.find(function (err, books) {
       if (err) return next(err);
       res.json(books);
     });
+    // If the user isn't logged in then inform them they're not authorized to view the book
   } else {
     return res.status(403).send({
       success: false,
@@ -72,6 +78,7 @@ router.get('/book', passport.authenticate('jwt', {
 
 /* Return home hope and GET ALL BOOKS */
 router.get('/', function (req, res, next) {
+  // Using the book schema to return all book entries in the book collection
   Book.find(function (err, products) {
     if (err) return next(err);
     res.json(products);
@@ -81,13 +88,10 @@ router.get('/', function (req, res, next) {
 
   });
 });
-/* GET home page. Test api*/
-//router.get('/', function(req, res, next) {
-// res.sendStatus('Recieved from api');
-//});
 
 /* GET SINGLE BOOK BY ID */
 router.get('/:id', function (req, res, next) {
+  // Using hte book schema to find a single book matching the book with the given id
   Book.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -96,6 +100,7 @@ router.get('/:id', function (req, res, next) {
 
 /* SAVE BOOK */
 router.post('/', function (req, res, next) {
+  // Using the book schema to create a new book in the book collection in mongoDB 
   Book.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -106,6 +111,7 @@ router.post('/', function (req, res, next) {
 
 /* UPDATE BOOK */
 router.put('/:id', function (req, res, next) {
+  // Using the book schema to find and update a book that matches the given id
   Book.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -114,6 +120,7 @@ router.put('/:id', function (req, res, next) {
 
 /* DELETE BOOK */
 router.delete('/:id', function (req, res, next) {
+  // Using the book schema to find and remove a book that matches the given id
   Book.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);

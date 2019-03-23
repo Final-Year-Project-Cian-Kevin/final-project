@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+// Schema used to 'filter' data to be stored in the 'Reddit' collection in mongo
 var Reddit = new mongoose.Schema({
   _id: {
     type: String,

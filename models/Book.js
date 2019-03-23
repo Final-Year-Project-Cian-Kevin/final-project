@@ -1,14 +1,6 @@
 var mongoose = require('mongoose');
 
-// var BookSchema = new mongoose.Schema({
-//   isbn: String,
-//   title: String,
-//   author: String,
-//   description: String,
-//   published_year: String,
-//   publisher: String,
-//   updated_date: { type: Date, default: Date.now },
-// });
+// Schema used during early devlopement to test functionality of the 'MEAN' stack
 var BookSchema = new mongoose.Schema({
   isbn: {
     type: String,

@@ -232,7 +232,7 @@ exports.news = function () {
       }
 
       // When all GET request to the reddit api have completed this code section will run
-      if(completed_requests == urlsPop.length){
+      if(completed_requests == urlsNews.length){
 
         // Sory reddit posts by their score from high to low which will get the most relevent post
         posts.sort(function (a, b) {return b.score - a.score;});

@@ -8,9 +8,11 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var fs = require("fs");
 
+// Files used by the server side part of the program
 var config = require('./config/database');
 var redditJob = require('./jobs/RedditDatabase.js');
 
+// Setup express routing
 var app = express();
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,6 +25,7 @@ app.use(passport.initialize());
 // http://www.fullstackjs.com/book/10/connect-mongoose-bluebird.html
 mongoose.Promise = require('bluebird');// Promisify-ing Mongoose
 
+// Connecto to the mongodb using settings from the config file
 mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
   .then(() =>  console.log('\x1b[32m%s\x1b[0m', 'INFO: Connection to database succesfull'))
   .catch((err) => console.error(err));
@@ -55,6 +58,7 @@ app.use(function(req, res, next) {
       next();
 });
 
+// Routes that are handled by angular
 app.use('/', express.static(path.join(__dirname, 'dist')));
 app.use('/index', express.static(path.join(__dirname, 'dist/mean-angular6')));
 app.use('/login', express.static(path.join(__dirname, 'dist/mean-angular6')));
@@ -102,10 +106,11 @@ app.use(function(err, req, res, next) {
   console.log("Debug : aap.js60."+err.status);
 });
 
+// Cron job that runs every minute to update reddit post data and set reddit api subreddits as users
 cron.schedule('* * * * *', () => {
-  redditJob.pop();
-  redditJob.news();
-  redditJob.createUsers();
+  redditJob.pop(); // Popular posts
+  redditJob.news(); // News posts
+  redditJob.createUsers(); // Makes users that match subreddit
 });
 
 module.exports = app;

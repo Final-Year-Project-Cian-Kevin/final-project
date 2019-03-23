@@ -5,8 +5,7 @@ var bcrypt = require('bcrypt-nodejs');
 var config = require('../config/database');
 var jwt = require('jsonwebtoken');
 
-// build model of userSchema
-// username must be unique and is required
+// Schema used to 'filter' data to be stored in the 'UserSchema' collection in mongo
 var UserSchema = new mongoose.Schema({
   username: {
     type: String,

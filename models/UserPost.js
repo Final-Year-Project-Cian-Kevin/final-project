@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+// Schema used to 'filter' data to be stored in the 'UserPosts' collection in mongo
 var UserPost = new mongoose.Schema({
   _id: {
     type: String,

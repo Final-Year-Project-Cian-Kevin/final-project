@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+// Schema used to 'filter' data to be stored in the 'RedditPop' collection in mongo
 var RedditPop = new mongoose.Schema({
   _id: {
     type: String,
