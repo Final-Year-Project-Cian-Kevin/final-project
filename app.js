@@ -41,6 +41,8 @@ var options = {
 // initialize swagger-jsdoc
 var swaggerSpec = swaggerJSDoc(options);
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // serve swagger 
 app.get('/swagger.json', function(req, res) {   
   res.setHeader('Content-Type', 'application/json');  
