@@ -76,7 +76,40 @@ router.get('/book', passport.authenticate('jwt', {
   }
 });
 
-/* Return home hope and GET ALL BOOKS */
+/**
+ * @swagger
+ * definition:
+ *   book:
+ *     properties:
+ *       isbn:
+ *         type: string
+ *       title:
+ *         type: string
+ *       author:
+ *         type: integer
+ *       description:
+ *         type: string
+ *       published_year:
+ *         type: string
+ *       publisher:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * /api/book:
+ *   get:
+ *     tags:
+ *       - books
+ *     description: Returns all books
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of books
+ *         schema:
+ *           $ref: '#/definitions/book'
+ */
 router.get('/', function (req, res, next) {
   // Using the book schema to return all book entries in the book collection
   Book.find(function (err, products) {
