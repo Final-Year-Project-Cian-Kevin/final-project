@@ -1,4 +1,23 @@
-// !!!!!!!!!!!!!!!!!!!!!!!! MUST REFACTOR THIS CLASS AS api.js
+/**
+ * @swagger
+ * definition:
+ *   user:
+ *     properties:
+ *       username:
+ *         type: string
+ *       email:
+ *         type: string
+ *       first_name:
+ *         type: string
+ *       surname:
+ *         type: string
+ *       bio:
+ *         type: string
+ *       password:
+ *         type: string
+ */
+
+ // Imports used
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -18,7 +37,28 @@ var Follow = require("../models/follow");
 var logger = require("../config/serverlogger").Logger;
 
 /**
- * Create router to register new user
+Post router to register new user
+Link - api/user/signup
+*/
+/**
+ * @swagger
+ * /api/user/signup:
+ *   post:
+ *     tags:
+ *       - users
+ *     description: Creates a new user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: user
+ *         description: user object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/user'
+ *     responses:
+ *       200:
+ *         description: Successfully created
  */
 router.post('/signup', function (req, res) {
   console.log('\x1b[34m%s\x1b[0m', "DEBUG : POST USER signup"); //blue cmd

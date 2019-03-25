@@ -26,7 +26,8 @@ var mongoose = require('mongoose');
 var User = require("../models/user");
 
 /** 
- * GET to return all users from db in public format
+Get to return all users from db in public format
+Link - api/profile/all
  */
 /**
  * @swagger
@@ -55,7 +56,8 @@ router.get('/all', function (req, res, next) {
 });
 
 /** 
- * GET to user based on username or id
+GET to user based on username or id
+Link - api/profile/{id}
  */
 /**
  * @swagger
