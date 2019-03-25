@@ -1,8 +1,22 @@
 .profile-card {
   margin: auto;
+  margin-top:  15px;
   width: 50%;
-  border: 3px solid blue;
   padding: 10px;
+}
+
+.comment-card {
+  max-width: 450px;
+  min-width: 400px;
+  float: left;
+  margin: 15px;
+}
+
+.post {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
 }
   
 .example-header-image {

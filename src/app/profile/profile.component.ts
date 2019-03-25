@@ -54,6 +54,8 @@ export class ProfileComponent implements OnInit {
     this.commentAPI.getCommentProfileId(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.commentsUser = res;
+        console.log(res);
+        console.log(this.commentsUser);
       }, err => {
         console.log(err);
         if (err.status = 401) {

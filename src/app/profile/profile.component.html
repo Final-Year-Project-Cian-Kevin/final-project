@@ -4,7 +4,7 @@
     <!--  </div>-->
     <mat-card-title>{{profile.first_name}} {{profile.surname}}</mat-card-title>
     <mat-card-subtitle>{{profile.username}}</mat-card-subtitle>
-    <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
+    <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{profile.image}}'>
   </mat-card-header>
   <mat-card-content>
     <p>
@@ -20,7 +20,7 @@
   <mat-card-actions>
     <div *ngIf="userAPI.isLoggedIn()">
       <button mat-button [routerLink]="['/saved/', profile.username]">SUBSCRIBED POSTS</button>
-      <button mat-button [routerLink]="['/follow/', profile.username]">FOLLOWERS AND FOLLOWING</button>
+      <button mat-button [routerLink]="['/follow/', profile.username]">FRIENDS</button>
       <button *ngIf="!isFollowing && !isUser" mat-button (click)="follow(profile._id)">FOLLOW</button>
       <button *ngIf="isFollowing && !isUser" mat-button (click)="unFollow(profile._id)">UNFOLLOW</button>
     </div>
@@ -31,33 +31,48 @@
   </mat-card-actions>
 </mat-card>
 
-
-<h1>Recent Posts:</h1>
-<div class="scrollmenu">
-  <div *ngFor="let postUser of postsUser" class="example-item">
-      <mat-card class="post-card">
-        <mat-card-header>
-          <img mat-card-avatar alt="Poster" id="poster" src='http://localhost:3000/api/assets/images/{{profile.image}}'>
-          <mat-card-title class="post">{{postUser.title}}</mat-card-title>
-          <mat-card-subtitle class="user">{{postUser.subreddit}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="postUser.thumbnail" width="100" height="200">
-        <mat-card-content>
-          <p>
-            {{postUser.selftext}}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button [routerLink]="['/post/', postUser._id]">VIEW</button>
-        </mat-card-actions>
-      </mat-card>
+<div *ngIf="postsUser.length > 0">
+  <h1>Recent Posts:</h1>
+  <div class="scrollmenu">
+    <div *ngFor="let postUser of postsUser" class="example-item">
+        <mat-card class="post-card">
+          <mat-card-header>
+            <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{profile.image}}'>
+            <mat-card-title class="post">{{postUser.title}}</mat-card-title>
+            <mat-card-subtitle class="user">{{postUser.subreddit}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image [src]="postUser.thumbnail" width="100" height="200">
+          <mat-card-content>
+            <p>
+              {{postUser.selftext}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/post/', postUser._id]">VIEW</button>
+          </mat-card-actions>
+        </mat-card>
+    </div>
   </div>
 </div>
 
-<h1>Recent Comments:</h1>
-<div *ngFor="let commentUser of commentsUser">
-  <p>
-    <a [routerLink]="['/post/', commentUser.post_id]">{{commentUser.post_id}}</a>
-    {{commentUser.comment}}
-  </p>
+<div *ngIf="!postsUser.length > 0">
+  <h1>No posts to show</h1>
+  <p>Tell {{profile.username}} to get posting!</p>
+</div>
+
+<br>
+
+<div *ngIf="commentsUser.length > 0">
+  <h1>Recent Comments:</h1>
+  <mat-card class="comment-card" *ngFor="let commentUser of commentsUser">
+    <mat-card-header>
+        <mat-card-title [routerLink]="['/post/', commentUser.post_id]">{{commentUser.comment}}</mat-card-title>
+        <mat-card-subtitle>{{commentUser.date}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+
+<div *ngIf="!commentsUser.length > 0">
+  <h1>No comments to show</h1>
+  <p>Tell {{profile.username}} to get commenting!</p>
 </div>
