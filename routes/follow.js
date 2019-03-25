@@ -30,8 +30,6 @@ router.get('/profile/:id', function (req, res, next) {
   });
 });
 
-
-
 /**
  *  Add data to 'follows' table.
  */

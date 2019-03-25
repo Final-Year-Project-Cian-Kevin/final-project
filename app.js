@@ -24,7 +24,7 @@ var swaggerDefinition = {
   info: {
     title: 'Node Swagger API',
     version: '1.0.0',
-    description: 'Demonstrating how to describe a RESTful API with Swagger',
+    description: 'Api file for swagger',
   },
   host: 'localhost:3000',
   basePath: '/',
