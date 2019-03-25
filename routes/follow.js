@@ -1,3 +1,14 @@
+/**
+ * @swagger
+ * definition:
+ *   follow:
+ *     properties:
+ *       user_id:
+ *         type: string
+ *       follow_id:
+ *         type: string
+ */
+
 // Imports used
 var express = require('express');
 var router = express.Router();
@@ -15,28 +26,31 @@ var Profile = require("../models/profile");
 var Follow = require("../models/follow");
 // Import logger to handle server logging. 
 var logger = require("../config/serverlogger").Logger;
-// Current logged in username by decoding jwt
-router.get('/userdata/:id', function (req, res, next) {
-  var userData = jwt.decode(req.params.id, config.secret)
-  res.json(userData.username);
-});
-
-/**
-Get user details for profiles
-Link - api/follow/profile/{id}
-*/
-router.get('/profile/:id', function (req, res, next) {
-  User.find({
-    username: req.params.id
-  }).lean().select('username bio image email first_name surname join_date').exec(function (err, user) {
-    res.json(user);
-  });
-});
 
 /**
 Post data to follows table
 Link - api/follow/add
 */
+/**
+ * @swagger
+ * /api/follow/add:
+ *   post:
+ *     tags:
+ *       - follow
+ *     description: Follow user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: follow
+ *         description: Follow object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/follow'
+ *     responses:
+ *       200:
+ *         description: Successfully followed user
+ */
 router.post('/add', function (req, res) {
   const user_id = req.body.user_id;
   const to_follow_id = req.body.follow_id;
@@ -82,6 +96,26 @@ router.post('/add', function (req, res) {
 Remove data from follows table
 Link - api/follow/remove
 */
+/**
+ * @swagger
+ * /api/follow/remove:
+ *   post:
+ *     tags:
+ *       - follow
+ *     description: Follow user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: follow
+ *         description: Follow object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/follow'
+ *     responses:
+ *       200:
+ *         description: Successfully removed followed user
+ */
 router.post('/remove', function (req, res) {
   const user_id = req.body.user_id;
   const to_unfollow_id = req.body.follow_id;
@@ -125,13 +159,30 @@ router.post('/remove', function (req, res) {
 
 /**
 Return all following data by user
-Link - api/follow/add
+Link - api/follow/{id}
 */
+/**
+ * @swagger
+ * /api/follow/{id}:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: The users username
+ *     tags:
+ *       - follow
+ *     description: Returns all following data of the given user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of following data
+ */
 router.get('/:id', function (req, res) {
-
   const username = req.params.id;
-  //console.log("[DEBUG]: /follow username", username);
-  //console.log(req);
   User.findOne({
     'username': username
   }, function (err, user) {
@@ -191,10 +242,29 @@ router.get('/:id', function (req, res) {
 
 /**
 Return an json object containing a list of usernames that are followed
-Link - api/follow/add
+Link - api/check/{id}
 */
+/**
+ * @swagger
+ * /api/follow/check/{id}:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: Checks if user is follow given user
+ *     tags:
+ *       - follow
+ *     description: Returns if user is follow given user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: User following check data
+ */
 router.get('/check/:id', function (req, res) {
-
   const username = req.params.id;
   logger.info("[Follow] - User " + username + " has requested following list.")
 
