@@ -1,3 +1,13 @@
+/**
+ * @swagger
+ * definition:
+ *   assets:
+ *     properties:
+ *       image:
+ *         type: string
+ */
+
+ // Imported used
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -16,23 +26,55 @@ var upload = multer({
   dest: DIR
 }).single('photo');
 
-/* GET home page. */
+/**
+ * @swagger
+ * /api/assets/images:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id   # Note the name is the same as in the path
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: The user ID
+ *     tags:
+ *       - assets
+ *     description: Gets an image for a specific user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Returns a single image
+ *         schema:
+ *           $ref: '#/definitions/assets'
+ */
 router.get('/images/:id', function (req, res, next) {
   res.sendFile(path.join(__dirname + '/../assets/' + req.params.id));
 });
 
-
-/** 
- * Upload a file to the server
- * returns the file name used to access the image
+/**
+ * @swagger
+ * /api/assets:
+ *   post:
+ *     tags:
+ *       - assets
+ *     description: Sends an image file to the for the users profile
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Sets a user image
+ *         schema:
+ *           $ref: '#/definitions/assets'
  */
 router.post('/', function (req, res, next) {
-  var path = '';
-
+  /** 
+   * Upload a file to the server
+   * returns the file name used to access the image
+   */
   upload(req, res, function (err) {
     if (err) {
       // An error occurred when uploading
-      //console.log(err);
       logger.error("[File upload] :" + err);
       return res.status(422).send("An Error occured uploading a file")
     }
@@ -41,8 +83,6 @@ router.post('/', function (req, res, next) {
     return res.send({
       image: req.file.filename
     });
-
-
   });
 })
 module.exports = router;

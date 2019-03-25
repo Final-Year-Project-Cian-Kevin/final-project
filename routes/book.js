@@ -1,3 +1,22 @@
+/**
+ * @swagger
+ * definition:
+ *   book:
+ *     properties:
+ *       isbn:
+ *         type: string
+ *       title:
+ *         type: string
+ *       author:
+ *         type: string
+ *       description:
+ *         type: string
+ *       published_year:
+ *         type: string
+ *       publisher:
+ *         type: string
+ */
+
 // This routing file was used during early devlopement to test the capability of the 'MEAN' stack
 var express = require('express');
 var router = express.Router();
@@ -78,26 +97,7 @@ router.get('/book', passport.authenticate('jwt', {
 
 /**
  * @swagger
- * definition:
- *   book:
- *     properties:
- *       isbn:
- *         type: string
- *       title:
- *         type: string
- *       author:
- *         type: integer
- *       description:
- *         type: string
- *       published_year:
- *         type: string
- *       publisher:
- *         type: string
- */
-
-/**
- * @swagger
- * /api/book:
+ * /api:
  *   get:
  *     tags:
  *       - books
@@ -122,7 +122,28 @@ router.get('/', function (req, res, next) {
   });
 });
 
-/* GET SINGLE BOOK BY ID */
+/**
+ * @swagger
+ * /api/{id}:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id   # Note the name is the same as in the path
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: The book ID
+ *     tags:
+ *       - books
+ *     description: Returns all books
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of books
+ *         schema:
+ *           $ref: '#/definitions/book'
+ */
 router.get('/:id', function (req, res, next) {
   // Using hte book schema to find a single book matching the book with the given id
   Book.findById(req.params.id, function (err, post) {
@@ -131,18 +152,56 @@ router.get('/:id', function (req, res, next) {
   });
 });
 
-/* SAVE BOOK */
+/**
+ * @swagger
+ * /api:
+ *   post:
+ *     tags:
+ *       - books
+ *     description: Creates a new book
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: book
+ *         description: book object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/book'
+ *     responses:
+ *       200:
+ *         description: Successfully created
+ */
 router.post('/', function (req, res, next) {
   // Using the book schema to create a new book in the book collection in mongoDB 
   Book.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
-    console.log("DEBUG ADDING BOOK using/========================");
-
   });
 });
 
-/* UPDATE BOOK */
+/**
+ * @swagger
+ * /api/{id}:
+ *   put:
+ *     parameters:
+ *       - in: path
+ *         name: id   # Note the name is the same as in the path
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: The book ID
+ *     tags:
+ *       - books
+ *     description: Save a book into the mongoDB
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Book updated
+ *         schema:
+ *           $ref: '#/definitions/book'
+ */
 router.put('/:id', function (req, res, next) {
   // Using the book schema to find and update a book that matches the given id
   Book.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
@@ -151,7 +210,28 @@ router.put('/:id', function (req, res, next) {
   });
 });
 
-/* DELETE BOOK */
+/**
+ * @swagger
+ * /api/{id}:
+ *   delete:
+ *     parameters:
+ *       - in: path
+ *         name: id   # Note the name is the same as in the path
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: The book ID
+ *     tags:
+ *       - books
+ *     description: Delete a book into the mongoDB
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Book updated
+ *         schema:
+ *           $ref: '#/definitions/book'
+ */
 router.delete('/:id', function (req, res, next) {
   // Using the book schema to find and remove a book that matches the given id
   Book.findByIdAndRemove(req.params.id, req.body, function (err, post) {

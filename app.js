@@ -41,6 +41,7 @@ var options = {
 // initialize swagger-jsdoc
 var swaggerSpec = swaggerJSDoc(options);
 
+// Swagger UI route
 app.use(express.static(path.join(__dirname, 'public')));
 
 // serve swagger 
