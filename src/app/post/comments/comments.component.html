@@ -14,6 +14,9 @@
     </div>
   </form>
 </div>
+<div *ngIf="!userAPI.isLoggedIn()">
+  <p><a [routerLink]="['/login']">Login</a> or <a [routerLink]="['/signup']">Sign-Up</a> to tell the community what you think!</p>
+</div>
 
 <div layout="column" layout-align="center end" class="example-container mat-elevation-z8">
   <table mat-table #table [dataSource]="dataSource">

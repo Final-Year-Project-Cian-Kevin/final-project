@@ -106,7 +106,6 @@ export class ProfileComponent implements OnInit {
           }
         } else {
           console.log('[INFO]: Something is wrong');
-          //this.message = res.json().msg;
         }
       })
 

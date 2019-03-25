@@ -25,8 +25,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.setTitle("TB: Login");
+
+    if(this.userService.isLoggedIn()){
+      this.router.navigate(['index']);
+    }
   }
 
   // Login a user
@@ -37,16 +40,7 @@ export class LoginComponent implements OnInit {
 
         // Save response jwtToken
         this.userService.saveJwtToken(this.data.token);
-        this.router.navigate(['index']);
-
-        // Check if user is logged in
-        if (this.userService.isLoggedIn) {
-         // this.data = this.userService.getUserPayLoad();
-          // Get user details
-          var curUser = this.userService.getUserPayLoad();
-          // Set logged in user as current user
-          this.userService.setCurrentUser(curUser);
-        }
+        location.reload(true); // Page refresh
       }, err => {
         this.message = err.error.msg;
       });
