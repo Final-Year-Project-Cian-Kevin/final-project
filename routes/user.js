@@ -11,7 +11,16 @@
  *         type: string
  *       surname:
  *         type: string
- *       bio:
+ *       password:
+ *         type: string
+ */
+
+ /**
+ * @swagger
+ * definition:
+ *   userLogin:
+ *     properties:
+ *       username:
  *         type: string
  *       password:
  *         type: string
@@ -113,12 +122,30 @@ router.post('/signup', function (req, res) {
 });
 
 /**
- * Create router to login
+Post router to login user
+Link - api/user/signin
+*/
+/**
+ * @swagger
+ * /api/user/signin:
+ *   post:
+ *     tags:
+ *       - users
+ *     description: Login a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: user
+ *         description: user object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/userLogin'
+ *     responses:
+ *       200:
+ *         description: Successfully created
  */
 router.post('/signin', function (req, res) {
-  // console.log('DEBUG : Router post signin');
-  //console.log('\x1b[34m%s\x1b[0m', "DEBUG : Router post signin"); //blue cmd
-
   User.findOne({
     username: req.body.username
   }, function (err, user) {
@@ -164,13 +191,59 @@ router.post('/signin', function (req, res) {
   });
 });
 
-// Current logged in username by decoding jwt
+/**
+Get logged in username by decoding jwt
+Link - api/user/userdata/{id}
+*/
+/**
+ * @swagger
+ * /api/user/userdata/{id}:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: JWT (Json Web Token) of logged in user
+ *     tags:
+ *       - users
+ *     description: Returns logged in username
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Logged in username
+ */
 router.get('/userdata/:id', function (req, res, next) {
   var userData = jwt.decode(req.params.id, config.secret)
   res.json(userData.username);
 });
 
-// Get user details for profiles
+/**
+Get user details for profiles
+Link - api/user/profile/{id}
+*/
+/**
+ * @swagger
+ * /api/user/profile/{id}:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: Username to get profile data
+ *     tags:
+ *       - users
+ *     description: Returns profile data for given user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: User profile data
+ */
 router.get('/profile/:id', function (req, res, next) {
   User.find({
     username: req.params.id
@@ -180,17 +253,37 @@ router.get('/profile/:id', function (req, res, next) {
   });
 });
 
+ /**
+Update a users details in the database.
+Link - api/user/update/{id}
+*/
 /**
- * Update a users details in the database.
- * 
- * The received request contains params.id and a req.body.
- * 
- * @param id The _id of the User object to be updated. 
- * @param req.body The field value pairs of the User object to be updated.
- * 
- * @returns a status 401 if error occurs or a success object if success.
+ * @swagger
+ * /api/user/update/{id}:
+ *   put:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: The users ID
+ *       - in: body
+ *         description: Fields for the user resource
+ *         schema:
+ *           type: array
+ *           $ref: '#/definitions/user'
+ *     tags:
+ *       - users
+ *     description: Update a users details
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: User data updated
+ *         schema:
+ *           $ref: '#/definitions/user'
  */
-
 router.put('/update/:id', function (req, res, next) {
   logger.info("[Profile update](fail) : user "+ req.params.id +" is attempting to update profile.");
 
@@ -212,13 +305,32 @@ router.put('/update/:id', function (req, res, next) {
 });
 
 /** 
- * Return all following data
+Get all following data
+Link - api/user/follow/{id}
+ */
+/**
+ * @swagger
+ * /api/user/follow/{id}:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id   # Note the name is the same as in the path
+ *         required: true
+ *         schema:
+ *           type: id
+ *         description: The users username
+ *     tags:
+ *       - profiles
+ *     description: Returns all following data for the user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of following data
  */
 router.get('/follow/:id', function (req, res) {
-
   const username = req.params.id;
   console.log("[DEBUG]: /follow username", username);
-  //console.log(req);
   User.findOne({
     'username': username
   }, function (err, user) {
@@ -273,9 +385,8 @@ router.get('/follow/:id', function (req, res) {
         })
       })
     }
-
   })
-
 });
+
 // export router as module
 module.exports = router;

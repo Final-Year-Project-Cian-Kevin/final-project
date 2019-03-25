@@ -1,4 +1,4 @@
-// !!!!!!!!!!!!!!!!!!!!!!!! MUST REFACTOR THIS CLASS AS api.js
+// Imports used
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -21,7 +21,10 @@ router.get('/userdata/:id', function (req, res, next) {
   res.json(userData.username);
 });
 
-// Get user details for profiles
+/**
+Get user details for profiles
+Link - api/follow/profile/{id}
+*/
 router.get('/profile/:id', function (req, res, next) {
   User.find({
     username: req.params.id
@@ -31,8 +34,9 @@ router.get('/profile/:id', function (req, res, next) {
 });
 
 /**
- *  Add data to 'follows' table.
- */
+Post data to follows table
+Link - api/follow/add
+*/
 router.post('/add', function (req, res) {
   const user_id = req.body.user_id;
   const to_follow_id = req.body.follow_id;
@@ -75,8 +79,9 @@ router.post('/add', function (req, res) {
 })
 
 /**
- * Remove data from 'follows' table.
- */
+Remove data from follows table
+Link - api/follow/remove
+*/
 router.post('/remove', function (req, res) {
   const user_id = req.body.user_id;
   const to_unfollow_id = req.body.follow_id;
@@ -118,9 +123,10 @@ router.post('/remove', function (req, res) {
   })
 })
 
-/** 
- * Return all following data
- */
+/**
+Return all following data by user
+Link - api/follow/add
+*/
 router.get('/:id', function (req, res) {
 
   const username = req.params.id;
@@ -180,14 +186,13 @@ router.get('/:id', function (req, res) {
         })
       })
     }
-
   })
-
 });
 
-/** 
- * Return an json object containing a list of usernames that are followed
- */
+/**
+Return an json object containing a list of usernames that are followed
+Link - api/follow/add
+*/
 router.get('/check/:id', function (req, res) {
 
   const username = req.params.id;
@@ -246,9 +251,8 @@ router.get('/check/:id', function (req, res) {
         })
       })
     }
-
   })
-
 });
+
 // export router as module
 module.exports = router;
