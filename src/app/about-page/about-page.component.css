@@ -1,0 +1,22 @@
+.center {
+    text-align: center;
+}
+
+.left {
+   float: left; 
+}
+
+.card {
+    max-width: 450px;
+    min-width: 400px;  
+    margin: 10px;
+}
+
+#container {
+    display:                 flex;
+    display:                 -webkit-flex; /* Safari 8 */
+    flex-wrap:               wrap;
+    -webkit-flex-wrap:       wrap;         /* Safari 8 */
+    justify-content:         center;
+    -webkit-justify-content: center;       /* Safari 8 */
+}

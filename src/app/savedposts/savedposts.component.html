@@ -1,4 +1,9 @@
-<div *ngFor="let post of posts" class="example-item">
+<div *ngIf="!posts.length > 0">
+  <h1>{{id}} has no saved posts</h1>
+  <p>Tell {{id}} to save the post they enjoy.</p>
+</div>
+
+<div *ngFor="let post of posts">
   <mat-card class="post-card">
     <mat-card-header>
       <div mat-card-avatar class="post-header-image"></div>
