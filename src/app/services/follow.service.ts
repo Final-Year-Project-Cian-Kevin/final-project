@@ -3,7 +3,6 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 
-
 // Define constants
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,58 +17,6 @@ export class FollowService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-    * Follow a user  
-    */
-  followUser(data): Observable<any> {
-    const url = `${followApiURL}/add`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  /**
-   * Unfollow a user 
-   */
-  unFollowUser(data): Observable<any> {
-    const url = `${followApiURL}/remove`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-
-  /**
-   * returns a http call to recieve a users following data.
-   * 
-   * @param id the object id of the user we want to return following data for.
-   */
-  getFollowers(id: string): Observable<any> {
-    const url = `${followApiURL}/${id}`;
-    console.log("[DEBUG] getFollowers id/username: ", id);
-    return this.http.get(url, httpOptions).pipe(
-      catchError(this.handleError));
-  }
-
-    /**
-   * returns a http call to recieve a users following data.
-   * 
-   * @param id the object id of the user we want to return following data for.
-   */
-  getIsFollowing(id: string): Observable<any> {
-    const url = `${followApiURL}/check/${id}`;
-    console.log("[DEBUG] getFollowers id/username: ", id);
-    return this.http.get(url, httpOptions).pipe(
-      catchError(this.handleError));
-  }
-
-
-  private extractData(res: Response) {
-    let body = res;
-    return body || {};
-  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -86,4 +33,43 @@ export class FollowService {
     return throwError('Something bad happened; please try again later.');
   };
 
+  // Get data from response
+  private extractData(res: Response) {
+    let body = res;
+    return body || {};
+  }
+
+  // Follow a user using object
+  followUser(data): Observable<any> {
+    const url = `${followApiURL}/add`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+      catchError(this.handleError)
+      );
+  }
+
+  // Unfollow a user a user using object
+  unFollowUser(data): Observable<any> {
+    const url = `${followApiURL}/remove`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+      catchError(this.handleError)
+      );
+  }
+
+  // Returns a http call to recieve a users following data.
+  getFollowers(id: string): Observable<any> {
+    const url = `${followApiURL}/${id}`;
+    console.log("[DEBUG] getFollowers id/username: ", id);
+    return this.http.get(url, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  // Returns a http call to recieve a users following data.
+  getIsFollowing(id: string): Observable<any> {
+    const url = `${followApiURL}/check/${id}`;
+    console.log("[DEBUG] getFollowers id/username: ", id);
+    return this.http.get(url, httpOptions).pipe(
+      catchError(this.handleError));
+  }
 }

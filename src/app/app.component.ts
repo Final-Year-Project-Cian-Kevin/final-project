@@ -1,7 +1,4 @@
-
-/* 
- this file contains logic for src/app/app.component.html:
- */
+// This file contains logic for src/app/app.component.html:
 import { Router } from '@angular/router';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 @Component({
@@ -19,6 +16,5 @@ export class AppComponent {
   
   logout() {
     localStorage.removeItem('jwtToken');
-    //this.userSerice.logout();
   }
 }

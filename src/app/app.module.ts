@@ -96,20 +96,21 @@ const appRoutes: Routes = [
     data: { title: 'Saved' }
   },
   {
+    path: 'follow/:id',
+    component: FollowComponent,
+    data: { title: 'Follow List' }
+  },
+  {
     path: 'about',
     component: AboutPageComponent,
     data: { title: 'About TechBook' }
   },
 
+  // Book routes used during early development
   {
     path: 'books',
     component: BookComponent,
     data: { title: 'Book List' }
-  },
-  {
-    path: 'follow/:id',
-    component: FollowComponent,
-    data: { title: 'Follow List' }
   },
   {
     path: 'book-details/:id',

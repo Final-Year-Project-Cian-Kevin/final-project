@@ -37,17 +37,38 @@ export class UserService {
   // jwt
   private token: string;
   currentUser: any;
-  
+
   // Constructor
   constructor(private http: HttpClient) { }
+
+  // Error Handler
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // console.error('DEBUG HANDLE ERROR:',error.error.message)
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError('Something bad happened; please try again later.');
+  };
+
+  // Extract data from response
+  private extractData(res: Response) {
+    let body = res;
+    return body || {};
+  }
 
   /************************ API use functions ********************************/
 
   /**
    * GET request to API to return profile data.
    * Can take either a user_id or username.
-   *
-   * @param id The id or username to check
   */
   getProfile(id: string): Observable<any> {
     const url = `${"/api/profile"}/${id}`;
@@ -56,42 +77,24 @@ export class UserService {
       catchError(this.handleError));
   }
 
-  /**
-   * PUT request to API to update profile data.
-   * @param id The id of user to update.
-   * @param data the form data to update.
-   */
+  // PUT request to API to update profile data.
   updateUser(id: string, data): Observable<any> {
     const url = `${userApiURL}/update/${id}`;
     return this.http.put(url, data, httpOptions);
   }
 
-  /**
-   * POST request to api to add a new user to the 'users' table in db.
-   * 
-   * @param data the new signup data for the user
-   */
+  // POST request to api to add a new user to the 'users' table in db.
   postUser(data): Observable<any> {
     return this.http.post(`${userApiURL}/signup`, data, httpOptions)
-     // .pipe(
-      //  catchError(this.handleError)
-      //);
   }
 
-  /**
-   * POST request to api to log in a user from the 'users' table in db.
-   * 
-   * @param data the log in data for the user
-   */
+  // POST request to api to log in a user from the 'users' table in db.
   loginUser(data): Observable<any> {
     let baseObject;
-
     return this.http.post(`${userApiURL}/signin`, data, httpOptions);
-    // .pipe(
-    //   catchError(this.handleError)
-    //  );
   }
-  
+
+  // Get user data
   getUserData(): Observable<any> {
     const url = `${"/api/user/userdata"}/${this.getJwtToken()}`;
     return this.http.get(url, httpOptions).pipe(
@@ -119,6 +122,7 @@ export class UserService {
     this.isLoggedIn();
   }
 
+  // Check if a user is logged in
   isLoggedIn(): boolean {
     var currentToken = this.getJwtToken();
     if (currentToken) {
@@ -138,6 +142,7 @@ export class UserService {
     return this.currentUser
   }
 
+  // Get user details
   getUserPayLoad() {
     var token = this.getJwtToken();
     if (token) {
@@ -148,40 +153,5 @@ export class UserService {
     else {
       return null;
     }
-  }
-
-
-  /*
-    getProfile(id: string): Observable<any> {
-      const url = `${"/api/user/profile"}/${id}`;
-      return this.http.get(url, httpOptions).pipe(
-        map(this.extractData),
-        catchError(this.handleError));
-    }
-  */
-
-
-
-  // Error Handler
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // console.error('DEBUG HANDLE ERROR:',error.error.message)
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError('Something bad happened; please try again later.');
-  };
-
-  // Extract data from response
-  private extractData(res: Response) {
-    let body = res;
-    return body || {};
   }
 }
