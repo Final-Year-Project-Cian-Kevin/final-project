@@ -18,45 +18,53 @@ export class CommentsComponent implements OnInit {
   dataSource = new CommentDataSource(this.commentAPI);
 
   commentForm: FormGroup;
-  comment: string='';
+  comment: string = '';
   postID;
   username;
 
   constructor(private route: ActivatedRoute, private commentAPI: CommentsService, private router: Router, private formBuilder: FormBuilder, private userAPI: UserService) { }
 
+  // Runs on page call
   ngOnInit() {
+    // Get comments using post ID
     this.getCommentDetails(localStorage.getItem("postID"));
+
+    // Set post ID to local variable
     this.postID = localStorage.getItem("postID");
 
-    if(this.userAPI.isLoggedIn()){
+    // Check if a user is logged in
+    if (this.userAPI.isLoggedIn()) {
       this.userAPI.getUserData()
+        .subscribe(res => {
+          this.username = res; // Set the logged in users name to a local variable
+        }, err => {
+          console.log(err);
+          if (err.status = 401) {
+            this.router.navigate(['login']);
+          }
+        });
+    }
+
+    // Gets comments
+    this.commentAPI.getCommentPostId(localStorage.getItem("postID"))
       .subscribe(res => {
-        this.username = res;
+        this.comments = res; // Sets comments object to local variable
       }, err => {
         console.log(err);
-        if(err.status=401){
+        if (err.status = 401) {
           this.router.navigate(['login']);
         }
       });
-    }
 
-    this.commentAPI.getCommentPostId(localStorage.getItem("postID"))
-      .subscribe(res => {
-        this.comments = res;
-      }, err => {
-        console.log(err);
-        if(err.status=401){
-          this.router.navigate(['login']);
-        }
-    });
-
+    // Comment form
     this.commentForm = this.formBuilder.group({
-      'post_id' : [null],
-      'profile_id' : [null],
-      'comment' : [null, Validators.required]
+      'post_id': [null],
+      'profile_id': [null],
+      'comment': [null, Validators.required]
     });
   }
 
+  // Gets comments
   getCommentDetails(id) {
     this.commentAPI.getCommentPostId(id)
       .subscribe(data => {
@@ -64,19 +72,23 @@ export class CommentsComponent implements OnInit {
       });
   }
 
+  // Comment submission function
   onFormSubmit(form) {
+    // Set post ID in form object
     form.post_id = this.postID;
+    // Set profile username in form object
     form.profile_id = this.username;
     this.commentAPI.postComment(form)
       .subscribe(res => {
-          let id = res['_id'];
-          location.reload(true); // Page refresh
-        }, (err) => {
-          console.log(err);
+        let id = res['_id'];
+        location.reload(true); // Page refresh
+      }, (err) => {
+        console.log(err);
       });
   }
 }
 
+// Datasource for getting comments
 export class CommentDataSource extends DataSource<any> {
   constructor(private api: CommentsService) {
     super()

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from '../services/user.service';
-import { BrowserModule, Title }  from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 //import { setServers } from 'dns';
 
@@ -20,13 +20,16 @@ export class SignupComponent implements OnInit {
   message = '';
   serverErrorMessage = '';
   serverErrorType = '';
-  constructor(private router: Router, private api: UserService, private formBuilder: FormBuilder, private titleService: Title) {}
+  constructor(private router: Router, private api: UserService, private formBuilder: FormBuilder, private titleService: Title) { }
 
+  // Function used to set page title
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
+  // Function runs on page call
   ngOnInit() {
+    // password form setttings 
     this.passwordFormGroup = this.formBuilder.group({
       username: [null, [Validators.required]],
       first_name: [null, [Validators.required]],
@@ -36,14 +39,14 @@ export class SignupComponent implements OnInit {
       password2: ['', [Validators.required]]
     }, { validator: this.passwordMatchValidator });
 
+    // Set page title
     this.setTitle("TB: Signup");
   }
 
   /**
-   * Adapted from https://stackoverflow.com/questions/50728460/password-confirm-angular-material
-   *  
+   *  Adapted from https://stackoverflow.com/questions/50728460/password-confirm-angular-material
+   *  Shorthands for form controls (used from within template) 
    */
-  /* Shorthands for form controls (used from within template) */
   get password() { return this.passwordFormGroup.get('password'); }
   get password2() { return this.passwordFormGroup.get('password2'); }
 
@@ -58,9 +61,7 @@ export class SignupComponent implements OnInit {
       this.password2.setErrors(null);
   }
 
-  /**
-   * Validate passwords inputed to ensure values are equal.
-   */
+  // Validate passwords inputed to ensure values are equal.
   passwordMatchValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
     if (formGroup.get('password').value === formGroup.get('password2').value)
       return null;
@@ -70,11 +71,7 @@ export class SignupComponent implements OnInit {
       };
   };
 
-  /**
-   * Subscribes to userService to register a user.
-   * 
-   * @param form form data to register.
-   */
+  //Subscribes to userService to register a user.
   onFormSubmit(form: NgForm) {
     // Reset the error message.
     this.serverErrorMessage = '';

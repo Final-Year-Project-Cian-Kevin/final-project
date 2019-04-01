@@ -1,3 +1,4 @@
+/* mat-card settings for posts */
 .post-card {
     max-width: 400px;
     min-width: 400px;
@@ -5,15 +6,18 @@
     margin: 25px;
 }
 
+/* Post header settings */
 .post-header-image {
     background-image: url('https://b.thumbs.redditmedia.com/4KtrAN4OLE6PG-FY0Xtfn65arqXZrFRrsFDi_JvQCWM.png');
     background-size: cover;
 }
 
+/* Float username in mat-card left */
 .user {
     float: left;
 }
 
+/* Post mat-card settings */
 .post {
     white-space: nowrap;
     overflow: hidden;

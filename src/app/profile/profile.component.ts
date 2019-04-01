@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, } from '../services/user.service';
@@ -31,16 +30,20 @@ export class ProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private followService: FollowService, private router: Router, private userAPI: UserService, private postAPI: RedditApiService, private commentAPI: CommentsService, private titleService: Title) { }
 
+  // Function to set the page title
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
+  // Runs on page call
   ngOnInit() {
-
+    // Get profile data using page ID
     this.getProfileData(this.route.snapshot.params['id']);
 
+    // Set title using page ID
     this.setTitle("TB: " + this.route.snapshot.params['id'] + "'s Profile");
 
+    // Get profile data using page ID
     this.postAPI.getRecentPostsUser(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.postsUser = res;
@@ -51,11 +54,10 @@ export class ProfileComponent implements OnInit {
         }
       });
 
+    // Get comments the user made using page ID
     this.commentAPI.getCommentProfileId(this.route.snapshot.params['id'])
       .subscribe(res => {
         this.commentsUser = res;
-        console.log(res);
-        console.log(this.commentsUser);
       }, err => {
         console.log(err);
         if (err.status = 401) {
@@ -63,41 +65,31 @@ export class ProfileComponent implements OnInit {
         }
       });
 
-      if(this.userAPI.isLoggedIn()){
-        // Get current user.
-        this.currentUser = this.userAPI.getUserPayLoad();
-        // test for get following
-        this.getFollowList();
-      }
+    // Check if user is loggged in
+    if (this.userAPI.isLoggedIn()) {
+      // Get current user.
+      this.currentUser = this.userAPI.getUserPayLoad();
+      // Get following data
+      this.getFollowList();
+    }
   }
 
-  /**
-   * Loads the profile data for the current user we want to display the profile of.
-   * 
-   * @param id The ObjectId of the user we want to load data for.
-   */
+  // Loads the profile data for the current user we want to display the profile of.
   getProfileData(id) {
     this.userAPI.getProfile(id)
       .subscribe(data => {
         this.profile = data[0];
-
-        // Check if users account.
+        // Check if this is the logged in users profile
         this.isUser = (this.currentUser.id === this.profile._id);
       });
   }
 
-  /**
-   * get the list of following
-   * 
-   */
+  // Get the list of following
   getFollowList() {
-
     this.followService.getIsFollowing(this.currentUser.username)
       .subscribe((res) => {
-
         // If server returned 'true' state.
         if (res.state) {
-
           let userIsFollowing = [];
           for (let username of res.followlist) {
             userIsFollowing.push(username);
@@ -110,13 +102,11 @@ export class ProfileComponent implements OnInit {
           console.log('[INFO]: Something is wrong');
         }
       })
-
   }
+
   /**
    * Allows a user to be followed. Adds the user in the follows db table to the logged in users 'following' array.
    * Also adds the user to the following users 'followers' array. 
-   * 
-   * @param _id the users id that we want to follow.
    */
   follow(_id) {
     var user = this.userAPI.getUserPayLoad();
@@ -128,6 +118,7 @@ export class ProfileComponent implements OnInit {
       follow_id: _id
     };
 
+    // Follow this user
     this.followService.followUser(followUser)
       .subscribe(res => {
         // Set isFollowing to true;
@@ -136,23 +127,22 @@ export class ProfileComponent implements OnInit {
         console.log(err);
       }
       );
-
   }
 
   /**
     * Allows a user to be unfollowed. Removes the user in the follows db table from the logged in users 'following' array.
     * Also removes the user from the following users 'followers' array. 
-    * 
-    * @param _id the users id that we want to unfollow.
     */
   unFollow(_id) {
     var user = this.userAPI.getUserPayLoad();
     const user_id = user.id;
 
+    // Folow user object
     var followUser = {
       user_id: user_id,
       follow_id: _id
     };
+    // Send API data to unfollow a user
     this.followService.unFollowUser(followUser)
       .subscribe(res => {
         // Set isFollowing to false;
@@ -161,6 +151,5 @@ export class ProfileComponent implements OnInit {
         console.log(err);
       }
       );
-
   }
 }

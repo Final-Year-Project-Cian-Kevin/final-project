@@ -1,27 +1,15 @@
-.profile-card {
-  margin: auto;
-  width: 50%;
-  border: 3px solid blue;
-  padding: 10px;
-}
-  
-.example-header-image {
-  background-size: cover;
-}
-
+/* Angular mat card settings */
 .post-card {
   max-width: 400px;
   min-width: 400px;
 }
 
-.post-header-image {
-  background-size: cover;
-}
-
+/* Settings for username on posts */
 .user {
   float: left;
 }
 
+/* Settings for title on posts */
 .post {
   white-space: nowrap;
   overflow: hidden;
@@ -29,11 +17,13 @@
   max-width: 300px;
 }
 
+/* Makes scrollable div */
 div.scrollmenu {
   overflow: auto;
   white-space: nowrap;
 }
 
+/* Makes scrollable div */
 div.scrollmenu div {
   display: inline-block;
   color: white;

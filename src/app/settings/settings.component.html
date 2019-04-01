@@ -1,12 +1,12 @@
+<!-- Form used to update users data -->
 <form class="form-signin" [formGroup]="settingsForm" (ngSubmit)="onFormSubmit(settingsForm.value)">
   <h3>
     Edit settings for<strong> {{ currentUserName }}</strong>
   </h3>
   <mat-form-field class="full-width">
+    <!-- Error message -->
     <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-          aria-hidden="true">&times;</span></button>
-      {{errorMessage}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{errorMessage}}
     </div>
     <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
     <mat-error *ngIf="settingsForm.hasError('email')">
@@ -15,9 +15,9 @@
     <mat-error *ngIf="!settingsForm.get('email').valid && settingsForm.get('email').touched">
       Email is <strong>required</strong>
     </mat-error>
-
   </mat-form-field>
 
+  <!-- Users first name input -->
   <mat-form-field class="full-width">
     <input matInput placeholder="first_name" formControlName="first_name" [errorStateMatcher]="matcher">
     <mat-error>
@@ -26,6 +26,7 @@
     </mat-error>
   </mat-form-field>
 
+  <!-- Users surname input -->
   <mat-form-field class="full-width">
     <input matInput placeholder="surname" formControlName="surname" [errorStateMatcher]="matcher">
     <mat-error>
@@ -34,6 +35,7 @@
     </mat-error>
   </mat-form-field>
 
+  <!-- Users bio input -->
   <mat-form-field class="full-width">
     <input matInput placeholder="bio" formControlName="bio" [errorStateMatcher]="matcher">
     <mat-error>
@@ -41,7 +43,7 @@
     </mat-error>
   </mat-form-field>
 
-
+  <!-- Profile settings submit button -->
   <div class="button-row">
     <button type="submit" [disabled]="!settingsForm.valid" mat-raised-button color="primary">
       <mat-icon>save</mat-icon>
@@ -50,12 +52,10 @@
 
   <!-- image upload-->
   <h3>Edit Profile Image</h3>
-
+  <!-- mat-card for  -->
   <mat-card class="card">
     <mat-card-header>
-
     </mat-card-header>
-
     <!-- Preview the image to be uploaded-->
     <div *ngFor="let item of uploader.queue" class="media">
       <div class="media-left">
@@ -68,13 +68,10 @@
       </p>
     </mat-card-content>
     <mat-card-actions class="alligner">
-
       <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
       <input type="file" name="{{currentUserName}}" ng2FileSelect [uploader]="uploader" accept="image/*" />
-
       <!-- button to trigger the file upload when submitted -->
-      <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
-        [disabled]="!uploader.getNotUploadedItems().length">
+      <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
         Upload new profile image </button> </mat-card-actions>
   </mat-card>
 </form>

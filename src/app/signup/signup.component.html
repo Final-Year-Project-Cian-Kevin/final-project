@@ -1,12 +1,12 @@
 <div class="container">
-
+  <!-- Form for user signup -->  
   <form class="form-register" [formGroup]="passwordFormGroup" (ngSubmit)="onFormSubmit()">
     <h3>Register new user account</h3>
-   <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="serverErrorMessage !== ''">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        {{serverErrorMessage}}
-      </div>
-      
+    <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="serverErrorMessage !== ''">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>      {{serverErrorMessage}}
+    </div>
+
+    <!-- Username input box -->    
     <mat-form-field class="spacer">
       <input matInput placeholder="username" formControlName="username" [errorStateMatcher]="matcher">
       <mat-error>
@@ -19,6 +19,7 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- First name input box -->    
     <mat-form-field class="spacer">
       <input matInput placeholder="first_name" formControlName="first_name" [errorStateMatcher]="matcher">
       <mat-error>
@@ -28,6 +29,7 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Surname input box -->
     <mat-form-field class="spacer">
       <input matInput placeholder="surname" formControlName="surname" [errorStateMatcher]="matcher">
       <mat-error>
@@ -36,33 +38,31 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Email input box -->
     <mat-form-field class="spacer">
-      <!-- <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        {{errorMessage}}
-      </div>
-      -->
       <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
       <mat-error *ngIf="!passwordFormGroup.get('email').valid && passwordFormGroup  .get('email').touched">
         Email is <strong>required</strong>
-      </mat-error>  
+      </mat-error>
       <mat-error *ngIf="passwordFormGroup.hasError('email')">Please enter a valid email address</mat-error>
       <mat-error *ngIf="serverErrorType == 'email' && serverErrorMessage != ''"><strong>{{serverErrorMessage}}</strong></mat-error>
-
     </mat-form-field>
 
+    <!-- Password 1 input box -->
     <mat-form-field class="spacer">
       <input matInput type="password" placeholder="Password" formControlName="password" (input)="onPasswordInput()">
       <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
       <mat-error *ngIf="password.hasError('minlength')">Password must have at least {{minimumPwLength}} characters</mat-error>
     </mat-form-field>
 
+    <!-- Password 2 input box -->
     <mat-form-field class="spacer">
       <input matInput type="password" placeholder="Confirm password" formControlName="password2" (input)="onPasswordInput()">
       <mat-error *ngIf="password2.hasError('required')">Please confirm your password</mat-error>
       <mat-error *ngIf="password2.invalid && !password2.hasError('required')">Passwords don't match</mat-error>
     </mat-form-field>
 
+    <!-- Button submission -->
     <div class="button-row">
       <button type="submit" [disabled]="!passwordFormGroup.valid" mat-raised-button color="primary">Register<mat-icon>save</mat-icon></button>
     </div>

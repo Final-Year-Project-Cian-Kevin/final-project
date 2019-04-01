@@ -1,29 +1,34 @@
+<!-- If the user is logged in -->
+<!-- Comment submission form to add a comment to the given post -->
 <div *ngIf="userAPI.isLoggedIn()">
   <form [formGroup]="commentForm" (ngSubmit)="onFormSubmit(commentForm.value)">
     <mat-form-field class="full-with-field" appearance="outline">
-        <mat-label>Comment here {{username}} to join the community discussion!</mat-label>
-        <input matInput formControlName="comment" [errorStateMatcher]="matcher">
-        <mat-icon matSuffix>comment</mat-icon>
-        <mat-error>
-          <span *ngIf="!commentForm.get('comment').valid && commentForm.get('comment').touched">Comment cannot be blank!</span>
-        </mat-error>
+      <mat-label>Comment here {{username}} to join the community discussion!</mat-label>
+      <input matInput formControlName="comment" [errorStateMatcher]="matcher">
+      <mat-icon matSuffix>comment</mat-icon>
+      <mat-error>
+        <span *ngIf="!commentForm.get('comment').valid && commentForm.get('comment').touched">Comment cannot be blank!</span>
+      </mat-error>
     </mat-form-field>
 
+    <!--- Btton used to submit inputted comment -->
     <div class="button-row">
-        <button type="submit" [disabled]="!commentForm.valid" mat-raised-button color="primary"><mat-icon>comment</mat-icon>Submit</button>
+      <button type="submit" [disabled]="!commentForm.valid" mat-raised-button color="primary"><mat-icon>comment</mat-icon>Submit</button>
     </div>
   </form>
 </div>
+
+<!-- Only shown if user isn't logged in telling them to log in or sign up -->
 <div *ngIf="!userAPI.isLoggedIn()">
   <p><a [routerLink]="['/login']">Login</a> or <a [routerLink]="['/signup']">Sign-Up</a> to tell the community what you think!</p>
 </div>
 
+<!-- Container for all comments -->
 <div layout="column" layout-align="center end" class="example-container mat-elevation-z8">
   <table mat-table #table [dataSource]="dataSource">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-          
+    <!--- Note that these columns can be defined in any order. The actual rendered columns are set as a property on the row definition" -->
+
     <!-- Title Column -->
     <ng-container matColumnDef="profile">
       <th mat-header-cell *matHeaderCellDef> Profile ID </th>
@@ -42,6 +47,7 @@
       <td mat-cell *matCellDef="let element"> {{element.date}} </td>
     </ng-container>
 
+    <!-- Table settings -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

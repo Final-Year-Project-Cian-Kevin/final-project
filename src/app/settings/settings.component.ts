@@ -39,10 +39,12 @@ export class SettingsComponent implements OnInit {
 
   constructor(public userService: UserService, private router: Router, private formBuilder: FormBuilder, private titleService: Title) { }
 
+  // Function used to set page title
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
+  // Runs on page call
   ngOnInit() {
     this.currentUser = this.userService.getUserPayLoad();
 
@@ -72,24 +74,19 @@ export class SettingsComponent implements OnInit {
           console.log(err);
         }
         );
-      //console.log(response);
-
     };
+
+    // Set page title
     this.setTitle("TB: Profile Settings");
   }
 
-  /**
-   * Set the form data in SettingsForm to the details of the current user.
-   * 
-   * @param id The User._id of the current user.
-   */
+  //Set the form data in SettingsForm to the details of the current user.
   setForm(id) {
     this.userService.getProfile(id)
       .subscribe(profile => {
-
         // must extract profile data from response
         this.profileinfo = profile[0];
-        
+        // Form object
         this.settingsForm.setValue({
           email: this.profileinfo.email,
           first_name: this.profileinfo.first_name,
@@ -99,17 +96,10 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-  /**
-   * Sends a request to userService to update user details.
-   * 
-   * @param form form data to update.
-   */
+  // Sends a request to userService to update user details.
   onFormSubmit(form: NgForm) {
-   
     this.userService.updateUser(this.profileinfo._id, form)
       .subscribe(res => {
-        // Flash an alert to show success.
-        alert("Account updated!");
         // Route user to profile page.
         this.router.navigate(['/profile', this.profileinfo.username]);
       }, (err) => {
@@ -118,5 +108,4 @@ export class SettingsComponent implements OnInit {
       }
       );
   }
-
 }// End of SettingsComponent

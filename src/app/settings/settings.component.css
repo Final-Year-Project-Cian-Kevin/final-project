@@ -1,45 +1,58 @@
+/* Form settings */
 .form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .full-width {
-    width: 100%;
-  }
-  
-  .full-width:nth-last-child() {
-    margin-bottom: 10px;
-  }
-  
-  .button-row {
-    margin: 10px 0;
-  }
-  
-  .form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-  }
-  .form-signin h3 {
-    text-align: center;
-  }
-  h3 {
-    text-align: center;
-  }
-  button {
-    text-align: center;
-  }
-  .card {
-    max-width: 400px;
-  }
-  
-  .header-image {
-    background-size: cover;
-  }
-  .alligner{
-    text-align: center
-  }
-  .alligner input{
-    text-align: center
-  }
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Fill screen from left to right */
+.full-width {
+  width: 100%;
+}
+
+/* Child elements of full-width */
+.full-width:nth-last-child() {
+  margin-bottom: 10px;
+}
+
+/* Used for button divs */
+.button-row {
+  margin: 10px 0;
+}
+
+/* Main form settings */
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+/* All h3 tags inside the form-signin class */ 
+.form-signin h3 {
+  text-align: center;
+}
+
+/* All h3 tags*/
+h3 {
+  text-align: center;
+}
+
+/* All button tags */
+button {
+  text-align: center;
+}
+
+/* mat-card settings */
+.card {
+  max-width: 400px;
+}
+
+/* Used to center tags */
+.alligner{
+  text-align: center
+}
+
+/* Used to center input tag of alligner class */
+.alligner input{
+  text-align: center
+}

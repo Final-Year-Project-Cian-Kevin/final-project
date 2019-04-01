@@ -20,14 +20,17 @@ export class PostRedditComponent implements OnInit {
 
   constructor(private api: RedditApiService, private router: Router, private titleService: Title, private formBuilder: FormBuilder, private userAPI: UserService) { }
 
+  // Function to change the title of the page
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
+  // Runs when page is called
   ngOnInit() {
+    // Gets all Funny/Entertaining posts from the API
     this.api.getPostsPF()
       .subscribe(res => {
-        this.postsPopular = res
+        this.postsPopular = res // Set data to local variable
       }, err => {
         console.log(err);
         if (err.status = 401) {
@@ -35,6 +38,7 @@ export class PostRedditComponent implements OnInit {
         }
       });
 
+    // Gets all news posts from the API
     this.api.getPostsNews()
       .subscribe(res => {
         this.postsNews = res;
@@ -45,6 +49,7 @@ export class PostRedditComponent implements OnInit {
         }
       });
 
+    // Gets all user posts from the API
     this.api.getPostsUser()
       .subscribe(res => {
         this.postsUser = res;
@@ -55,10 +60,11 @@ export class PostRedditComponent implements OnInit {
         }
       });
 
+    // Check if user is logged in
     if (this.userAPI.isLoggedIn()) {
       this.userAPI.getUserData()
         .subscribe(res => {
-          this.username = res;
+          this.username = res; // Set username as a local variable
         }, err => {
           console.log(err);
           if (err.status = 401) {
@@ -67,6 +73,7 @@ export class PostRedditComponent implements OnInit {
         });
     }
 
+    // Set title of page
     this.setTitle("TB: Popular Today!");
 
     // Wait for get methods to api to finish then run
@@ -76,9 +83,11 @@ export class PostRedditComponent implements OnInit {
       200);
   }
 
+  // Get profile data for each poster
   getProfileData() {
-
+    // Loop through each postsPopular
     for (var i = 0; i < this.postsPopular.length; i++) {
+      // Get profile data for that user
       this.userAPI.getProfile(this.postsPopular[i].subreddit)
         .subscribe(data => {
           for (var i = 0; i < this.postsPopular.length; i++) {
@@ -89,7 +98,9 @@ export class PostRedditComponent implements OnInit {
         });
     }
 
+    // Loop through each postsNews
     for (var i = 0; i < this.postsNews.length; i++) {
+      // Get profile data for that user
       this.userAPI.getProfile(this.postsNews[i].subreddit)
         .subscribe(data => {
           for (var i = 0; i < this.postsNews.length; i++) {
@@ -100,7 +111,9 @@ export class PostRedditComponent implements OnInit {
         });
     }
 
+    // Loop through each postsUser
     for (var i = 0; i < this.postsUser.length; i++) {
+      // Get profile data for that user
       this.userAPI.getProfile(this.postsUser[i].subreddit)
         .subscribe(data => {
           for (var i = 0; i < this.postsUser.length; i++) {

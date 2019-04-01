@@ -20,14 +20,20 @@ export class RedditPostComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private titleService: Title, private userAPI: UserService, private formBuilder: FormBuilder) { }
 
+  // Function to set title of page
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
   }
 
+  // Ran on page call
   ngOnInit() {
+    // Get post details using ID of the route
     this.getPostDetails(this.route.snapshot.params['id']);
+
+    // Sewt post ID in local storage to be accessed by other components
     localStorage.setItem("postID", this.route.snapshot.params['id']);
 
+    // Check if user is logged in
     if(this.userAPI.isLoggedIn()){
       this.userAPI.getUserData()
       .subscribe(res => {
@@ -41,38 +47,44 @@ export class RedditPostComponent implements OnInit {
       });
     }
 
+    // Form settings
     this.saveForm = this.formBuilder.group({
       'profile_id' : [null],
       'post_id' : [null]
     });
   }
 
+  // Get post details from the API
   getPostDetails(id) {
     this.api.getPost(id)
       .subscribe(data => {
         this.post = data;
-        this.setTitle("TB: " + data.title);
+        this.setTitle("TB: " + data.title); // Set page title as the post title 
       });
   }
 
+  // Check if user is subscribed to post
   getIsSaved(id, username) {
     this.api.getIsSaved(id, username)
       .subscribe(data => {
         this.followData = data;
         if(data.length > 0){
-          this.followed = true;
+          this.followed = true; // set followed to true
         } else{
-          this.followed = false;
+          this.followed = false; // set followed to false
         }
       });
   }
 
+  // Subscribe to post
   sub() {
+    // Add profile ID and post ID to form
     this.saveForm.patchValue({
       profile_id: this.username,
       post_id: this.route.snapshot.params['id']
     });
 
+    // Send form to the API to save a user to the post
     this.api.postSave(this.saveForm.value)
     .subscribe(res => {
         let id = res['_id'];
@@ -82,7 +94,9 @@ export class RedditPostComponent implements OnInit {
     });
   }
 
+  // Unsubscribe from post
   unsub() {
+    // Send API post ID and username to remove from database with API
     this.api.delUnSub(this.route.snapshot.params['id'], this.username)
       .subscribe(res => {
           location.reload(true); // Page refresh
@@ -91,5 +105,4 @@ export class RedditPostComponent implements OnInit {
         }
       );
   }
-
 }

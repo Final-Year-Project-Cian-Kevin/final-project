@@ -9,6 +9,7 @@ export class LogoHeaderComponent implements OnInit {
 
   constructor() { }
 
+  // Runs when page is called
   ngOnInit() {
   }
 

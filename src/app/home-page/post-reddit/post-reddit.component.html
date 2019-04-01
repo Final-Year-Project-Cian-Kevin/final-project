@@ -1,6 +1,10 @@
+<!-- Funny/Entertainment posts -->
 <h1>Banter Bay:</h1>
+<!-- Scrollable div -->
 <div class="scrollmenu">
+  <!-- Loop through postsPopular variable and ouput each object value -->
   <div *ngFor="let postUser of postsPopular" class="example-item">
+    <!-- Angular mat-card containing a single post -->
     <mat-card class="post-card">
       <mat-card-header>
         <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{postUser.image}}'>
@@ -20,9 +24,13 @@
   </div>
 </div>
 
+<!-- News/Information posts -->
 <h1>News Posts:</h1>
+<!-- Scrollable div -->
 <div class="scrollmenu">
+  <!-- Loop through postsNews variable and ouput each object value -->
   <div *ngFor="let postNews of postsNews" class="example-item">
+    <!-- Angular mat-card containing a single post -->
     <mat-card class="post-card">
       <mat-card-header>
         <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{postNews.image}}'>
@@ -42,9 +50,13 @@
   </div>
 </div>
 
+<!--Posts made by users on the site -->
 <h1>User Posts:</h1>
+<!-- Scrollable div -->
 <div class="scrollmenu">
+  <!-- Loop through postsUser variable and ouput each object value -->
   <div *ngFor="let postUser of postsUser" class="example-item">
+    <!-- Angular mat-card containing a single post -->
     <mat-card class="post-card">
       <mat-card-header>
         <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{postUser.image}}'>

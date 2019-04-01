@@ -1,16 +1,16 @@
+<!-- div containing login data and information -->
 <div class="container">
+  <!-- Form for logging in user -->
   <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
+    <!--Error div that will inform user of incorrect login data -->
     <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
     </div>
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="loginData.username" name="username"
-      required />
+    <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="loginData.username" name="username" required/>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password" name="password"
-      required />
+    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password" name="password" required/>
     <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Sign in</button>
     <p>
       Not a member?

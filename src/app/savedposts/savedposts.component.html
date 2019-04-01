@@ -1,9 +1,12 @@
+<!-- If there are no saved posts from given user -->
 <div *ngIf="!posts.length > 0">
   <h1>{{id}} has no saved posts</h1>
   <p>Tell {{id}} to save the post they enjoy.</p>
 </div>
 
+<!-- Loop through eahc elements in posts object -->
 <div *ngFor="let post of posts">
+  <!-- mat-card for each post -->
   <mat-card class="post-card">
     <mat-card-header>
       <div mat-card-avatar class="post-header-image"></div>
