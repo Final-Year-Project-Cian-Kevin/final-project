@@ -113,5 +113,5 @@ UserSchema.methods.generateJWT = function () {
     exp: parseInt(exp.getTime() / 1000),
   }, config.secret);
 };
-// Export UserSchema model ad User
+
 module.exports = mongoose.model('User', UserSchema);

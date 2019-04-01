@@ -173,4 +173,5 @@ router.post('/post', function (req, res, next) {
   });
 });
 
+// export router as router
 module.exports = router;

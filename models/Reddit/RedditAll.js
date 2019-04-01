@@ -36,4 +36,5 @@ var Reddit = new mongoose.Schema({
   }
 
 });
+
 module.exports = mongoose.model('Reddit', Reddit, 'Reddit');

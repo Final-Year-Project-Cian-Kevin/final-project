@@ -1,27 +1,23 @@
-.example-selected-value {
-  margin: 15px 0;
-}
-.h
+/* Angular mat card for profile */
 .profile-card {
   margin: auto;
   width: 50%;
   border: 3px solid blue;
   padding: 10px;
 }
+
+/* Angular mat h3 tag */
 .profile-card h3 {
     text-align: center;
 }
+
+/* Sets scrollable div tag */
 div.scrollmenu {
   overflow: auto;
   white-space: nowrap;
 }
 
-.buttonGroup {
-  margin: auto;
-  align-items: center;
-
-}
-
+/* Sets scrollable div tag */
 div.scrollmenu div {
   display: flex;
   flex-direction: column;
@@ -30,8 +26,10 @@ div.scrollmenu div {
   padding: 14px;
   text-decoration: none;
 }
+
+/* Centres image */
 img.center {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  }
+}

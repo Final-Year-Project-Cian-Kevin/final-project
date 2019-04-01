@@ -1,8 +1,8 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { BrowserModule, Title }  from '@angular/platform-browser';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-index',
@@ -14,8 +14,8 @@ export class IndexComponent implements OnInit {
 
   constructor(private renderer: Renderer2) { }
 
+  // On page call
   ngOnInit() {
-    //this.renderer.setStyle(document.body, 'background-color', 'yellow');
   }
-  
+
 }

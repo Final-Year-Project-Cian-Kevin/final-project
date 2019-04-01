@@ -1,17 +1,21 @@
+/* Sets items to be centred */
 .center {
     text-align: center;
 }
 
+/* Sets items to be indented left */
 .left {
    float: left; 
 }
 
+/* Angular mat-card item settings */
 .card {
     max-width: 450px;
     min-width: 400px;  
     margin: 10px;
 }
 
+/* Container div for set children div side by side */
 #container {
     display:                 flex;
     display:                 -webkit-flex; /* Safari 8 */

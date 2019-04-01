@@ -15,4 +15,5 @@ var SavedPosts = new mongoose.Schema({
     default: Date.now
   }
 });
+
 module.exports = mongoose.model('SavedPosts', SavedPosts, 'SavedPosts');

@@ -22,5 +22,4 @@ var ProfileSchema = new mongoose.Schema({
   }
 });
 
-// Export ProfileSchema model as Profile
 module.exports = mongoose.model('Profile', ProfileSchema);

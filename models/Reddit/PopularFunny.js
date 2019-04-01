@@ -35,4 +35,5 @@ var RedditPop = new mongoose.Schema({
     default: Date.now
   }
 });
+
 module.exports = mongoose.model('RedditPop', RedditPop, 'RedditPop');

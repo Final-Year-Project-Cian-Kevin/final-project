@@ -35,4 +35,5 @@ var RedditNews = new mongoose.Schema({
     default: Date.now
   }
 });
+
 module.exports = mongoose.model('RedditNews', RedditNews, 'RedditNews');

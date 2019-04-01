@@ -1,24 +1,28 @@
 <app-logo-header></app-logo-header>
 
-<!--<nav class="navbar navbar-default navbar-fixed-top">-->
+<!-- Sticky navbar -->
 <nav class="navbar  navbar-light bg-dark navbar-fixed-top sticky-top">
-  
+
   <div class="container">
-    <!-- Do not show if user is logged in-->
+    <!-- Do not show if user is logged in -->
     <div *ngIf="!userService.isLoggedIn()">
+      
+      <!-- Form containing basic website function and login bar -->
       <form class="form-inline">
-          <a [routerLink]="['/index']">
+        <a [routerLink]="['/index']">
             <img src="/api/assets/images/Logo-Small.png" class="index-button"/>
             <span>Home</span>
-          </a>
+        </a>
+
+        <!-- Error message bar -->
         <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          {{message}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
         </div>
+
+        <!-- Login form -->
         <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
-          <input type="text" class="form-control" [(ngModel)]="loginData.username" name="username" placeholder="Username...."
-            required />-<input type="password" class="form-control" [(ngModel)]="loginData.password" name="password"
-            placeholder="Password...." required />
+          <input type="text" class="form-control" [(ngModel)]="loginData.username" name="username" placeholder="Username...." required/>
+          -<input type="password" class="form-control" [(ngModel)]="loginData.password" name="password" placeholder="Password...." required />
           <button class="btn btn-primary" type="submit" [disabled]="!loginForm.form.valid">Login</button>
 
           <!-- Bind anchor to state to automatically generate and update ref-->
@@ -32,56 +36,72 @@
     <div *ngIf="userService.isLoggedIn()">
       <form class="form-inline">
 
+        <!-- Home button route using angular routing -->
         <a [routerLink]="['/index']" class="link">
           <mat-icon>home</mat-icon>
           <span>Home</span>
         </a>
 
+        <!-- Create post route using angular routing -->
         <a [routerLink]="['/post-create']" class="link">
           <mat-icon>local_post_office</mat-icon>
           <span>Make post</span>
         </a>
 
+        <!-- About page route using angular routing-->
         <a [routerLink]="['/about']" class="link">
           <mat-icon>info</mat-icon>
           <span>About Us</span>
         </a>
 
+        <!-- Drop down menu and user image and username -->
         <div class="header-page">
-          <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{usernamepic}}'>
-            {{username}}
+          <!-- Logged in users image and username -->
+          <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{usernamepic}}'> {{username}}
 
+          <!-- Drop down menu button call -->
           <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>arrow_drop_down</mat-icon>
+          <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <!-- Drop down menu -->
+          <mat-menu #menu="matMenu">
+            <!-- Empty button for padding -->
+            <button mat-menu-item [disabled]="isDisabled">
+                <mat-icon></mat-icon>
+                <span></span>
             </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item [disabled]="isDisabled">
-                  <mat-icon></mat-icon>
-                  <span></span>
-                </button>
-              <button mat-menu-item [routerLink]="['/profile', username]">
-                <mat-icon>account_circle</mat-icon>
-                <span>Profile</span>
-              </button>
-              <button mat-menu-item [routerLink]="['/settings']">
-                <mat-icon>settings</mat-icon>
-                <span>Account</span>
-              </button>
-              <button mat-menu-item [routerLink]="['/follow', username]">
-                <mat-icon>group</mat-icon>
-                <span>Friends</span>
-              </button>
-              <button mat-menu-item [routerLink]="['/saved', username]">
-                <mat-icon>save</mat-icon>
-                <span>Saved Posts</span>
-              </button>
-              <button mat-menu-item (click)="logout()">
-                  <mat-icon>exit_to_app</mat-icon>
-                  <span>Logout</span>
-              </button>
-            </mat-menu>
-          </div>
-          
+
+            <!-- Profile route using angular routing -->
+            <button mat-menu-item [routerLink]="['/profile', username]">
+              <mat-icon>account_circle</mat-icon>
+              <span>Profile</span>
+            </button>
+
+            <!-- Settings route using angular routing -->
+            <button mat-menu-item [routerLink]="['/settings']">
+              <mat-icon>settings</mat-icon>
+              <span>Account</span>
+            </button>
+
+            <!-- Follow routing using angular routing -->
+            <button mat-menu-item [routerLink]="['/follow', username]">
+              <mat-icon>group</mat-icon>
+              <span>Friends</span>
+            </button>
+
+            <!-- Saved route using angular routing -->
+            <button mat-menu-item [routerLink]="['/saved', username]">
+              <mat-icon>save</mat-icon>
+              <span>Saved Posts</span>
+            </button>
+
+            <!-- Logout button -->
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </div>
       </form>
     </div>
   </div>

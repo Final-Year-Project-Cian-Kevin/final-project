@@ -312,4 +312,5 @@ router.get('/allprofile/:id', function (req, res, next) {
      });
 });
 
+// export router as router
 module.exports = router;

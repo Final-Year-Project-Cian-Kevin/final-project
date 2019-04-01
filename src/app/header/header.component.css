@@ -1,3 +1,4 @@
+/* Header page settings */
 .header-page {
   color: #fff;
   font-size: 12px;
@@ -8,32 +9,38 @@
   top: 0;
 }
 
+/* Divier used to seperate tags */
 .divider {
   display: inline-block;
   opacity: .5;
   padding: 0 4px;
 }
 
+/* Settings used for buttons */
 .index-button {
   height: 17%;
   width: 17%;
   filter: brightness(1.5);
 }
 
+/* Drop down menu options settings */
 .link{
   padding-right: 10px;
 }
 
+/* On hover on buttons */
 a:hover {
   text-decoration: none;
   opacity: 1; 
 }
 
+/* Active buttons */
 a:active {
   text-decoration: none;
   text-decoration: underline;
 }
 
+/* Default state of buttons */
 a {
   opacity: 0.7; 
   color: white;

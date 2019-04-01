@@ -180,4 +180,5 @@ router.delete('/delete/:id1/:id2', function (req, res, next) {
   }).remove().exec();
 });
 
+// export router as router
 module.exports = router;
