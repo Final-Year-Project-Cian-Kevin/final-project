@@ -6,9 +6,21 @@
   padding: 10px;
 }
 
+.mat-button-toggle-group {
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+h3 {
+  text-align: center;
+}
+
 /* Angular mat h3 tag */
 .profile-card h3 {
-    text-align: center;
+  text-align: center;
 }
 
 /* Sets scrollable div tag */
