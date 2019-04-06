@@ -8,7 +8,10 @@
           <mat-card-subtitle>{{profile.username}}</mat-card-subtitle>
           <img mat-card-avatar alt="Poster" id="poster" src='/api/assets/images/{{profile.image}}'>
         </mat-card-header>
+        <img mat-card-image  alt='Profile image'src='/api/assets/images/{{profile.image}}'>
+
         <mat-card-content>
+          
           <p>
             {{profile.bio}}
           </p>
@@ -99,10 +102,11 @@
 
 
         </div>
+
       </div>
+
+
+
     </div>
-
-
-
   </div>
 </div>

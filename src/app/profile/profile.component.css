@@ -1,6 +1,9 @@
 /* profile mat-card for pofile information */
-.profile-card {
- 
+.profile-card img{
+  border-radius: 20%;
+  padding: 3px;
+  border: 1px solid #ddd;
+  
 }
 
 /* Comment card settings for mat-card */
