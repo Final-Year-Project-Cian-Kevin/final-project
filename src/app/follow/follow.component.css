@@ -2,7 +2,6 @@
 .profile-card {
   margin: auto;
   width: 50%;
-  border: 3px solid blue;
   padding: 10px;
 }
 
@@ -13,7 +12,12 @@
   display: flex;
   flex-direction: row;
 }
+.card{
+  border-radius: 10%;
+  color: lightslategray;
+  border: 3px solid blue;
 
+}
 h3 {
   text-align: center;
 }
