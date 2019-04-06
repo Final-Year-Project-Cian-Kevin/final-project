@@ -61,7 +61,7 @@ exports.pop = function () {
           if(obj.stickied == false) {
             if(obj.thumbnail == "" || obj.thumbnail == "self"){
               // image used as the thumbnail
-              thumbnailTemp = "http://localhost:3000/api/assets/images/funnyPost.png";
+              thumbnailTemp = "/api/assets/images/funnyPost.png";
               // Image used as the content image
               // If image is empty no image is displayed
               picTemp = "";
@@ -190,7 +190,7 @@ exports.news = function () {
           if(obj.stickied == false) {
             if(obj.thumbnail == "" || obj.thumbnail == "self"){
               // image used as the thumbnail
-              thumbnailTemp = "http://localhost:3000/api/assets/images/techNews.jpg";
+              thumbnailTemp = "/api/assets/images/techNews.jpg";
               // Image used as the content image
               // If image is empty no image is displayed
               picTemp = "";
