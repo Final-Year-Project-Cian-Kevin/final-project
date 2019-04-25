@@ -4,6 +4,13 @@ import { Router } from '@angular/router';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { MatGridListModule } from '@angular/material/grid-list';
 
+/**
+ * IndexComponent for index.
+ *
+ * @export
+ * @class IndexComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -12,9 +19,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 export class IndexComponent implements OnInit {
 
+  /**
+   * Creates an instance of IndexComponent.
+   * @param {Renderer2} renderer
+   * @memberof IndexComponent
+   */
   constructor(private renderer: Renderer2) { }
 
-  // On page call
+  // On page call.
   ngOnInit() {
   }
 
