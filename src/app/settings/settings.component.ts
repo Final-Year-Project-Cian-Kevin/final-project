@@ -80,21 +80,25 @@ export class SettingsComponent implements OnInit {
     this.setTitle("TB: Profile Settings");
   }
 
-  //Set the form data in SettingsForm to the details of the current user.
-  setForm(id) {
-    this.userService.getProfile(id)
-      .subscribe(profile => {
-        // must extract profile data from response
-        this.profileinfo = profile[0];
-        // Form object
-        this.settingsForm.setValue({
-          email: this.profileinfo.email,
-          first_name: this.profileinfo.first_name,
-          surname: this.profileinfo.surname,
-          bio: this.profileinfo.bio
-        });
+/**
+ * Set the form data in SettingsForm to the details of the current user.
+ * 
+ * @param id The current users id.
+ */
+setForm(id) {
+  this.userService.getProfile(id)
+    .subscribe(profile => {
+      // Must extract profile data from response.
+      this.profileinfo = profile[0];
+      // Form object
+      this.settingsForm.setValue({
+        email: this.profileinfo.email,
+        first_name: this.profileinfo.first_name,
+        surname: this.profileinfo.surname,
+        bio: this.profileinfo.bio
       });
-  }
+    });
+}
 
   // Sends a request to userService to update user details.
   onFormSubmit(form: NgForm) {
