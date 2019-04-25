@@ -9,21 +9,22 @@
  *         type: string
  */
 
-// Imports used
+// Imports used.
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-// Authnitcation imports
+// Authenitcation imports.
 var passport = require('passport');
 var config = require('../config/database');
 require('../config/passport')(passport);
 var jwt = require('jsonwebtoken');
 
-// Import required models
+// Import required models.
 var User = require("../models/user");
 var Profile = require("../models/profile");
 var Follow = require("../models/follow");
+
 // Import logger to handle server logging. 
 var logger = require("../config/serverlogger").Logger;
 
@@ -75,16 +76,16 @@ router.post('/add', function (req, res) {
     }
   });
 
-  // Execute bulk command
+  // Execute bulk command.
   followBuilder.execute(function (err, doc) {
     if (err) {
-      console.log("[Server Error - follow/add]", err)
+      logger.error("[Follow] : error adding " + err);
       return res.json({
         'state': false,
         'msg': err
       })
     }
-    console.log("[Server Success - follow/add]", err)
+    logger.info("[Follow] : user Followed ");
     res.json({
       'state': true,
       'msg': 'User Followed'
@@ -143,13 +144,13 @@ router.post('/remove', function (req, res) {
   // Execute bulk command
   followBuilder.execute(function (err, doc) {
     if (err) {
-      console.log("[Server Error - follow/remove]", err)
+      logger.error("[Follow] : error removing follower " + err);
       return res.json({
         'state': false,
         'msg': err
       })
     }
-    console.log("[Server Success - follow/remove]", err)
+    logger.error("[Follow] : follower removed");
     res.json({
       'state': true,
       'msg': 'User unfollowed'
@@ -187,8 +188,6 @@ router.get('/:id', function (req, res) {
     'username': username
   }, function (err, user) {
     if (!user) {
-      //console.log("[DEBUG]: /follow : no user found");
-
       return res.json({
         'state': false,
         'msg': `No user found with username ${username}`,
@@ -196,40 +195,35 @@ router.get('/:id', function (req, res) {
       })
     } else {
       const user_id = user._id;
-
-      // console.log("[DEBUG]: /follow :  user found");
-      // console.log("[DEBUG]: /follow :  uid", user_id);
-
       Follow.aggregate([{
-          $match: {
-            "user": mongoose.Types.ObjectId(user_id)
-          }
-        },
-        {
-          $lookup: {
-            "from": "users",
-            "localField": "following",
-            "foreignField": "_id",
-            "as": "userFollowing"
-          }
-        },
-        {
-          $lookup: {
-            "from": "users",
-            "localField": "followers",
-            "foreignField": "_id",
-            "as": "userFollowers"
-          }
-        }, {
-          $project: {
-            "user": 1,
-            "userFollowers": 1,
-            "userFollowing": 1
-          }
+        $match: {
+          "user": mongoose.Types.ObjectId(user_id)
         }
+      },
+      {
+        $lookup: {
+          "from": "users",
+          "localField": "following",
+          "foreignField": "_id",
+          "as": "userFollowing"
+        }
+      },
+      {
+        $lookup: {
+          "from": "users",
+          "localField": "followers",
+          "foreignField": "_id",
+          "as": "userFollowers"
+        }
+      }, {
+        $project: {
+          "user": 1,
+          "userFollowers": 1,
+          "userFollowing": 1
+        }
+      }
       ]).exec(function (err, doc) {
-        console.log("[DEBUG] Follow check");
-        console.log(doc);
+
         res.json({
           'state': true,
           'msg': 'Follow list',
@@ -283,23 +277,23 @@ router.get('/check/:id', function (req, res) {
       const user_id = user._id;
 
       Follow.aggregate([{
-          $match: {
-            "user": mongoose.Types.ObjectId(user_id)
-          }
-        },
-        {
-          $lookup: {
-            "from": "users",
-            "localField": "following",
-            "foreignField": "_id",
-            "as": "userFollowing"
-          }
-        },
-        {
-          $project: {
-            "userFollowing": 1
-          }
+        $match: {
+          "user": mongoose.Types.ObjectId(user_id)
         }
+      },
+      {
+        $lookup: {
+          "from": "users",
+          "localField": "following",
+          "foreignField": "_id",
+          "as": "userFollowing"
+        }
+      },
+      {
+        $project: {
+          "userFollowing": 1
+        }
+      }
       ]).exec(function (err, doc) {
         let followinglist = [];
         let fList = [];
