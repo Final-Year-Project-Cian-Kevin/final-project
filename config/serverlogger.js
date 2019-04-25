@@ -3,13 +3,13 @@
  * 
 */
 
-// Import the fs library
+// Import the fs library.
 var fs = require("fs");
 
-// Make logger exportable so any file can reference it
+// Make logger exportable so any file can reference it.
 var Logger = (exports.Logger = {});
 
-// Creates folder for logs if one doesn't exsist
+// Creates folder for logs if one doesn't exist.
 if (!fs.existsSync('./logs')){
     fs.mkdirSync('./logs');
 }
@@ -19,19 +19,31 @@ var infoStream = fs.createWriteStream("./logs/info.txt");
 var errorStream = fs.createWriteStream("./logs/error.txt");
 var debugStream = fs.createWriteStream("./logs/debug.txt");
 
-// Append info message to log file along with the current date
+/**
+ * Append info message to log file along with the current date
+ *
+ * @param {String} msg - the message to log.
+ */
 Logger.info = function(msg) {
   var message = new Date().toISOString() + " : " + msg + "\n";
   infoStream.write(message);
 };
 
-// Append debug message to log file along with the current date
+/**
+ * Append debug message to log file along with the current date
+ *
+ * @param {String} msg - the message to log.
+ */
 Logger.debug = function(msg) {
   var message = new Date().toISOString() + " : " + msg + "\n";
   debugStream.write(message);
 };
 
-// Append error message to log file along with the current date
+/**
+ * Append error message to log file along with the current date
+ *
+ * @param {String} msg - the message to log.
+ */
 Logger.error = function(msg) {
   var message = new Date().toISOString() + " : " + msg + "\n";
   errorStream.write(message);
