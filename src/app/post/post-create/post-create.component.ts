@@ -5,6 +5,13 @@ import { UserService } from '../../services/user.service';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
+/**
+ * component for creating a post.
+ *
+ * @export
+ * @class PostCreateComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
@@ -20,19 +27,38 @@ export class PostCreateComponent implements OnInit {
   subreddit;
   selftext: string = '';
 
+  /**
+   *Creates an instance of PostCreateComponent.
+   * @param {ActivatedRoute} route
+   * @param {RedditApiService} api
+   * @param {Router} router
+   * @param {FormBuilder} formBuilder
+   * @param {UserService} userAPI
+   * @param {Title} titleService
+   * @memberof PostCreateComponent
+   */
   constructor(private route: ActivatedRoute, private api: RedditApiService, private router: Router, private formBuilder: FormBuilder, private userAPI: UserService, private titleService: Title) { }
 
-  // Sewt title function
+  /**
+   * Set title.
+   *
+   * @param {string} newTitle - the title to set.
+   * @memberof PostRedditComponent
+   */
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
-  // Function runs on page call
+  /**
+   * Runs when page is called.
+   *
+   * @memberof PostRedditComponent
+   */
   ngOnInit() {
-    // Get user data
+    // Get user data.
     this.userAPI.getUserData()
       .subscribe(res => {
-        this.subreddit = res; // Set user data from api to local variable
+        this.subreddit = res; // Set user data from api to local variable.
       }, err => {
         console.log(err);
         if (err.status = 401) {
@@ -40,7 +66,7 @@ export class PostCreateComponent implements OnInit {
         }
       });
 
-    // Form settings
+    // Form settings.
     this.postForm = this.formBuilder.group({
       '_id': this._id,
       'title': [null, Validators.required],
@@ -51,23 +77,27 @@ export class PostCreateComponent implements OnInit {
       'selftext': [null, Validators.required]
     });
 
-    // Set page title
+    // Set page title.
     this.setTitle("TB: Create Post");
   }
 
-  // Post create form submit
+  /**
+   * Post create form submit.
+   *
+   * @memberof PostCreateComponent
+   */
   onFormSubmit() {
 
-    // Create post ID
+    // Create post ID.
     this._id = this.subreddit + "-" + Math.floor(Math.random() * 99999999) + 1;
 
-    // Add post ID and username to form data
+    // Add post ID and username to form data.
     this.postForm.patchValue({
       _id: this._id,
       subreddit: this.subreddit
     });
 
-    // Create post by sending data to API
+    // Create post by sending data to API.
     this.api.postCreate(this.postForm.value)
       .subscribe(res => {
         let id = res['_id'];
@@ -75,7 +105,7 @@ export class PostCreateComponent implements OnInit {
         console.log(err);
       });
 
-    // Add post to user post table by sending data to API
+    // Add post to user post table by sending data to API.
     this.api.postCreateUser(this.postForm.value)
       .subscribe(res => {
         let id = res['_id'];
