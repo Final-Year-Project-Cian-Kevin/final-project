@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import the ng2-file-upload directive for uploading images 
+// import the ng2-file-upload directive for uploading images .
 import { FileSelectDirective } from 'ng2-file-upload';
 
 import {
@@ -27,7 +27,7 @@ import {
   MatButtonToggleModule,
   MatMenuModule } from "@angular/material";
 
-// Component Source
+// Component Source.
 import { IndexComponent } from './home-page/index/index.component';
 import { BookComponent } from './books/book/book.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
@@ -48,7 +48,7 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { LogoHeaderComponent } from './logo-header/logo-header.component';
 import { ImagePreviewDirective } from './shared/image-preview.directive';
 
-// Angular Routes
+// Angular Routes.
 const appRoutes: Routes = [
   {
     path: 'index',
@@ -106,7 +106,7 @@ const appRoutes: Routes = [
     data: { title: 'About TechBook' }
   },
 
-  // Book routes used during early development
+  // Book routes used during early development.
   {
     path: 'books',
     component: BookComponent,
