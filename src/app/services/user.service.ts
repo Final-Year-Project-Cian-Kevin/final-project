@@ -38,10 +38,6 @@ export interface Profile {
 @Injectable({
   providedIn: 'root'
 })
-
-/**
- * UserService is a api service for dealing with all user resources.
- */
 export class UserService {
   private token: string;
   currentUser: any;
@@ -58,7 +54,7 @@ export class UserService {
    *
    * @private
    * @param {HttpErrorResponse} error
-   * @returns
+   * @returns an observable with a user-facing error message.
    * @memberof UserService
    */
   private handleError(error: HttpErrorResponse) {
