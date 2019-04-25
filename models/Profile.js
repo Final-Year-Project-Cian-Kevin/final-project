@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-
-// Schema used to 'filter' data to be stored in the 'ProfileSchema' collection in mongo
+// Schema used to 'filter' data to be stored in the 'ProfileSchema' collection in mongo.
 var ProfileSchema = new mongoose.Schema({
   username: {
     type: String,

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-// Schema used to 'filter' data to be stored in the 'SavedPosts' collection in mongo
+// Schema used to 'filter' data to be stored in the 'SavedPosts' collection in mongo.
 var SavedPosts = new mongoose.Schema({
   post_id: {
     type: String,

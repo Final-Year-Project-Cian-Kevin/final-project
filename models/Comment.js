@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-// Schema used to 'filter' data to be stored in the 'Comments' collection in mongo
+// Schema used to 'filter' data to be stored in the 'Comments' collection in mongo.
 var CommentSchema = new mongoose.Schema({
   post_id: {
     type: String,

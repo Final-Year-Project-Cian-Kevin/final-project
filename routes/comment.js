@@ -36,10 +36,10 @@ Link - /comment/all
  *         schema:
  *           $ref: '#/definitions/comment'
  */
-router.get('/all', function(req, res){
+router.get('/all', function (req, res) {
   Comments.find(function (err, posts) {
-      if (err) return next(err);
-      res.json(posts);
+    if (err) return next(err);
+    res.json(posts);
   });
 });
 
@@ -70,7 +70,7 @@ Link - /comment/post/:id
  *           $ref: '#/definitions/comment'
  */
 router.get('/post/:id', function (req, res, next) {
-  Comments.find({post_id: req.params.id}, function (err, posts) {
+  Comments.find({ post_id: req.params.id }, function (err, posts) {
     if (err) return next(err);
     res.json(posts);
   });
@@ -103,7 +103,7 @@ Link - /comment/profile/:id
  *           $ref: '#/definitions/comment'
  */
 router.get('/profile/:id', function (req, res, next) {
-  Comments.find({profile_id: req.params.id}, function (err, posts) {
+  Comments.find({ profile_id: req.params.id }, function (err, posts) {
     if (err) return next(err);
     res.json(posts);
   });
@@ -135,11 +135,11 @@ Link - /comment/profiledate/:id
  *         schema:
  *           $ref: '#/definitions/comment'
  */
-router.get('/profiledate/:id', function(req, res){
-  Comments.find({profile_id: req.params.id}).sort({date: 'desc'}).limit(10).exec(function(err, posts){ 
-      if (err) return next(err);
-      res.json(posts);
-   });
+router.get('/profiledate/:id', function (req, res) {
+  Comments.find({ profile_id: req.params.id }).sort({ date: 'desc' }).limit(10).exec(function (err, posts) {
+    if (err) return next(err);
+    res.json(posts);
+  });
 });
 
 /* 

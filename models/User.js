@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
-// https://medium.com/@mridu.sh92/a-quick-guide-for-authentication-using-bcrypt-on-express-nodejs-1d8791bb418f
-// use to hash password 
+
+// Use to hash password.
 var bcrypt = require('bcrypt-nodejs');
 var config = require('../config/database');
 var jwt = require('jsonwebtoken');
 
-// Schema used to 'filter' data to be stored in the 'UserSchema' collection in mongo
+// Schema used to 'filter' data to be stored in the 'UserSchema' collection in mongo.
 var UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -32,7 +32,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     default: 'Tell me about yourself'
   },
-  image:{
+  image: {
     type: String,
     default: 'profile.jpg'
   },
@@ -42,17 +42,18 @@ var UserSchema = new mongoose.Schema({
   }
 
 });
-// define pre hook for document
+
+// Define pre hook for document.
 UserSchema.pre('save', function (next) {
   var user = this;
-  // if password new or edited
+  // if password new or edited.
   if (this.isModified('password') || this.isNew) {
-    // generate a salt and process data for 10 rounds
+    // generate a salt and process data for 10 rounds.
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
         return next(err);
       }
-      // generate a hash of password
+      // generate a hash of password.
       bcrypt.hash(user.password, salt, null, function (err, hash) {
         if (err) {
           return next(err);
@@ -66,7 +67,7 @@ UserSchema.pre('save', function (next) {
   }
 });
 
-// compare password for log in
+// Compare password for log in.
 UserSchema.methods.comparePassword = function (passw, cb) {
   bcrypt.compare(passw, this.password, function (err, isMatch) {
     if (err) {
@@ -75,8 +76,9 @@ UserSchema.methods.comparePassword = function (passw, cb) {
     cb(null, isMatch);
   });
 };
+
 /**
- * Return a public user object
+ * Return a public user object.
  */
 UserSchema.methods.toPublicUserJson = function (user) {
   return {
@@ -85,12 +87,13 @@ UserSchema.methods.toPublicUserJson = function (user) {
     surname: this.surname,
     bio: this.bio,
     image: this.image,
-    join_date:this.join_date,
+    join_date: this.join_date,
     email: this.email
   };
 };
+
 /**
- * Return a private user object
+ * Return a private user object.
  */
 UserSchema.methods.toPrivateUserJson = function () {
   return {
@@ -101,7 +104,8 @@ UserSchema.methods.toPrivateUserJson = function () {
     image: this.image
   };
 };
-// Method to generate JWT token
+
+// Method to generate JWT token.
 UserSchema.methods.generateJWT = function () {
   var today = new Date();
   var exp = new Date(today);

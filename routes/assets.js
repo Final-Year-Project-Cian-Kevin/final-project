@@ -7,7 +7,7 @@
  *         type: string
  */
 
- // Imported used
+// Imported used
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -15,13 +15,13 @@ var path = require('path');
 
 // Import logger to handle server logging. 
 var logger = require("../config/serverlogger").Logger
-//require multer for the file uploads
+// Require multer for the file uploads
 var multer = require('multer');
 
-// set the directory for the uploads to the uploaded to
+// Set the directory for the uploads to the uploaded to.
 var DIR = './assets/';
 
-//define the type of upload multer would be doing and pass in its destination, in our case, its a single file with the name photo
+// Define the type of upload multer would be doing and pass in its destination, in our case, its a single file with the name photo.
 var upload = multer({
   dest: DIR
 }).single('photo');

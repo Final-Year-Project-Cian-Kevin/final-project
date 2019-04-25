@@ -18,5 +18,5 @@ var FollowSchema = new Schema({
   }]
 }, { toJSON: { virtuals: true } }
 );
- 
+
 module.exports = mongoose.model('Follow', FollowSchema);
