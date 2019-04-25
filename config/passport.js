@@ -1,16 +1,22 @@
+// Import libaries for passport.
 var JwtStrategy = require('passport-jwt').Strategy,
   ExtractJwt = require('passport-jwt').ExtractJwt;
 
-// Get the user model
+// Get the user model.
 var User = require('../models/user');
-// Get the cdatabase config file
+
+// Get the cdatabase config file.
 var config = require('../config/database');
 
-// more info at https://jwt.io/introduction/
-// allow only requests with valid tokens
-// match jwt token with token from client
+// Import logger to handle server logging. 
+var logger = require("../config/serverlogger").Logger;
+
+/**
+ * Validate user token with token recieved from client.
+ *
+ * @param {*} passport
+ */
 module.exports = function (passport) {
-  console.log('\x1b[34m%s\x1b[0m', "DEBUG : Passport.js Calling main function"); //blue cmd
 
   var opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
@@ -21,23 +27,16 @@ module.exports = function (passport) {
       id: jwt_payload.id
     }, function (err, user) {
       if (err) {
-        console.debug("DEBUG:passporterrf");
-
+        logger.error("[Passport] : passport error occured");
         return done(err, false);
       }
       if (user) {
-        console.debug("DEBUG:passportjs pass if");
-        console.debug("DEBUG:passportjs pass if =====UID:", user.id);
-        console.debug("DEBUG:passportjs pass if ====JUID:", jwt_payload.id);
+        logger.info("[Passport] : User verified");
         done(null, user);
       } else {
-        console.debug("DEBUG:passportjs fail if");
-        console.debug("DEBUG:passportjs fail if =====UID:", user.id);
-        console.debug("DEBUG:passportjs fail if ====JUID:", jwt_payload.id);
+        logger.info("[Passport] : User verification failed");
         done(null, false);
       }
     });
   }));
-
-
 };
