@@ -19,6 +19,7 @@
 
 # Table Of Contents
 - [Project Details](#project-details)
+- [Table Of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Introduction](#introduction)
 - [Features](#features)
@@ -26,6 +27,8 @@
   * [User features](#user-features)
 - [Video Demo](#video-demo)
 - [Dissertation](#dissertation)
+- [TypeDocs](#typedocs)
+- [Swagger API Documentation](#swagger-api-documentation)
 - [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
 - [Deploy Project locally](#deploy-project-locally)
@@ -42,6 +45,8 @@
   * [Settings Page](#settings-page)
   * [Friends Page](#friends-page)
   * [About Page](#about-page)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 
 # Overview
@@ -78,15 +83,31 @@ The project has been developed as a MEAN stack Angular 6 CRUD Web Application. T
 - Can add a post.
 - Can comment on posts.
 
+
 # Video Demo
-Link to video demo here....
-[![Watch the video](https://img.youtube.com/vi/1kK1Mwoc4xI/maxresdefault.jpg)](https://www.youtube.com/watch?v=1kK1Mwoc4xI&feature=youtu.be&fbclid=IwAR2RNmdjE7aaxMpW14906my4KMrnEUKKh2uaVOeTRIWzpIIja9fHxM7oG2U)
+To view the video demonstration click the video below.
+[![Watch the video](https://imgur.com/iu7wpzq.png)](https://www.youtube.com/watch?v=mqdhf0jrF9I&feature=youtu.be&fbclid=IwAR2RNmdjE7aaxMpW14906my4KMrnEUKKh2uaVOeTRIWzpIIja9fHxM7oG2U)
+
 
 # Dissertation
 Click below to view our the Dissertation PDF for the project. The dissertation contains an in depth view of all aspects of the development from research and design to implementation and final evaluation.
 
 <kbd>[<p align="center"><img src="https://imgur.com/BwbwObU.png" height="500"></img></p>](https://github.com/Final-Year-Project-Cian-Kevin/Dissertation/blob/master/project.pdf)</kbd>
 
+----
+# TypeDocs
+Click below to view the TypeDocs  for the project. This contains all documentation for the angular client.   
+
+<kbd>[<p align="center"><img src="https://imgur.com/qrLgI1w.png" height="300"></img></p>](http://34.243.30.50:3000/typedoc/)</kbd>
+
+----
+
+# Swagger API Documentation
+Click below to view the API documentation for the project. This contains all documentation for the API.   
+
+<kbd>[<p align="center"><img src="https://imgur.com/epJt8Mk.png" height="300"></img></p>](http://34.243.30.50:3000/api-docs/)</kbd>
+
+----
 
 # Technologies
 
