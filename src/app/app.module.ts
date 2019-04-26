@@ -57,7 +57,7 @@ const appRoutes: Routes = [
   },
   { 
     path: '',
-    redirectTo: 'index',
+    redirectTo: 'about',
     pathMatch: 'full'
   },
   {
