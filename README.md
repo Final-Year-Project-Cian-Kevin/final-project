@@ -92,7 +92,7 @@ To view the video demonstration click the video below.
 # Dissertation
 Click below to view our the Dissertation PDF for the project. The dissertation contains an in depth view of all aspects of the development from research and design to implementation and final evaluation.
 
-<kbd>[<p align="center"><img src="https://imgur.com/BwbwObU.png" height="500"></img></p>](hhttps://github.com/Final-Year-Project-Cian-Kevin/final-project/blob/master/Dissertation.pdf)</kbd>
+<kbd>[<p align="center"><img src="https://imgur.com/BwbwObU.png" height="500"></img></p>](https://github.com/Final-Year-Project-Cian-Kevin/final-project/blob/master/Dissertation.pdf)</kbd>
 
 ----
 # TypeDocs
