@@ -8,7 +8,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 // API route url.
-const URL = 'http://localhost:3000/api/assets/';
+const URL = '/api/assets/';
 
 /**
  * Component for settings page.
